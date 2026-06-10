@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WR & Recht – Q12 · Kapitel 3: Recht als Handlungsrahmen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font:'Nunito',sans-serif;
+  --text:#1A1A1A; --text-secondary:#555; --text-muted:#9b97a8;
+  --border:#E2E0E8; --bg-card:#FFF; --bg-page:#F6F5FA;
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px;
+  --shadow:0 2px 8px rgba(0,0,0,.08); --shadow-lg:0 8px 30px rgba(0,0,0,.13);
+  /* Indexkopf-Gradient (Jewel) */
+  --grad-head:linear-gradient(135deg,#4C1D95,#9D174D 55%,#1E40AF);
+  /* Akzent */
+  --green:#16A34A; --red:#DC2626;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--bg-page);color:var(--text);line-height:1.6;}
+
+/* ── Topbar ── */
+.topbar{background:#3b1675;height:54px;position:sticky;top:0;z-index:50;
+  padding:0 1.5rem;display:flex;align-items:center;gap:1rem;
+  box-shadow:0 2px 12px rgba(59,22,117,.3);}
+.topbar-logo{font-weight:900;font-size:16px;color:#fff;text-decoration:none;}
+.topbar-logo span{color:#C4B5FD;}
+.topbar-right{margin-left:auto;font-size:12px;color:rgba(255,255,255,.7);font-weight:700;}
+
+/* ── Hero ── */
+.hero{background:var(--grad-head);color:#fff;padding:3rem 1.5rem 3.4rem;position:relative;overflow:hidden;}
+.hero::before{content:'§';position:absolute;right:5%;top:-30px;font-size:200px;font-weight:900;
+  color:rgba(255,255,255,.07);}
+.hero-inner{max-width:1000px;margin:0 auto;position:relative;z-index:1;}
+.hero-eyebrow{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.75);margin-bottom:.6rem;}
+.hero h1{font-size:34px;font-weight:900;line-height:1.15;margin-bottom:.6rem;}
+.hero p{font-size:16px;color:rgba(255,255,255,.9);max-width:620px;}
+.hero-meta{display:flex;gap:1.5rem;margin-top:1.4rem;flex-wrap:wrap;}
+.hero-meta div{font-size:13px;color:rgba(255,255,255,.85);}
+.hero-meta strong{display:block;font-size:20px;font-weight:900;color:#fff;}
+
+/* ── Layout ── */
+.wrap{max-width:1000px;margin:-2rem auto 0;padding:0 1.5rem 4rem;position:relative;z-index:2;}
+
+/* ── Teil-Überschrift ── */
+.teil{margin:2.2rem 0 1rem;display:flex;align-items:center;gap:12px;}
+.teil-num{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;font-weight:900;font-size:15px;color:#fff;flex-shrink:0;}
+.teil h2{font-size:20px;font-weight:900;}
+.teil-sub{font-size:13px;color:var(--text-secondary);font-weight:700;}
+
+/* ── Grid ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+
+/* ── Karte ── */
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);
+  overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;
+  transition:transform .15s,box-shadow .15s;position:relative;}
+.card.unlocked:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.card-top{height:8px;}
+.card-body{padding:1.2rem 1.3rem;flex:1;display:flex;flex-direction:column;}
+.card-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;
+  letter-spacing:.5px;text-transform:uppercase;padding:3px 10px;border-radius:20px;
+  align-self:flex-start;margin-bottom:.7rem;}
+.card-badge.zusatz{background:#FEF3C7;color:#92400E;}
+.card h3{font-size:17px;font-weight:800;line-height:1.25;margin-bottom:.4rem;}
+.card-desc{font-size:13.5px;color:var(--text-secondary);flex:1;margin-bottom:1rem;}
+.card-meta{font-size:12px;color:var(--text-muted);font-weight:700;margin-bottom:1rem;}
+.card-foot{display:flex;align-items:center;gap:8px;}
+.card-btn{flex:1;text-align:center;font-family:var(--font);font-weight:800;font-size:14px;
+  border-radius:var(--radius-md);padding:11px;cursor:pointer;border:none;text-decoration:none;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;}
+.card-btn.locked{background:#f1eff5;color:var(--text-muted);cursor:pointer;}
+.card-btn.locked:hover{background:#e9e6f0;}
+.card-btn.open{color:#fff;}
+.lock-ico{width:15px;height:15px;}
+
+/* Locked overlay look */
+.card.locked .card-body{opacity:.72;}
+.card.locked h3{color:var(--text-secondary);}
+
+/* ── Code-Modal ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(20,12,40,.55);z-index:100;
+  align-items:center;justify-content:center;padding:1rem;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:var(--radius-lg);padding:2rem 1.8rem;width:100%;max-width:380px;
+  text-align:center;box-shadow:var(--shadow-lg);}
+.modal-ico{width:48px;height:48px;border-radius:14px;background:#F5F3FF;display:flex;
+  align-items:center;justify-content:center;margin:0 auto 1rem;}
+.modal h3{font-size:19px;font-weight:900;margin-bottom:.3rem;}
+.modal-lesson{font-size:13px;color:var(--text-secondary);font-weight:700;margin-bottom:1.3rem;}
+.code-input{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-md);
+  padding:13px 14px;font-family:var(--font);font-size:18px;font-weight:800;text-align:center;
+  letter-spacing:4px;text-transform:uppercase;color:var(--text);}
+.code-input:focus{outline:none;border-color:#7C3AED;}
+.code-fb{font-size:13px;font-weight:700;margin:.7rem 0 0;min-height:18px;}
+.modal-btns{display:flex;gap:10px;margin-top:1.3rem;}
+.modal-btn{flex:1;font-family:var(--font);font-weight:800;font-size:14px;border-radius:var(--radius-md);
+  padding:11px;cursor:pointer;border:none;}
+.modal-btn.primary{background:#4C1D95;color:#fff;}
+.modal-btn.primary:hover{background:#3b1675;}
+.modal-btn.ghost{background:#fff;color:var(--text-secondary);border:1.5px solid var(--border);}
+.modal-btn.ghost:hover{border-color:#7C3AED;color:#7C3AED;}
+.modal.shake{animation:shake .4s;}
+
+/* ── Footer / Reset ── */
+.foot-note{text-align:center;margin-top:2.5rem;font-size:12px;color:var(--text-muted);}
+.reset-link{background:none;border:none;color:var(--text-muted);font-family:var(--font);
+  font-size:12px;cursor:pointer;text-decoration:underline;}
+
+@keyframes shake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-8px);}40%,80%{transform:translateX(8px);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.card{animation:fadeUp .35s ease both;}
+
+@media(max-width:600px){
+  .hero h1{font-size:26px;}
+  .grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="wr_q12_recht_index.html" class="topbar-logo">WR<span>&amp;</span>Recht</a>
+  <span class="topbar-right">Q12 · grundlegendes Anforderungsniveau</span>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Kapitel 3 · Wirtschaft und Recht 12</div>
+    <h1>Recht als Handlungsrahmen</h1>
+    <p>Rechtstechnische Grundlagen und Zivilrecht: Von der Kaufhandlung über den Gutachtenstil bis zum Interessenausgleich bei gesetzlichen Schuldverhältnissen.</p>
+    <div class="hero-meta">
+      <div><strong>2</strong>Teilkapitel</div>
+      <div><strong>6</strong>Kernstunden</div>
+      <div><strong>2</strong>Zusatzstunden</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ── Teil 3.1 ── -->
+  <div class="teil">
+    <div class="teil-num" style="background:#4C1D95;">3.1</div>
+    <div>
+      <h2>Rechtstechnische Grundlagen</h2>
+      <div class="teil-sub">Kaufhandlung · BGB-Systematik · juristische Arbeitstechniken</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- St 1 -->
+    <div class="card locked" data-code="37581086560f40babc85c967335df957c6a0cabcba9fb5d7118d5c6532ae443b" data-file="wr_q12_recht_3-1-1_kaufhandlung.html" data-title="Stunde 1 · Kauf einer Sache" data-color="#4C1D95">
+      <div class="card-top" style="background:#4C1D95;"></div>
+      <div class="card-body">
+        <span class="card-badge" style="background:#F5F3FF;color:#4C1D95;">Stunde 1 · 3.1.1</span>
+        <h3>Wie stellt sich der Kauf einer Sache rechtlich dar?</h3>
+        <div class="card-desc">Wiederholung der Kaufhandlung aus der 10. Klasse: Verpflichtungs- und Erfüllungsgeschäft, Trennungsprinzip.</div>
+        <div class="card-meta">Buch S. 138–140 · 2×45 Min</div>
+        <div class="card-foot"></div>
+      </div>
+    </div>
+
+    <!-- St 2 -->
+    <div class="card locked" data-code="9d59b82ee7775189d81d84b751d1d2ab22f09c9bd61e1a0731a0328d75eb00e2" data-file="wr_q12_recht_3-1-2_systematik_methoden.html" data-title="Stunde 2 · BGB-Systematik & Methoden" data-color="#0F766E">
+      <div class="card-top" style="background:#0F766E;"></div>
+      <div class="card-body">
+        <span class="card-badge" style="background:#F0FDFA;color:#0F766E;">Stunde 2 · 3.1.2</span>
+        <h3>BGB-Systematik, Zitieren & Normenanalyse</h3>
+        <div class="card-desc">Drei Werkzeuge kompakt: Aufbau des BGB, korrektes Zitieren von Normen und die Normenanalyse.</div>
+        <div class="card-meta">Buch S. 141–147 · 2×45 Min</div>
+        <div class="card-foot"></div>
+      </div>
+    </div>
+
+    <!-- Zusatz A -->
+    <div class="card locked" data-code="9873bc5f638ee4d6f23b2477694d2e216abe01e33a9bc7b9e9ffc15f92fa570a" data-file="wr_q12_recht_3-1-z_vertiefung_methoden.html" data-title="Zusatzstunde · Vertiefung 3.1" data-color="#6D28D9">
+      <div class="card-top" style="background:#6D28D9;"></div>
+      <div class="card-body">
+        <span class="card-badge zusatz">★ Zusatz · für schnelle Schüler</span>
+        <h3>Vertiefung: Methoden & Kompetenzcheck 3.1</h3>
+        <div class="card-desc">Zusätzliches Übungsmaterial zu Zitierweise und Normenanalyse plus der Kompetenzcheck des Kapitels.</div>
+        <div class="card-meta">Buch S. 144–147, 152–153 · optional</div>
+        <div class="card-foot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Teil 3.2 ── -->
+  <div class="teil">
+    <div class="teil-num" style="background:#9D174D;">3.2</div>
+    <div>
+      <h2>Zivilrecht – Interessenausgleich</h2>
+      <div class="teil-sub">Ansprüche · Gutachtenstil · gutgläubiger Erwerb · Herausgabe</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- St 3 -->
+    <div class="card locked" data-code="a6a4315ae03124ec0f1c604cc044399e438ccfeadbd444cb386f0ab98cff00ec" data-file="wr_q12_recht_3-2-1_ansprueche_gutachten.html" data-title="Stunde 3 · Ansprüche & Gutachtenstil" data-color="#9D174D">
+      <div class="card-top" style="background:#9D174D;"></div>
+      <div class="card-body">
+        <span class="card-badge" style="background:#FDF2F8;color:#9D174D;">Stunde 3 · 3.2.1</span>
+        <h3>Welche Ansprüche setzen einen Vertrag voraus?</h3>
+        <div class="card-desc">Vertragliche vs. gesetzliche Ansprüche und der Gutachtenstil am Beispiel Schadensersatz (§ 823 I BGB).</div>
+        <div class="card-meta">Buch S. 156–163 · 2×45 Min</div>
+        <div class="card-foot"></div>
+      </div>
+    </div>
+
+    <!-- St 4 -->
+    <div class="card locked" data-code="aa7285a525a116a82983004b872453cc665f5fda73bd9745d6ee233554634541" data-file="wr_q12_recht_3-2-2_gutglaeubiger_erwerb.html" data-title="Stunde 4 · Gutgläubiger Erwerb" data-color="#B45309">
+      <div class="card-top" style="background:#B45309;"></div>
+      <div class="card-body">
+        <span class="card-badge" style="background:#FFFBEB;color:#B45309;">Stunde 4 · 3.2.2</span>
+        <h3>Wie kann man gutgläubig Eigentümer werden?</h3>
+        <div class="card-desc">Gutgläubiger Eigentumserwerb (§§ 929, 932, 935) und juristisch fundiertes Formulieren von Texten.</div>
+        <div class="card-meta">Buch S. 164–169 · 2×45 Min</div>
+        <div class="card-foot"></div>
+      </div>
+    </div>
+
+    <!-- St 5 -->
+    <div class="card locked" data-code="a5ea628586b1dc5c98b40c7af903fb00c09d2433721a6475a27e40ca9ca44b9f" data-file="wr_q12_recht_3-2-3_eigentumsverlust.html" data-title="Stunde 5 · Ansprüche nach Eigentumsverlust" data-color="#15803D">
+      <div class="card-top" style="background:#15803D;"></div>
+      <div class="card-body">
+        <span class="card-badge" style="background:#F0FDF4;color:#15803D;">Stunde 5 · 3.2.3</span>
+        <h3>Ansprüche nach gutgläubigem Erwerb</h3>
+        <div class="card-desc">Welche Ansprüche bleiben dem ursprünglichen Eigentümer, wenn er sein Eigentum verloren hat? (§ 816 BGB)</div>
+        <div class="card-meta">Buch S. 170–171 · 2×45 Min</div>
+        <div class="card-foot"></div>
+      </div>
+    </div>
+
+    <!-- St 6 -->
+    <div class="card locked" data-code="608d42e8d64a37f8347f100d1087c8cf9e3773d2929b942a2dd2aae77141ee7b" data-file="wr_q12_recht_3-2-4_herausgabeanspruch.html" data-title="Stunde 6 · Herausgabeanspruch" data-color="#1E40AF">
+      <div class="card-top" style="background:#1E40AF;"></div>
+      <div class="card-body">
+        <span class="card-badge" style="background:#EFF6FF;color:#1E40AF;">Stunde 6 · 3.2.4</span>
+        <h3>Wann hat man Anspruch auf Herausgabe?</h3>
+        <div class="card-desc">Der Herausgabeanspruch des Eigentümers gegenüber dem Besitzer (§§ 985, 986 BGB).</div>
+        <div class="card-meta">Buch S. 172–173 · 2×45 Min</div>
+        <div class="card-foot"></div>
+      </div>
+    </div>
+
+    <!-- Zusatz B -->
+    <div class="card locked" data-code="0940b7b563a3fc8a1c3089e12be88ba8748ddddb8d1e6bebbcbaf821edb5f318" data-file="wr_q12_recht_3-2-z_kompetenzcheck.html" data-title="Zusatzstunde · Kompetenzcheck 3.2" data-color="#3730A3">
+      <div class="card-top" style="background:#3730A3;"></div>
+      <div class="card-body">
+        <span class="card-badge zusatz">★ Zusatz · für schnelle Schüler</span>
+        <h3>Kompetenzcheck Zivilrecht</h3>
+        <div class="card-desc">Anspruchsprüfung im Gutachtenstil an neuen Fällen – Hundebiss und Smartphone-Weiterverkauf.</div>
+        <div class="card-meta">Buch S. 178–179 · optional</div>
+        <div class="card-foot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot-note">
+    Freischaltungen werden nur auf diesem Gerät gespeichert.
+    <button class="reset-link" onclick="resetAll()">Alle Freischaltungen zurücksetzen</button>
+  </div>
+</div>
+
+<!-- ── Code-Modal ── -->
+<div class="modal-overlay" id="code-modal">
+  <div class="modal" id="code-box">
+    <div class="modal-ico">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z" fill="#7C3AED"/></svg>
+    </div>
+    <h3>Stunde freischalten</h3>
+    <div class="modal-lesson" id="modal-lesson">—</div>
+    <input type="text" class="code-input" id="code-input" maxlength="6" placeholder="CODE" autocomplete="off" spellcheck="false">
+    <div class="code-fb" id="code-fb"></div>
+    <div class="modal-btns">
+      <button class="modal-btn ghost" onclick="closeModal()">Abbrechen</button>
+      <button class="modal-btn primary" onclick="submitCode()">Freischalten</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORE_KEY='wr_q12_recht_unlocked';
+
+/* ── SHA-256 über die Web Crypto API (läuft nur unter https / localhost) ── */
+async function sha256(str){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function getUnlocked(){
+  try{return JSON.parse(localStorage.getItem(STORE_KEY))||[];}catch(e){return [];}
+}
+function saveUnlocked(arr){localStorage.setItem(STORE_KEY,JSON.stringify(arr));}
+
+/* ── Karten initial rendern ── */
+function renderCards(){
+  const unlocked=getUnlocked();
+  document.querySelectorAll('.card').forEach(card=>{
+    const hash=card.dataset.code;
+    const foot=card.querySelector('.card-foot');
+    const color=card.dataset.color;
+    if(unlocked.includes(hash)){
+      card.classList.remove('locked');card.classList.add('unlocked');
+      foot.innerHTML='<a class="card-btn open" style="background:'+color+';" href="'+card.dataset.file+'">Stunde öffnen →</a>';
+    }else{
+      card.classList.add('locked');card.classList.remove('unlocked');
+      foot.innerHTML='<button class="card-btn locked" onclick="openModal(this)">'
+        +'<svg class="lock-ico" viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z" fill="currentColor"/></svg>'
+        +'Code eingeben</button>';
+    }
+  });
+}
+
+/* ── Modal ── */
+let activeCard=null;
+function openModal(btn){
+  activeCard=btn.closest('.card');
+  document.getElementById('modal-lesson').textContent=activeCard.dataset.title;
+  document.getElementById('code-input').value='';
+  document.getElementById('code-fb').textContent='';
+  document.getElementById('code-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('code-input').focus(),50);
+}
+function closeModal(){document.getElementById('code-modal').classList.remove('open');activeCard=null;}
+
+async function submitCode(){
+  if(!activeCard)return;
+  const val=document.getElementById('code-input').value.trim().toUpperCase();
+  const fb=document.getElementById('code-fb');
+  if(!val){fb.style.color='var(--red)';fb.textContent='Bitte einen Code eingeben.';return;}
+  const hash=await sha256(val);
+  if(hash===activeCard.dataset.code){
+    const unlocked=getUnlocked();
+    if(!unlocked.includes(hash)){unlocked.push(hash);saveUnlocked(unlocked);}
+    fb.style.color='var(--green)';fb.textContent='✓ Richtig! Stunde wird freigeschaltet …';
+    setTimeout(()=>{closeModal();renderCards();},700);
+  }else{
+    fb.style.color='var(--red)';fb.textContent='Code stimmt nicht. Versuch es nochmal.';
+    const box=document.getElementById('code-box');
+    box.classList.add('shake');setTimeout(()=>box.classList.remove('shake'),400);
+  }
+}
+
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('code-modal').classList.contains('open'))return;
+  if(e.key==='Enter')submitCode();
+  else if(e.key==='Escape')closeModal();
+});
+
+function resetAll(){
+  if(confirm('Wirklich alle Freischaltungen auf diesem Gerät zurücksetzen?')){
+    localStorage.removeItem(STORE_KEY);renderCards();
+  }
+}
+
+renderCards();
+</script>
+</body>
+</html>
