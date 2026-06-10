@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zusatzstunde 3.1 – Vertiefung: Methoden & Kompetenzcheck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font:'Nunito',sans-serif;
+  /* Zusatz A · Violett */
+  --st:#6D28D9; --st-light:#A78BFA; --st-bg:#F5F3FF;
+  --grad:linear-gradient(135deg,#6D28D9,#A78BFA);
+  --green:#16A34A; --green-light:#DCFCE7; --green-text:#14532D;
+  --orange:#EA580C; --orange-light:#FFEDD5; --orange-text:#7C2D12;
+  --red:#DC2626; --red-light:#FEE2E2; --red-text:#7F1D1D;
+  --teal:#0D9488; --teal-light:#CCFBF1; --teal-text:#134E4A;
+  --amber:#D97706; --amber-light:#FEF3C7; --amber-text:#92400E;
+  --teacher-bg:#FFFBEB; --teacher-border:#FBBF24; --teacher-text:#92400E;
+  --book-bg:#FAF5FF; --book-border:#D8B4FE; --book-title:#6B21A8; --book-text:#581C87;
+  --text:#1A1A1A; --text-secondary:#555; --text-muted:#AAA;
+  --border:#E2E0E8; --bg-card:#FFF; --bg-page:#F6F5FA;
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px;
+  --shadow:0 2px 8px rgba(0,0,0,.08); --shadow-lg:0 4px 20px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--bg-page);color:var(--text);line-height:1.6;}
+
+.topbar{background:var(--st);height:52px;position:sticky;top:0;z-index:50;
+  padding:0 1.5rem;display:flex;align-items:center;gap:1rem;box-shadow:0 2px 12px rgba(109,40,217,.25);}
+.topbar-logo{font-weight:900;font-size:15px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:6px;}
+.topbar-logo span{color:#C4B5FD;}
+.topbar-logo-back{font-size:11px;color:rgba(255,255,255,.6);font-weight:400;border-left:1px solid rgba(255,255,255,.2);padding-left:8px;margin-left:2px;}
+.topbar-chip{margin:0 auto;background:rgba(255,255,255,.18);color:#fff;font-weight:800;font-size:13px;padding:4px 14px;border-radius:20px;letter-spacing:.5px;display:flex;align-items:center;gap:6px;}
+.teacher-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);
+  border-radius:var(--radius-sm);padding:6px 14px;font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.teacher-btn:hover{background:rgba(255,255,255,.28);}
+
+.progress{background:#fff;border-bottom:1px solid var(--border);padding:.6rem 1.5rem;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:sticky;top:52px;z-index:40;}
+.progress-step{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--text-muted);cursor:pointer;padding:4px 10px;border-radius:20px;}
+.progress-step.active{color:var(--st);background:var(--st-bg);}
+.progress-step .dot{width:22px;height:22px;border-radius:50%;background:#EEE;color:#999;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+.progress-step.active .dot{background:var(--st);color:#fff;}
+.progress-step.teacher-only{display:none;}
+body.version-b .progress-step.teacher-only{display:flex;}
+
+.main{max-width:920px;margin:0 auto;padding:28px 20px 80px;}
+.step{display:none;}
+.step.active{display:block;}
+
+.hero{background:var(--grad);border-radius:var(--radius-lg);padding:2.3rem 2rem;color:#fff!important;position:relative;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:1.6rem;}
+.hero::before{content:'★';position:absolute;right:1.8rem;top:5px;font-size:120px;font-weight:900;color:rgba(255,255,255,.08);}
+.hero-kapitel{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:.4rem;}
+.hero h1{font-size:27px;font-weight:900;color:#fff;line-height:1.2;position:relative;z-index:1;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.9);margin-top:.6rem;max-width:620px;position:relative;z-index:1;}
+.hero-zusatz{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);color:#fff;font-size:12px;font-weight:800;padding:5px 12px;border-radius:20px;margin-top:1.1rem;position:relative;z-index:1;}
+
+.section{background:#fff;border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);padding:1.6rem;margin-bottom:1.4rem;animation:fadeUp .4s ease both;}
+.section-label{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--st);background:var(--st-bg);padding:4px 12px;border-radius:20px;margin-bottom:.9rem;}
+.section h2{font-size:21px;font-weight:800;margin-bottom:.3rem;}
+.section p{margin-bottom:.8rem;}
+.section p:last-child{margin-bottom:0;}
+
+.info-box{border-radius:var(--radius-md);padding:1rem 1.2rem;margin:1rem 0;font-size:14px;}
+.info-box strong{display:block;margin-bottom:.3rem;}
+.info-box.green{background:var(--green-light);border-left:3px solid var(--green);color:var(--green-text);}
+.info-box.orange{background:var(--orange-light);border-left:3px solid var(--orange);color:var(--orange-text);}
+.info-box.purple{background:var(--st-bg);border-left:3px solid var(--st);color:#4c1d95;}
+.info-box.teal{background:var(--teal-light);border-left:3px solid var(--teal);color:var(--teal-text);}
+.info-box.amber{background:var(--amber-light);border-left:3px solid var(--amber);color:var(--amber-text);}
+
+.task{border:1.5px solid var(--st-light);border-radius:var(--radius-md);overflow:hidden;margin:1.2rem 0;}
+.task-header{background:var(--st);padding:.7rem 1.1rem;display:flex;align-items:center;gap:12px;}
+.task-num{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;}
+.task-htext{display:flex;flex-direction:column;gap:1px;}
+.task-title{font-size:13.5px;font-weight:800;color:#fff;line-height:1.3;}
+.task-subtitle{font-size:11px;color:rgba(255,255,255,.72);font-weight:600;}
+.task-body{background:var(--st-bg);padding:1.1rem 1.2rem;display:flex;gap:14px;align-items:flex-start;}
+.task-icons{display:flex;flex-direction:column;gap:6px;flex-shrink:0;}
+.icon-tile{background:#fff;border-radius:8px;padding:8px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;}
+.task-content{flex:1;}
+.task-content ol{margin:.3rem 0 .3rem 1.1rem;}
+.task-content li{margin-bottom:.4rem;}
+
+.book-ref{background:var(--book-bg);border:1.5px solid var(--book-border);border-radius:var(--radius-md);padding:.85rem 1.1rem;margin:.9rem 0;display:flex;gap:10px;align-items:flex-start;}
+.book-ref-icon{font-size:18px;}
+.book-ref-title{color:var(--book-title);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.book-ref-text{color:var(--book-text);font-size:13.5px;}
+
+.para-quote{background:#1e293b;border-radius:var(--radius-md);padding:1rem 1.2rem;margin:.9rem 0;}
+.para-quote .pq-label{color:#c4b5fd;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3rem;}
+.para-quote p{color:#e2e8f0!important;font-style:italic;font-size:13.5px;margin:0;}
+
+.fall-box{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-md);padding:1.1rem 1.2rem;margin:.9rem 0;}
+.fall-box-label{font-size:11px;font-weight:800;color:var(--st);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.fall-box p{font-size:13.5px;margin-bottom:.5rem;}
+
+.match-row{display:flex;gap:10px;align-items:center;margin:.5rem 0;flex-wrap:wrap;}
+.match-statement{flex:1;min-width:200px;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:13.5px;}
+.match-select{border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 10px;font-family:var(--font);font-size:13px;font-weight:700;background:#fff;color:var(--text);min-width:160px;cursor:pointer;}
+.match-select.correct{border-color:var(--green);background:var(--green-light);color:var(--green-text);}
+.match-select.wrong{border-color:var(--red);background:var(--red-light);color:var(--red-text);}
+
+.fill-input{border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px;font-family:var(--font);font-size:14px;font-weight:700;width:160px;text-align:center;}
+.fill-input:focus{outline:none;border-color:var(--st);}
+.fill-input.correct{border-color:var(--green);background:var(--green-light);}
+.fill-input.wrong{border-color:var(--red);background:var(--red-light);}
+
+.btn{font-family:var(--font);font-weight:800;font-size:14px;border-radius:var(--radius-md);padding:11px 22px;cursor:pointer;border:none;}
+.btn-primary{background:var(--st);color:#fff;}
+.btn-primary:hover{background:#5b21b6;transform:translateY(-1px);}
+.btn-secondary{background:#fff;color:var(--text);border:1.5px solid var(--border);font-weight:700;}
+.btn-secondary:hover{border-color:var(--st);color:var(--st);}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem;align-items:center;}
+.match-feedback{font-size:13.5px;font-weight:700;margin-top:.6rem;}
+
+.solution-btn{border:1.5px solid var(--border);background:#fff;border-radius:var(--radius-sm);padding:8px 16px;font-weight:700;font-family:var(--font);font-size:13px;color:var(--text-secondary);cursor:pointer;}
+.solution-btn:hover{border-color:var(--green);color:var(--green-text);background:var(--green-light);}
+.solution-reveal{display:none;background:var(--green-light);border-left:3px solid var(--green);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.2rem;margin-top:.8rem;color:var(--green-text);font-size:13.5px;}
+.solution-reveal.visible{display:block;animation:fadeUp .3s ease both;}
+.solution-reveal strong{color:#0f3d20;}
+.solution-reveal ul{margin:.4rem 0 .4rem 1.1rem;}
+.solution-reveal li{margin-bottom:.35rem;}
+.solution-reveal table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:12.5px;}
+.solution-reveal th,.solution-reveal td{border:1px solid #b6e0c4;padding:5px 8px;text-align:left;vertical-align:top;}
+.solution-reveal th{background:#c9efd5;}
+
+.answer-area{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font);font-size:14px;resize:vertical;min-height:90px;background:#fff;margin-top:.5rem;}
+.answer-area:focus{outline:none;border-color:var(--st);}
+
+.teacher-only{display:none;}
+body.version-b .teacher-only{display:block;}
+.teacher-note{background:var(--teacher-bg);border:1.5px solid var(--teacher-border);border-radius:var(--radius-md);padding:1.1rem 1.2rem;margin:1rem 0;}
+.teacher-note-header{font-weight:800;font-size:12px;color:var(--teacher-text);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.abfrage-card{border:1.5px solid var(--border);border-radius:var(--radius-md);margin:.9rem 0;overflow:hidden;}
+.abfrage-head{display:flex;align-items:center;gap:10px;padding:.8rem 1rem;background:#faf9fc;cursor:pointer;}
+.k-badge{font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;color:#fff;flex-shrink:0;}
+.k-wissen{background:#1976D2;} .k-kritik{background:#7B1FA2;} .k-komm{background:#0d9488;} .k-kreativ{background:#EA580C;}
+.abfrage-q{flex:1;font-size:14px;font-weight:700;}
+.abfrage-chev{font-size:13px;color:var(--text-muted);transition:transform .25s;}
+.abfrage-card.open .abfrage-chev{transform:rotate(180deg);}
+.abfrage-reveal{display:none;padding:.9rem 1.1rem;background:#fff;border-top:1px solid var(--border);font-size:13.5px;}
+.abfrage-card.open .abfrage-reveal{display:block;}
+.abfrage-reveal-title{font-weight:800;color:var(--st);font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem;}
+.abfrage-reveal ul{margin-left:1.1rem;}
+.abfrage-reveal li{margin-bottom:.35rem;}
+
+.nav-btns{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:1.6rem;flex-wrap:wrap;}
+.btn-home{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--st);border:1.5px solid var(--st);border-radius:var(--radius-md);padding:11px 22px;font-family:var(--font);font-size:14px;font-weight:800;text-decoration:none;}
+.btn-home:hover{background:var(--st-bg);}
+
+.print-btn{background:none;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:7px 14px;font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer;color:var(--text-secondary);}
+.print-btn:hover{border-color:var(--st);color:var(--st);}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:var(--radius-lg);padding:2rem;width:90%;max-width:340px;text-align:center;box-shadow:var(--shadow-lg);}
+.modal h3{font-size:18px;font-weight:800;margin-bottom:.3rem;}
+.modal p{font-size:13px;color:var(--text-secondary);margin-bottom:1.2rem;}
+.pin-display{display:flex;gap:8px;justify-content:center;margin-bottom:1.2rem;}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--st);background:#fff;}
+.pin-dot.filled{background:var(--st);}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.pin-key{background:var(--st-bg);border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font);font-size:18px;font-weight:800;color:var(--st);cursor:pointer;}
+.pin-key:hover{background:#e6def9;}
+.pin-key.wide{font-size:13px;}
+.modal.shake{animation:shake .4s;}
+.modal-close{margin-top:1rem;background:none;border:none;color:var(--text-muted);font-family:var(--font);font-size:13px;cursor:pointer;text-decoration:underline;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes shake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-8px);}40%,80%{transform:translateX(8px);}}
+
+@media(max-width:600px){
+  .hero h1{font-size:22px;}
+  .topbar{padding:0 1rem;}
+  .main{padding:20px 14px 60px;}
+  .task-body{flex-direction:column;}
+  .task-icons{flex-direction:row;}
+}
+@media print{
+  .topbar,.progress,.nav-btns,.teacher-btn,.print-btn{display:none!important;}
+  .step{display:block!important;}
+  .section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">WR<span>&amp;</span>Recht<span class="topbar-logo-back">← Übersicht</span></a>
+  <span class="topbar-chip">★ Zusatz 3.1</span>
+  <button class="teacher-btn" onclick="openPin()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z" fill="currentColor"/></svg>
+    Lehrkraft
+  </button>
+</div>
+
+<div class="progress">
+  <div class="progress-step active" data-step="1" onclick="goStep(1)"><span class="dot">1</span>Zitier-Profi</div>
+  <div class="progress-step" data-step="2" onclick="goStep(2)"><span class="dot">2</span>Analyse-Profi</div>
+  <div class="progress-step" data-step="3" onclick="goStep(3)"><span class="dot">3</span>Kompetenzcheck</div>
+  <div class="progress-step teacher-only" data-step="4" onclick="goStep(4)"><span class="dot">4</span>Abfrage</div>
+</div>
+
+<div class="main">
+
+  <!-- ════════ STEP 1 · ZITIER-PROFI ════════ -->
+  <section class="step active" id="step-1">
+    <div class="hero">
+      <div class="hero-kapitel">Kapitel 3.1 · Vertiefung</div>
+      <h1>Profi-Training: Zitieren & Normenanalyse</h1>
+      <div class="hero-sub">Du hast die drei Werkzeuge drauf? Dann schärfe sie hier an kniffligeren Normen und zeig im Kompetenzcheck, dass du sie an einem echten Fall sicher kombinierst.</div>
+      <div class="hero-zusatz">★ Zusatzstunde für schnelle Schüler · optional</div>
+    </div>
+
+    <div class="section">
+      <span class="section-label">Vertiefung · Zitieren</span>
+      <h2>Zitate mit allen Feinheiten</h2>
+
+      <div class="info-box purple">
+        <strong>🎯 Dein Ziel in dieser Stunde</strong>
+        In Stunde 2 hast du die Grundlagen gelegt. Jetzt geht es um die kniffligen Fälle: mehrere Paragrafen, Nummern, Buchstaben, Alternativen – und am Ende ein kompletter Fall, in dem du alles zusammen brauchst.
+      </div>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Vertiefung mit der Methode <strong>Seite 144–145</strong>. Nutze für die Recherche gesetze-im-internet.de oder den QR-Code in der Randspalte.</div>
+        </div>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">1</div>
+          <div class="task-htext">
+            <span class="task-title">Knifflige Zitate korrekt aufschlüsseln</span>
+            <span class="task-subtitle">Recherche · Einzelarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #1976D2;">
+              <svg width="22" height="22" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="12" r="7" fill="#1976D2"/><path d="M4 34c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#1976D2" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <p style="margin-bottom:.4rem;">Welche Abkürzung gehört in die Lücke? Schreibe nur die Abkürzung (z. B. „Abs.", „S.", „Nr.", „lit.", „ff.", „Alt.").</p>
+
+            <p style="margin:.6rem 0 .2rem;">Mehrere unmittelbar aufeinanderfolgende Paragrafen ab § 823:
+              §§ 823 <input class="fill-input" id="z1" data-answer="ff." placeholder="…"> BGB</p>
+
+            <p style="margin:.6rem 0 .2rem;">Eine durchnummerierte Aufzählung, dritter Punkt:
+              § 437 <input class="fill-input" id="z2" data-answer="nr." placeholder="…"> 2 BGB</p>
+
+            <p style="margin:.6rem 0 .2rem;">Eine Gliederung mit Buchstaben:
+              § 434 III 1 <input class="fill-input" id="z3" data-answer="nr." placeholder="…"> 2 lit. b BGB</p>
+
+            <div class="btn-row">
+              <button class="btn btn-primary" onclick="checkFill(this,'zf')">Prüfen</button>
+              <button class="btn btn-secondary" onclick="resetFill(this,'zf')">↩ Zurücksetzen</button>
+            </div>
+            <div class="match-feedback" id="zf-fb"></div>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('solz')">Musterlösung anzeigen</button>
+            <div class="solution-reveal" id="solz">
+              <strong>Lösung:</strong>
+              <ul>
+                <li>§§ 823 <strong>ff.</strong> BGB – „ff." für mehrere fortfolgende Paragrafen.</li>
+                <li>§ 437 <strong>Nr.</strong> 2 BGB – durchnummerierte Aufzählung mit „Nr.".</li>
+                <li>§ 434 III 1 <strong>Nr.</strong> 2 lit. b BGB – Buchstabe wird mit „lit." angegeben.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-primary" onclick="goStep(2)">Weiter: Analyse-Profi →</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 2 · ANALYSE-PROFI ════════ -->
+  <section class="step" id="step-2">
+    <div class="section">
+      <span class="section-label">Vertiefung · Normenanalyse</span>
+      <h2>Anspruchsvollere Normen zerlegen</h2>
+
+      <p>Manche Normen haben mehrere Tatbestandsmerkmale, die alle erfüllt sein müssen. Hier trainierst du die vollständige Zerlegung.</p>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Methode <strong>Seite 146–147</strong>. Die Aufgaben 3–5 auf Seite 147 bieten weitere Normen zum Üben (§ 929, § 242 StGB, Art. 2 GG).</div>
+        </div>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">2</div>
+          <div class="task-htext">
+            <span class="task-title">§ 242 StGB (Diebstahl) zerlegen</span>
+            <span class="task-subtitle">Falllösung · Partnerarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #0d9488;">
+              <svg width="22" height="22" viewBox="0 0 44 36" fill="none"><circle cx="12" cy="10" r="6.5" fill="#0d9488"/><circle cx="32" cy="10" r="6.5" fill="#0d9488"/><path d="M1 34c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M21 34c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <div class="para-quote">
+              <div class="pq-label">§ 242 Abs. 1 StGB · Diebstahl</div>
+              <p>„Wer eine fremde bewegliche Sache einem anderen in der Absicht wegnimmt, die Sache sich oder einem Dritten rechtswidrig zuzueignen, wird mit Freiheitsstrafe bis zu fünf Jahren oder mit Geldstrafe bestraft."</p>
+            </div>
+
+            <p>Zerlegt die Norm vollständig. Notiert <strong>alle</strong> Tatbestandsmerkmale (Wenn) und die Rechtsfolge (Dann):</p>
+            <textarea class="answer-area" placeholder="Tatbestandsmerkmale: ...&#10;Rechtsfolge: ..."></textarea>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('sola')">Musterlösung anzeigen</button>
+            <div class="solution-reveal" id="sola">
+              <table>
+                <tr><th>Rechtsnorm</th><th>Tatbestandsmerkmale (Wenn)</th><th>Rechtsfolge (Dann)</th></tr>
+                <tr><td>§ 242 I StGB</td>
+                  <td>Eine Person nimmt einer anderen eine <strong>fremde, bewegliche Sache weg</strong>, mit der <strong>Absicht der rechtswidrigen Zueignung</strong> für sich oder einen Dritten.</td>
+                  <td>Freiheitsstrafe bis zu fünf Jahren oder Geldstrafe.</td></tr>
+              </table>
+              <p>Hinweis: Alle Merkmale müssen kumulativ („und") vorliegen – fehlt eines, greift die Rechtsfolge nicht.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box amber">
+        <strong>⭐ Extra-Challenge</strong>
+        Wer mag, zerlegt zusätzlich <strong>§ 929 S. 1 BGB</strong> (Übereignung) – diese Norm hat gleich mehrere Voraussetzungen: bewegliche Sache, Einigung zwischen Eigentümer und Erwerber, Übergabe. Vergleicht in der Gruppe eure Ergebnisse.
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goStep(1)">← Zurück</button>
+      <button class="btn btn-primary" onclick="goStep(3)">Weiter: Kompetenzcheck →</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 3 · KOMPETENZCHECK ════════ -->
+  <section class="step" id="step-3">
+    <div class="section">
+      <span class="section-label">Kompetenzcheck 3.1</span>
+      <h2>Alles zusammen: der Rennrad-Fall</h2>
+
+      <p>Jetzt brauchst du alle drei Werkzeuge gleichzeitig: Vertragsschluss, Normenanalyse und BGB-Systematik – an einem zusammenhängenden Fall.</p>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Kompetenzcheck <strong>M1 „Kaufvertrag ja oder nein?"</strong> auf <strong>Seite 152–153</strong>. Lies den Forenbeitrag von Johannes genau durch.</div>
+        </div>
+      </div>
+
+      <div class="fall-box">
+        <div class="fall-box-label">Worum es geht</div>
+        <p>Johannes sieht auf dem Flohmarkt ein altes Rennrad. Er einigt sich mit dem Verkäufer auf einen Preis und zahlt die Hälfte als Anzahlung an. Das Rad soll er ein paar Tage später abholen. Als er es holen will, behauptet der Verkäufer, das Rad doch nicht verkaufen zu wollen. Johannes fragt sich: Ist überhaupt ein Kaufvertrag zustande gekommen – und kann er auf Lieferung bestehen?</p>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">3</div>
+          <div class="task-htext">
+            <span class="task-title">Den Fall juristisch fundiert klären</span>
+            <span class="task-subtitle">Falllösung · Einzelarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #1976D2;">
+              <svg width="22" height="22" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="12" r="7" fill="#1976D2"/><path d="M4 34c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#1976D2" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <ol>
+              <li>Ist mit der Einigung (und der Anzahlung) ein <strong>Kaufvertrag</strong> zustande gekommen? Zitiere die einschlägigen Normen.</li>
+              <li>Kann Johannes auf <strong>Lieferung</strong> des Rades bestehen? Begründe.</li>
+              <li>Begründe am Fall, warum die <strong>Trennung von Verpflichtungs- und Erfüllungsgeschäft</strong> Johannes hier schützt.</li>
+            </ol>
+            <textarea class="answer-area" placeholder="Meine Antwort: ..."></textarea>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('solk')">Musterlösung anzeigen</button>
+            <div class="solution-reveal" id="solk">
+              <strong>1. Ist ein Kaufvertrag zustande gekommen?</strong>
+              <ul>
+                <li>Ein Kaufvertrag (§ 433 BGB) entsteht durch zwei übereinstimmende Willenserklärungen – Antrag (§ 145 BGB) und Annahme (§ 147 BGB).</li>
+                <li>Johannes und der Verkäufer haben sich auf einen Preis geeinigt; einer hat den Antrag gestellt, der andere ihn angenommen. Damit liegt ein wirksamer Kaufvertrag vor.</li>
+                <li>Dass das Rad erst später geliefert wird und in Raten gezahlt wird, ändert daran nichts.</li>
+              </ul>
+              <strong>2. Anspruch auf Lieferung?</strong>
+              <ul>
+                <li>Ja. Nach § 433 I BGB muss der Verkäufer das Rad übergeben und übereignen. Johannes hat einen Erfüllungsanspruch und kann die Herausgabe verlangen – notfalls gerichtlich.</li>
+              </ul>
+              <strong>3. Schutz durch das Trennungsprinzip:</strong>
+              <ul>
+                <li>Schon die bloße Einigung begründet das Verpflichtungsgeschäft (den Kaufvertrag) – unabhängig davon, ob das Rad bereits übergeben wurde.</li>
+                <li>Deshalb hat Johannes Planungssicherheit: Sein Anspruch besteht, auch wenn der Verkäufer das Rad noch nicht herausgegeben hat oder es anderweitig verkaufen wollte.</li>
+                <li>Erfüllungsvorgänge (z. B. eine Rückzahlung der Anzahlung) lassen sich unabhängig vom Fortbestand des Vertrags behandeln.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box teal" style="margin-top:1.5rem;">
+        <strong>✅ Geschafft</strong>
+        Du hast die drei Werkzeuge aus 3.1 an einem echten Fall kombiniert: Vertragsschluss erkennen und mit Normen belegen, Ansprüche begründen und das Trennungsprinzip anwenden. Damit bist du bestens für das Zivilrecht in 3.2 gerüstet.
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-secondary" onclick="goStep(2)">← Zurück</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 4 · ABFRAGE ════════ -->
+  <section class="step teacher-only" id="step-4">
+    <div class="section">
+      <span class="section-label">Mündliche Abfrage · nur Lehrkraft</span>
+      <h2>Abfrage nach dem 4K-Modell</h2>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:.5rem;">
+        <button class="print-btn" onclick="window.print()">🖨 Abfrage drucken</button>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-header">Hinweis für die Lehrkraft</div>
+        Vertiefungsniveau: Die Fragen setzen die sichere Beherrschung der drei Werkzeuge voraus und zielen auf Transfer und Begründung.
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-wissen">Wissen</span>
+          <span class="abfrage-q">Zerlege § 929 S. 1 BGB vollständig in seine Tatbestandsmerkmale und die Rechtsfolge.</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Tatbestandsmerkmale: bewegliche Sache, Eigentümer und Erwerber, Einigung über den Eigentumsübergang, Übergabe der Sache.</li>
+            <li>Rechtsfolge: Übertragung des Eigentums.</li>
+            <li>Alle Merkmale müssen kumulativ vorliegen.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-kritik">Kritisches Denken</span>
+          <span class="abfrage-q">Im Rennrad-Fall zahlt Johannes nur eine Anzahlung. Warum hat er trotzdem schon einen vollwertigen Anspruch?</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Der Kaufvertrag (Verpflichtungsgeschäft) entsteht bereits durch die Einigung, nicht erst durch Zahlung oder Übergabe.</li>
+            <li>Die Höhe der Zahlung ist für das Zustandekommen des Vertrags unerheblich.</li>
+            <li>Trennungsprinzip: Verpflichtung und Erfüllung sind voneinander unabhängig.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-komm">Kommunikation</span>
+          <span class="abfrage-q">Johannes fragt dich um Rat. Formuliere in zwei, drei Sätzen eine juristisch fundierte, aber verständliche Antwort.</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Klare Aussage: Ja, ein Kaufvertrag besteht (§ 433 BGB), du kannst auf Lieferung bestehen.</li>
+            <li>Verständliche Sprache, korrekte Normen, kein Fachchinesisch ohne Erklärung.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-kreativ">Kreativität</span>
+          <span class="abfrage-q">Denk dir eine Abwandlung des Falls aus, in der die Trennung von Verpflichtung und Erfüllung zu einem überraschenden Ergebnis führt.</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Eigenständige, plausible Fallabwandlung (z. B. Verkäufer verkauft das Rad an einen Zweiten).</li>
+            <li>Korrekte Anwendung: Vertrag bleibt wirksam, Erfüllungsansprüche / Schadensersatz werden durchdacht.</li>
+            <li>Zeigt Verständnis für die Unabhängigkeit der beiden Geschäfte.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-secondary" onclick="goStep(3)">← Zurück</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- PIN-Modal -->
+<div class="modal-overlay" id="pin-modal">
+  <div class="modal" id="pin-box">
+    <h3>Lehrkraft-Bereich</h3>
+    <p>Bitte 8-stelligen PIN eingeben</p>
+    <div class="pin-display" id="pin-display"></div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinPress('1')">1</button>
+      <button class="pin-key" onclick="pinPress('2')">2</button>
+      <button class="pin-key" onclick="pinPress('3')">3</button>
+      <button class="pin-key" onclick="pinPress('4')">4</button>
+      <button class="pin-key" onclick="pinPress('5')">5</button>
+      <button class="pin-key" onclick="pinPress('6')">6</button>
+      <button class="pin-key" onclick="pinPress('7')">7</button>
+      <button class="pin-key" onclick="pinPress('8')">8</button>
+      <button class="pin-key" onclick="pinPress('9')">9</button>
+      <button class="pin-key wide" onclick="pinClear()">C</button>
+      <button class="pin-key" onclick="pinPress('0')">0</button>
+      <button class="pin-key wide" onclick="pinDel()">⌫</button>
+    </div>
+    <button class="modal-close" onclick="closePin()">Abbrechen</button>
+  </div>
+</div>
+
+<script>
+const TEACHER_PIN='13579135';
+let pinEntry='';
+function openPin(){
+  if(document.body.classList.contains('version-b')){document.body.classList.remove('version-b');return;}
+  document.getElementById('pin-modal').classList.add('open');pinClear();
+}
+function closePin(){document.getElementById('pin-modal').classList.remove('open');}
+function renderPin(){
+  const d=document.getElementById('pin-display');d.innerHTML='';
+  for(let i=0;i<8;i++){const dot=document.createElement('div');dot.className='pin-dot'+(i<pinEntry.length?' filled':'');d.appendChild(dot);}
+}
+function pinPress(n){if(pinEntry.length>=8)return;pinEntry+=n;renderPin();if(pinEntry.length===8)setTimeout(checkPin,150);}
+function pinDel(){pinEntry=pinEntry.slice(0,-1);renderPin();}
+function pinClear(){pinEntry='';renderPin();}
+function checkPin(){
+  if(pinEntry===TEACHER_PIN){document.body.classList.add('version-b');closePin();}
+  else{const box=document.getElementById('pin-box');box.classList.add('shake');setTimeout(()=>box.classList.remove('shake'),400);pinClear();}
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('pin-modal').classList.contains('open'))return;
+  if(e.key>='0'&&e.key<='9')pinPress(e.key);
+  else if(e.key==='Backspace')pinDel();
+  else if(e.key==='Escape')closePin();
+});
+
+function goStep(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step-'+n).classList.add('active');
+  document.querySelectorAll('.progress-step').forEach(p=>p.classList.toggle('active',p.dataset.step==n));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function checkFill(btn,id){
+  const task=btn.closest('.task-content');let all=0,ok=0;
+  task.querySelectorAll('.fill-input').forEach(inp=>{
+    all++;inp.classList.remove('correct','wrong');
+    const ans=inp.dataset.answer.toLowerCase();
+    if(inp.value.trim().toLowerCase().replace(/\s/g,'')===ans.replace(/\s/g,'')){inp.classList.add('correct');ok++;}else inp.classList.add('wrong');
+  });
+  const fb=document.getElementById(id+'-fb');
+  if(ok===all){fb.style.color='var(--green-text)';fb.textContent='Alle '+all+' richtig – Profi!';}
+  else{fb.style.color='var(--red-text)';fb.textContent=ok+' von '+all+' richtig. Schau dir die rot markierten nochmal an.';}
+}
+function resetFill(btn,id){
+  const task=btn.closest('.task-content');
+  task.querySelectorAll('.fill-input').forEach(inp=>{inp.classList.remove('correct','wrong');inp.value='';});
+  document.getElementById(id+'-fb').textContent='';
+}
+
+function toggleSolution(id){document.getElementById(id).classList.toggle('visible');}
+function toggleAbfrage(head){head.closest('.abfrage-card').classList.toggle('open');}
+</script>
+</body>
+</html>
