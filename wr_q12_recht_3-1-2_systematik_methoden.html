@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.1.2 – BGB-Systematik, Zitieren & Normenanalyse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font:'Nunito',sans-serif;
+  /* Stunde 2 · Smaragd */
+  --st:#0F766E; --st-light:#14B8A6; --st-bg:#F0FDFA;
+  --grad:linear-gradient(135deg,#0F766E,#14B8A6);
+  --green:#16A34A; --green-light:#DCFCE7; --green-text:#14532D;
+  --orange:#EA580C; --orange-light:#FFEDD5; --orange-text:#7C2D12;
+  --red:#DC2626; --red-light:#FEE2E2; --red-text:#7F1D1D;
+  --teal:#0D9488; --teal-light:#CCFBF1; --teal-text:#134E4A;
+  --purple:#7C3AED; --purple-light:#EDE9FE; --purple-text:#4C1D95;
+  --teacher-bg:#FFFBEB; --teacher-border:#FBBF24; --teacher-text:#92400E;
+  --book-bg:#FAF5FF; --book-border:#D8B4FE; --book-title:#6B21A8; --book-text:#581C87;
+  --text:#1A1A1A; --text-secondary:#555; --text-muted:#AAA;
+  --border:#E2E0E8; --bg-card:#FFF; --bg-page:#F6F5FA;
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px;
+  --shadow:0 2px 8px rgba(0,0,0,.08); --shadow-lg:0 4px 20px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--bg-page);color:var(--text);line-height:1.6;}
+
+.topbar{background:var(--st);height:52px;position:sticky;top:0;z-index:50;
+  padding:0 1.5rem;display:flex;align-items:center;gap:1rem;box-shadow:0 2px 12px rgba(15,118,110,.25);}
+.topbar-logo{font-weight:900;font-size:15px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:6px;}
+.topbar-logo span{color:#99E6D3;}
+.topbar-logo-back{font-size:11px;color:rgba(255,255,255,.6);font-weight:400;
+  border-left:1px solid rgba(255,255,255,.2);padding-left:8px;margin-left:2px;}
+.topbar-chip{margin:0 auto;background:rgba(255,255,255,.18);color:#fff;font-weight:800;
+  font-size:13px;padding:4px 14px;border-radius:20px;letter-spacing:.5px;}
+.teacher-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);
+  border-radius:var(--radius-sm);padding:6px 14px;font-family:var(--font);font-weight:700;
+  font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.teacher-btn:hover{background:rgba(255,255,255,.28);}
+
+.progress{background:#fff;border-bottom:1px solid var(--border);padding:.6rem 1.5rem;
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:sticky;top:52px;z-index:40;}
+.progress-step{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;
+  color:var(--text-muted);cursor:pointer;padding:4px 10px;border-radius:20px;}
+.progress-step.active{color:var(--st);background:var(--st-bg);}
+.progress-step .dot{width:22px;height:22px;border-radius:50%;background:#EEE;color:#999;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+.progress-step.active .dot{background:var(--st);color:#fff;}
+.progress-step.teacher-only{display:none;}
+body.version-b .progress-step.teacher-only{display:flex;}
+
+.main{max-width:920px;margin:0 auto;padding:28px 20px 80px;}
+.step{display:none;}
+.step.active{display:block;}
+
+.hero{background:var(--grad);border-radius:var(--radius-lg);padding:2.3rem 2rem;color:#fff!important;
+  position:relative;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:1.6rem;}
+.hero::before{content:'§';position:absolute;right:1.5rem;top:-25px;font-size:150px;font-weight:900;color:rgba(255,255,255,.08);}
+.hero-kapitel{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:.4rem;}
+.hero h1{font-size:27px;font-weight:900;color:#fff;line-height:1.2;position:relative;z-index:1;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.9);margin-top:.6rem;max-width:620px;position:relative;z-index:1;}
+.hero-lehrplan{background:rgba(255,255,255,.12);border-radius:var(--radius-sm);padding:.75rem 1rem;margin-top:1.2rem;position:relative;z-index:1;}
+.hero-lehrplan-label{font-weight:800;color:rgba(255,255,255,.7);font-size:11px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+.hero-lehrplan-text{color:rgba(255,255,255,.9);line-height:1.5;font-size:13px;}
+
+.section{background:#fff;border-radius:var(--radius-lg);border:1px solid var(--border);
+  box-shadow:var(--shadow);padding:1.6rem;margin-bottom:1.4rem;animation:fadeUp .4s ease both;}
+.section-label{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;
+  text-transform:uppercase;color:var(--st);background:var(--st-bg);padding:4px 12px;border-radius:20px;margin-bottom:.9rem;}
+.section h2{font-size:21px;font-weight:800;margin-bottom:.3rem;}
+.section p{margin-bottom:.8rem;}
+.section p:last-child{margin-bottom:0;}
+.baustein-tag{display:inline-block;font-size:11px;font-weight:800;color:#fff;background:var(--st-light);
+  padding:3px 10px;border-radius:6px;margin-bottom:.6rem;letter-spacing:.3px;}
+
+.info-box{border-radius:var(--radius-md);padding:1rem 1.2rem;margin:1rem 0;font-size:14px;}
+.info-box strong{display:block;margin-bottom:.3rem;}
+.info-box.green{background:var(--green-light);border-left:3px solid var(--green);color:var(--green-text);}
+.info-box.orange{background:var(--orange-light);border-left:3px solid var(--orange);color:var(--orange-text);}
+.info-box.red{background:var(--red-light);border-left:3px solid var(--red);color:var(--red-text);}
+.info-box.purple{background:var(--purple-light);border-left:3px solid var(--purple);color:var(--purple-text);}
+.info-box.teal{background:var(--teal-light);border-left:3px solid var(--teal);color:var(--teal-text);}
+
+.recap{border:1.5px dashed var(--st-light);border-radius:var(--radius-md);background:var(--st-bg);margin:1.1rem 0;overflow:hidden;}
+.recap-toggle{width:100%;background:none;border:none;font-family:var(--font);cursor:pointer;
+  display:flex;align-items:center;gap:10px;padding:.85rem 1.1rem;font-size:14px;font-weight:800;color:var(--st);text-align:left;}
+.recap-toggle .chev{margin-left:auto;transition:transform .25s;font-size:13px;}
+.recap.open .recap-toggle .chev{transform:rotate(180deg);}
+.recap-body{display:none;padding:0 1.1rem 1.1rem;font-size:13.5px;color:#0c5750;}
+.recap.open .recap-body{display:block;animation:fadeUp .3s ease both;}
+.recap-body ul{list-style:none;margin:.4rem 0;}
+.recap-body li{padding:5px 0 5px 20px;position:relative;}
+.recap-body li::before{content:'–';position:absolute;left:4px;color:var(--st-light);font-weight:800;}
+
+.task{border:1.5px solid var(--st-light);border-radius:var(--radius-md);overflow:hidden;margin:1.2rem 0;}
+.task-header{background:var(--st);padding:.7rem 1.1rem;display:flex;align-items:center;gap:12px;}
+.task-num{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;}
+.task-htext{display:flex;flex-direction:column;gap:1px;}
+.task-title{font-size:13.5px;font-weight:800;color:#fff;line-height:1.3;}
+.task-subtitle{font-size:11px;color:rgba(255,255,255,.72);font-weight:600;}
+.task-body{background:var(--st-bg);padding:1.1rem 1.2rem;display:flex;gap:14px;align-items:flex-start;}
+.task-icons{display:flex;flex-direction:column;gap:6px;flex-shrink:0;}
+.icon-tile{background:#fff;border-radius:8px;padding:8px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;}
+.task-content{flex:1;}
+.task-content ol{margin:.3rem 0 .3rem 1.1rem;}
+.task-content li{margin-bottom:.4rem;}
+
+.book-ref{background:var(--book-bg);border:1.5px solid var(--book-border);border-radius:var(--radius-md);
+  padding:.85rem 1.1rem;margin:.9rem 0;display:flex;gap:10px;align-items:flex-start;}
+.book-ref-icon{font-size:18px;}
+.book-ref-title{color:var(--book-title);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.book-ref-text{color:var(--book-text);font-size:13.5px;}
+
+/* Gesetzestext-Box (dunkel) */
+.para-quote{background:#1e293b;border-radius:var(--radius-md);padding:1rem 1.2rem;margin:.9rem 0;}
+.para-quote .pq-label{color:#5dcaa5;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3rem;}
+.para-quote p{color:#e2e8f0!important;font-style:italic;font-size:13.5px;margin:0;}
+
+/* Zuordnung / Lückentext */
+.match-row{display:flex;gap:10px;align-items:center;margin:.5rem 0;flex-wrap:wrap;}
+.match-statement{flex:1;min-width:200px;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:13.5px;}
+.match-select{border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 10px;
+  font-family:var(--font);font-size:13px;font-weight:700;background:#fff;color:var(--text);min-width:160px;cursor:pointer;}
+.match-select.correct{border-color:var(--green);background:var(--green-light);color:var(--green-text);}
+.match-select.wrong{border-color:var(--red);background:var(--red-light);color:var(--red-text);}
+
+.fill-input{border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px;
+  font-family:var(--font);font-size:14px;font-weight:700;width:130px;text-align:center;}
+.fill-input:focus{outline:none;border-color:var(--st);}
+.fill-input.correct{border-color:var(--green);background:var(--green-light);}
+.fill-input.wrong{border-color:var(--red);background:var(--red-light);}
+
+.btn{font-family:var(--font);font-weight:800;font-size:14px;border-radius:var(--radius-md);padding:11px 22px;cursor:pointer;border:none;}
+.btn-primary{background:var(--st);color:#fff;}
+.btn-primary:hover{background:#0c5d57;transform:translateY(-1px);}
+.btn-secondary{background:#fff;color:var(--text);border:1.5px solid var(--border);font-weight:700;}
+.btn-secondary:hover{border-color:var(--st);color:var(--st);}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem;align-items:center;}
+.match-feedback{font-size:13.5px;font-weight:700;margin-top:.6rem;}
+
+.solution-btn{border:1.5px solid var(--border);background:#fff;border-radius:var(--radius-sm);padding:8px 16px;
+  font-weight:700;font-family:var(--font);font-size:13px;color:var(--text-secondary);cursor:pointer;}
+.solution-btn:hover{border-color:var(--green);color:var(--green-text);background:var(--green-light);}
+.solution-reveal{display:none;background:var(--green-light);border-left:3px solid var(--green);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.2rem;margin-top:.8rem;color:var(--green-text);font-size:13.5px;}
+.solution-reveal.visible{display:block;animation:fadeUp .3s ease both;}
+.solution-reveal strong{color:#0f3d20;}
+.solution-reveal ul{margin:.4rem 0 .4rem 1.1rem;}
+.solution-reveal li{margin-bottom:.35rem;}
+.solution-reveal table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:12.5px;}
+.solution-reveal th,.solution-reveal td{border:1px solid #b6e0c4;padding:5px 8px;text-align:left;}
+.solution-reveal th{background:#c9efd5;}
+
+.answer-area{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;
+  font-family:var(--font);font-size:14px;resize:vertical;min-height:80px;background:#fff;margin-top:.5rem;}
+.answer-area:focus{outline:none;border-color:var(--st);}
+
+.quiz-q{margin:1.3rem 0;}
+.quiz-q-text{font-weight:800;font-size:15px;margin-bottom:.6rem;}
+.quiz-opt{display:block;width:100%;text-align:left;border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:11px 14px;background:#fff;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;margin-bottom:8px;}
+.quiz-opt:hover{border-color:var(--st-light);background:var(--st-bg);}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-light);color:var(--green-text);}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-light);color:var(--red-text);}
+.quiz-opt.disabled{pointer-events:none;}
+.quiz-fb{font-size:13.5px;font-weight:700;margin-top:.3rem;min-height:1px;}
+.quiz-score{display:none;margin-top:1rem;padding:1rem 1.2rem;border-radius:var(--radius-md);background:var(--st-bg);font-weight:800;color:var(--st);text-align:center;}
+
+.teacher-only{display:none;}
+body.version-b .teacher-only{display:block;}
+.teacher-note{background:var(--teacher-bg);border:1.5px solid var(--teacher-border);border-radius:var(--radius-md);padding:1.1rem 1.2rem;margin:1rem 0;}
+.teacher-note-header{font-weight:800;font-size:12px;color:var(--teacher-text);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.abfrage-card{border:1.5px solid var(--border);border-radius:var(--radius-md);margin:.9rem 0;overflow:hidden;}
+.abfrage-head{display:flex;align-items:center;gap:10px;padding:.8rem 1rem;background:#f7faf9;cursor:pointer;}
+.k-badge{font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;color:#fff;flex-shrink:0;}
+.k-wissen{background:#1976D2;} .k-kritik{background:#7B1FA2;} .k-komm{background:#0d9488;} .k-kreativ{background:#EA580C;}
+.abfrage-q{flex:1;font-size:14px;font-weight:700;}
+.abfrage-chev{font-size:13px;color:var(--text-muted);transition:transform .25s;}
+.abfrage-card.open .abfrage-chev{transform:rotate(180deg);}
+.abfrage-reveal{display:none;padding:.9rem 1.1rem;background:#fff;border-top:1px solid var(--border);font-size:13.5px;}
+.abfrage-card.open .abfrage-reveal{display:block;}
+.abfrage-reveal-title{font-weight:800;color:var(--st);font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem;}
+.abfrage-reveal ul{margin-left:1.1rem;}
+.abfrage-reveal li{margin-bottom:.35rem;}
+
+.nav-btns{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:1.6rem;flex-wrap:wrap;}
+.btn-home{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--st);border:1.5px solid var(--st);
+  border-radius:var(--radius-md);padding:11px 22px;font-family:var(--font);font-size:14px;font-weight:800;text-decoration:none;}
+.btn-home:hover{background:var(--st-bg);}
+
+.print-btn{background:none;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:7px 14px;
+  font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer;color:var(--text-secondary);}
+.print-btn:hover{border-color:var(--st);color:var(--st);}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:var(--radius-lg);padding:2rem;width:90%;max-width:340px;text-align:center;box-shadow:var(--shadow-lg);}
+.modal h3{font-size:18px;font-weight:800;margin-bottom:.3rem;}
+.modal p{font-size:13px;color:var(--text-secondary);margin-bottom:1.2rem;}
+.pin-display{display:flex;gap:8px;justify-content:center;margin-bottom:1.2rem;}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--st);background:#fff;}
+.pin-dot.filled{background:var(--st);}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.pin-key{background:var(--st-bg);border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font);font-size:18px;font-weight:800;color:var(--st);cursor:pointer;}
+.pin-key:hover{background:#d7f5ee;}
+.pin-key.wide{font-size:13px;}
+.modal.shake{animation:shake .4s;}
+.modal-close{margin-top:1rem;background:none;border:none;color:var(--text-muted);font-family:var(--font);font-size:13px;cursor:pointer;text-decoration:underline;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes shake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-8px);}40%,80%{transform:translateX(8px);}}
+
+@media(max-width:600px){
+  .hero h1{font-size:22px;}
+  .topbar{padding:0 1rem;}
+  .main{padding:20px 14px 60px;}
+  .task-body{flex-direction:column;}
+  .task-icons{flex-direction:row;}
+}
+@media print{
+  .topbar,.progress,.nav-btns,.teacher-btn,.print-btn{display:none!important;}
+  .step{display:block!important;}
+  .section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">WR<span>&amp;</span>Recht<span class="topbar-logo-back">← Übersicht</span></a>
+  <span class="topbar-chip">3.1.2</span>
+  <button class="teacher-btn" onclick="openPin()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z" fill="currentColor"/></svg>
+    Lehrkraft
+  </button>
+</div>
+
+<div class="progress">
+  <div class="progress-step active" data-step="1" onclick="goStep(1)"><span class="dot">1</span>BGB-Systematik</div>
+  <div class="progress-step" data-step="2" onclick="goStep(2)"><span class="dot">2</span>Zitieren</div>
+  <div class="progress-step" data-step="3" onclick="goStep(3)"><span class="dot">3</span>Normenanalyse</div>
+  <div class="progress-step teacher-only" data-step="4" onclick="goStep(4)"><span class="dot">4</span>Abfrage</div>
+</div>
+
+<div class="main">
+
+  <!-- ════════ STEP 1 · BGB-SYSTEMATIK ════════ -->
+  <section class="step active" id="step-1">
+    <div class="hero">
+      <div class="hero-kapitel">Kapitel 3.1 · Rechtstechnische Grundlagen</div>
+      <h1>Drei Werkzeuge für die juristische Arbeit</h1>
+      <div class="hero-sub">Du findest dich in der Systematik des BGB zurecht, zitierst Rechtsnormen korrekt und zerlegst sie mit der Normenanalyse in Tatbestand und Rechtsfolge.</div>
+      <div class="hero-lehrplan">
+        <div class="hero-lehrplan-label">📋 Lehrplan-Bezug</div>
+        <div class="hero-lehrplan-text">Du wendest grundlegende juristische Arbeitstechniken an – Zitierweise, Normenanalyse, Normenverknüpfung – und bringst dabei dein Wissen über die Systematik des Bürgerlichen Gesetzbuches ein.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="baustein-tag">Werkzeug 1 von 3</span>
+      <span class="section-label">BGB-Systematik</span>
+      <h2>Wie ist das BGB aufgebaut?</h2>
+
+      <div class="info-box orange">
+        <strong>💡 Warum ist das relevant für dich?</strong>
+        Das BGB hat über 2.300 Paragrafen. Niemand kennt sie auswendig – aber wer das Ordnungsprinzip versteht, findet jede Regelung in Sekunden. Das ist der Unterschied zwischen „im Gesetz verloren" und „gezielt nachschlagen".
+      </div>
+
+      <p>Das BGB ist in <strong>fünf Bücher</strong> gegliedert. Was vorne steht, gilt für alles, was dahinter kommt – das ist die <strong>Klammertechnik</strong>: Allgemeines wird „vor die Klammer gezogen", damit es nicht in jedem Spezialfall wiederholt werden muss.</p>
+
+      <div class="recap" id="recap1">
+        <button class="recap-toggle" onclick="toggleRecap('recap1')">
+          <span>📚 Die fünf Bücher des BGB auf einen Blick</span>
+          <span class="chev">▼</span>
+        </button>
+        <div class="recap-body">
+          <ul>
+            <li><strong>Buch 1 – Allgemeiner Teil (§§ 1–240):</strong> Grundlagen für alle anderen Bücher, z. B. wie ein Vertrag zustande kommt (§§ 145, 147), Geschäftsfähigkeit, Willenserklärung.</li>
+            <li><strong>Buch 2 – Schuldrecht (§§ 241–853):</strong> Verpflichtungen zwischen Personen – durch Vertrag (z. B. Kaufvertrag § 433) oder durch Gesetz (z. B. Schadensersatz § 823).</li>
+            <li><strong>Buch 3 – Sachenrecht (§§ 854–1296):</strong> Beziehungen von Personen zu Sachen – Besitz (§ 854), Eigentum, Übereignung (§ 929).</li>
+            <li><strong>Buch 4 – Familienrecht (§§ 1297–1921):</strong> Ehe, Verwandtschaft, Unterhalt, Sorgerecht.</li>
+            <li><strong>Buch 5 – Erbrecht (§§ 1922–2385):</strong> Was mit dem Vermögen nach dem Tod geschieht.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Nutze <strong>M1 „Aufbau und Systematik des BGB"</strong> auf <strong>Seite 141–143</strong>. Das Fachwissen mit der Übersichtstabelle findest du auf <strong>Seite 150–151</strong>.</div>
+        </div>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">1</div>
+          <div class="task-htext">
+            <span class="task-title">Paragrafen ihrem Buch zuordnen</span>
+            <span class="task-subtitle">Falllösung · Einzelarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #1976D2;">
+              <svg width="22" height="22" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="12" r="7" fill="#1976D2"/><path d="M4 34c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#1976D2" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <p style="margin-bottom:.4rem;">Ordne jeden Paragrafen dem richtigen Buch des BGB zu.</p>
+
+            <div class="match-row">
+              <div class="match-statement">§ 110 BGB – Taschengeldparagraf</div>
+              <select class="match-select" data-correct="b1">
+                <option value="">— Buch wählen —</option>
+                <option value="b1">Buch 1 · Allgemeiner Teil</option>
+                <option value="b2">Buch 2 · Schuldrecht</option>
+                <option value="b3">Buch 3 · Sachenrecht</option>
+              </select>
+            </div>
+            <div class="match-row">
+              <div class="match-statement">§ 433 BGB – Kaufvertrag</div>
+              <select class="match-select" data-correct="b2">
+                <option value="">— Buch wählen —</option>
+                <option value="b1">Buch 1 · Allgemeiner Teil</option>
+                <option value="b2">Buch 2 · Schuldrecht</option>
+                <option value="b3">Buch 3 · Sachenrecht</option>
+              </select>
+            </div>
+            <div class="match-row">
+              <div class="match-statement">§ 929 BGB – Einigung und Übergabe</div>
+              <select class="match-select" data-correct="b3">
+                <option value="">— Buch wählen —</option>
+                <option value="b1">Buch 1 · Allgemeiner Teil</option>
+                <option value="b2">Buch 2 · Schuldrecht</option>
+                <option value="b3">Buch 3 · Sachenrecht</option>
+              </select>
+            </div>
+            <div class="match-row">
+              <div class="match-statement">§ 823 BGB – Schadensersatzpflicht</div>
+              <select class="match-select" data-correct="b2">
+                <option value="">— Buch wählen —</option>
+                <option value="b1">Buch 1 · Allgemeiner Teil</option>
+                <option value="b2">Buch 2 · Schuldrecht</option>
+                <option value="b3">Buch 3 · Sachenrecht</option>
+              </select>
+            </div>
+            <div class="match-row">
+              <div class="match-statement">§ 985 BGB – Herausgabeanspruch</div>
+              <select class="match-select" data-correct="b3">
+                <option value="">— Buch wählen —</option>
+                <option value="b1">Buch 1 · Allgemeiner Teil</option>
+                <option value="b2">Buch 2 · Schuldrecht</option>
+                <option value="b3">Buch 3 · Sachenrecht</option>
+              </select>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-primary" onclick="checkMatch(this,'m1')">Prüfen</button>
+              <button class="btn btn-secondary" onclick="resetMatch(this)">↩ Zurücksetzen</button>
+            </div>
+            <div class="match-feedback" id="m1-fb"></div>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('sol1')">Musterlösung anzeigen</button>
+            <div class="solution-reveal" id="sol1">
+              <strong>Lösung:</strong>
+              <ul>
+                <li>§ 110 (Taschengeld) → <strong>Buch 1</strong>: betrifft die Wirksamkeit von Willenserklärungen, gilt für alle Verträge.</li>
+                <li>§ 433 (Kaufvertrag) → <strong>Buch 2</strong>: Verpflichtung zwischen Personen.</li>
+                <li>§ 929 (Übereignung) → <strong>Buch 3</strong>: Beziehung Person–Sache.</li>
+                <li>§ 823 (Schadensersatz) → <strong>Buch 2</strong>: gesetzliche Verpflichtung (Deliktsrecht).</li>
+                <li>§ 985 (Herausgabe) → <strong>Buch 3</strong>: Anspruch aus dem Eigentum.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-primary" onclick="goStep(2)">Weiter: Zitieren →</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 2 · ZITIEREN ════════ -->
+  <section class="step" id="step-2">
+    <div class="section">
+      <span class="baustein-tag">Werkzeug 2 von 3</span>
+      <span class="section-label">Zitierweise</span>
+      <h2>Wie zitiert man Rechtsnormen korrekt?</h2>
+
+      <div class="info-box orange">
+        <strong>💡 Warum ist das relevant für dich?</strong>
+        Eine juristische Aussage zählt nur, wenn du sie mit der genauen Norm belegen kannst. „Das steht irgendwo im BGB" reicht nicht – ein sauberes Zitat zeigt exakt, worauf du dich stützt. Genau das brauchst du in jeder Schulaufgabe.
+      </div>
+
+      <p>Ein vollständiges Zitat besteht aus drei Bausteinen, in dieser Reihenfolge:</p>
+
+      <div class="info-box teal">
+        <strong>Aufbau eines Zitats</strong>
+        <strong style="display:inline;font-weight:800;">Paragraf → Absatz / Satz / Nummer / Buchstabe → Normkörper</strong><br>
+        Beispiel: <strong>§ 433 Abs. 1 S. 1 BGB</strong> &nbsp;·&nbsp; kurz: <strong>§ 433 I 1 BGB</strong>
+      </div>
+
+      <div class="recap" id="recap2">
+        <button class="recap-toggle" onclick="toggleRecap('recap2')">
+          <span>🔎 Die wichtigsten Regeln & Abkürzungen</span>
+          <span class="chev">▼</span>
+        </button>
+        <div class="recap-body">
+          <ul>
+            <li><strong>Absatz</strong> = „Abs." oder römische Ziffer (Abs. 1 = I), <strong>Satz</strong> = „S.", <strong>Nummer</strong> = „Nr.", <strong>Buchstabe</strong> = „lit." (von lat. <em>litera</em>).</li>
+            <li><strong>Mehrere Paragrafen:</strong> zwei §-Zeichen („§§"). Direkt aufeinanderfolgend: „f." (und folgender) oder „ff." (fortfolgende), z. B. §§ 823 ff. BGB.</li>
+            <li><strong>Normkörper</strong> steht am Ende: das Gesetz, z. B. BGB, StGB, GG, ZPO. Beim BGB darf er bei allgemein bekannten Normen auch entfallen.</li>
+            <li><strong>Alternativen</strong> innerhalb eines Satzes: „Alt." (z. B. § 812 I 1 Alt. 1 BGB).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Methode <strong>„Wie werden Gesetze und Rechtsnormen richtig zitiert?"</strong>, <strong>Seite 144–145</strong>. Den QR-Code in der Randspalte kannst du für die Recherche nutzen.</div>
+        </div>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">2</div>
+          <div class="task-htext">
+            <span class="task-title">Textstellen korrekt zitieren</span>
+            <span class="task-subtitle">Recherche · Partnerarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #0d9488;">
+              <svg width="22" height="22" viewBox="0 0 44 36" fill="none"><circle cx="12" cy="10" r="6.5" fill="#0d9488"/><circle cx="32" cy="10" r="6.5" fill="#0d9488"/><path d="M1 34c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M21 34c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <p style="margin-bottom:.4rem;">Ordnet jeder Textstelle den richtigen Normkörper zu (recherchiert über gesetze-im-internet.de):</p>
+
+            <div class="match-row">
+              <div class="match-statement">„Strafbar ist nur vorsätzliches Handeln, wenn nicht das Gesetz fahrlässiges Handeln ausdrücklich mit Strafe bedroht."</div>
+              <select class="match-select" data-correct="stgb">
+                <option value="">— Gesetz wählen —</option>
+                <option value="bgb">BGB</option>
+                <option value="stgb">StGB</option>
+                <option value="stvo">StVO</option>
+                <option value="jgg">JGG</option>
+              </select>
+            </div>
+            <div class="match-row">
+              <div class="match-statement">„… für Fahrzeuge, die aus einem Feld- oder Waldweg auf eine andere Straße kommen."</div>
+              <select class="match-select" data-correct="stvo">
+                <option value="">— Gesetz wählen —</option>
+                <option value="bgb">BGB</option>
+                <option value="stgb">StGB</option>
+                <option value="stvo">StVO</option>
+                <option value="jgg">JGG</option>
+              </select>
+            </div>
+            <div class="match-row">
+              <div class="match-statement">„Der Mangel der Form wird durch die Bewirkung der versprochenen Leistung geheilt."</div>
+              <select class="match-select" data-correct="bgb">
+                <option value="">— Gesetz wählen —</option>
+                <option value="bgb">BGB</option>
+                <option value="stgb">StGB</option>
+                <option value="stvo">StVO</option>
+                <option value="jgg">JGG</option>
+              </select>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-primary" onclick="checkMatch(this,'m2')">Prüfen</button>
+              <button class="btn btn-secondary" onclick="resetMatch(this)">↩ Zurücksetzen</button>
+            </div>
+            <div class="match-feedback" id="m2-fb"></div>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('sol2')">Musterlösung anzeigen</button>
+            <div class="solution-reveal" id="sol2">
+              <strong>Lösung (mit korrektem Zitat):</strong>
+              <ul>
+                <li>„Strafbar ist nur vorsätzliches Handeln …" → <strong>§ 15 StGB</strong></li>
+                <li>„… Feld- oder Waldweg auf eine andere Straße …" → <strong>§ 8 I S. 2 StVO</strong></li>
+                <li>„Der Mangel der Form wird … geheilt." → <strong>§ 518 II BGB</strong></li>
+              </ul>
+              <p style="margin-top:.4rem;">Achtet auf die Reihenfolge: erst der Paragraf, dann die Untergliederung, dann der Normkörper.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goStep(1)">← Zurück</button>
+      <button class="btn btn-primary" onclick="goStep(3)">Weiter: Normenanalyse →</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 3 · NORMENANALYSE ════════ -->
+  <section class="step" id="step-3">
+    <div class="section">
+      <span class="baustein-tag">Werkzeug 3 von 3</span>
+      <span class="section-label">Normenanalyse</span>
+      <h2>Normen in Tatbestand und Rechtsfolge zerlegen</h2>
+
+      <div class="info-box orange">
+        <strong>💡 Warum ist das relevant für dich?</strong>
+        Jede Rechtsnorm folgt dem Muster „Wenn …, dann …". Wer eine Norm in ihre Bauteile zerlegt, kann genau prüfen, ob sie auf einen Fall passt. Das ist die Grundlage für jede Falllösung – und der direkte Vorläufer des Gutachtenstils in der nächsten Stunde.</p>
+      </div>
+
+      <p>Eine Rechtsnorm besteht aus <strong>Tatbestandsmerkmalen</strong> (dem „Wenn"-Teil) und einer <strong>Rechtsfolge</strong> (dem „Dann"-Teil). Bei der <strong>Normenanalyse</strong> zerlegst du die Norm in genau diese beiden Teile.</p>
+
+      <div class="info-box teal">
+        <strong>Das Grundmuster</strong>
+        <strong style="display:inline;font-weight:800;">Tatbestandsmerkmal(e) → Norm (§) → Rechtsfolge(n)</strong><br>
+        „<em>Wenn</em> die Voraussetzungen erfüllt sind, <em>dann</em> tritt die Rechtsfolge ein."
+      </div>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Methode <strong>„Wie werden Rechtsnormen analysiert?"</strong>, <strong>Seite 146–147</strong>. Die grafische Darstellung am Beispiel § 110 BGB zeigt das Prinzip.</div>
+        </div>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">3</div>
+          <div class="task-htext">
+            <span class="task-title">§ 854 I BGB in „Wenn–Dann" zerlegen</span>
+            <span class="task-subtitle">Falllösung · Partnerarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #0d9488;">
+              <svg width="22" height="22" viewBox="0 0 44 36" fill="none"><circle cx="12" cy="10" r="6.5" fill="#0d9488"/><circle cx="32" cy="10" r="6.5" fill="#0d9488"/><path d="M1 34c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M21 34c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <div class="para-quote">
+              <div class="pq-label">§ 854 Abs. 1 BGB · Erwerb des Besitzes</div>
+              <p>„Der Besitz einer Sache wird durch die Erlangung der tatsächlichen Gewalt über die Sache erworben."</p>
+            </div>
+
+            <p style="margin-bottom:.4rem;">Vervollständigt die Normenanalyse. Tragt die fehlenden Begriffe ein:</p>
+
+            <p style="font-weight:700;margin:.5rem 0 .2rem;">Tatbestandsmerkmal (Wenn …):</p>
+            <p style="margin-bottom:.6rem;">Jemand erlangt die tatsächliche
+              <input class="fill-input" id="f1" data-answer="gewalt" placeholder="…"> über eine Sache.</p>
+
+            <p style="font-weight:700;margin:.5rem 0 .2rem;">Rechtsfolge (Dann …):</p>
+            <p style="margin-bottom:.6rem;">Er erwirbt den
+              <input class="fill-input" id="f2" data-answer="besitz" placeholder="…"> an der Sache.</p>
+
+            <div class="btn-row">
+              <button class="btn btn-primary" onclick="checkFill(this)">Prüfen</button>
+              <button class="btn btn-secondary" onclick="resetFill(this)">↩ Zurücksetzen</button>
+            </div>
+            <div class="match-feedback" id="fill-fb"></div>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('sol3')">Musterlösung anzeigen</button>
+            <div class="solution-reveal" id="sol3">
+              <strong>So sieht die Analyse aus:</strong>
+              <table>
+                <tr><th>Rechtsnorm</th><th>Tatbestandsmerkmal (Wenn)</th><th>Rechtsfolge (Dann)</th></tr>
+                <tr><td>§ 854 I BGB</td><td>Erlangung der tatsächlichen <strong>Gewalt</strong> über eine Sache</td><td>Erwerb des <strong>Besitzes</strong> an der Sache</td></tr>
+              </table>
+              <p>Wichtig: Besitz (tatsächliche Gewalt) ist nicht dasselbe wie Eigentum (rechtliche Zuordnung).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz -->
+      <div class="section" style="box-shadow:none;border:1.5px solid var(--st-light);background:var(--st-bg);margin-bottom:0;">
+        <span class="section-label">Sicherung – kurzes Quiz</span>
+        <h2 style="font-size:18px;">Sitzen die drei Werkzeuge?</h2>
+
+        <div class="quiz-q" id="q1">
+          <div class="quiz-q-text">1. In welchem Buch des BGB steht der Kaufvertrag (§ 433)?</div>
+          <button class="quiz-opt" onclick="quiz(this,'q1',false)">Buch 1 – Allgemeiner Teil</button>
+          <button class="quiz-opt" onclick="quiz(this,'q1',true)">Buch 2 – Schuldrecht</button>
+          <button class="quiz-opt" onclick="quiz(this,'q1',false)">Buch 3 – Sachenrecht</button>
+          <div class="quiz-fb" id="q1-fb"></div>
+        </div>
+
+        <div class="quiz-q" id="q2">
+          <div class="quiz-q-text">2. Welches Zitat ist korrekt aufgebaut?</div>
+          <button class="quiz-opt" onclick="quiz(this,'q2',false)">BGB § 1 Abs. 433</button>
+          <button class="quiz-opt" onclick="quiz(this,'q2',true)">§ 433 Abs. 1 S. 1 BGB</button>
+          <button class="quiz-opt" onclick="quiz(this,'q2',false)">Paragraf 433, BGB, Satz 1, Absatz 1</button>
+          <div class="quiz-fb" id="q2-fb"></div>
+        </div>
+
+        <div class="quiz-q" id="q3">
+          <div class="quiz-q-text">3. Der „Dann"-Teil einer Rechtsnorm heißt …</div>
+          <button class="quiz-opt" onclick="quiz(this,'q3',false)">… Tatbestandsmerkmal.</button>
+          <button class="quiz-opt" onclick="quiz(this,'q3',true)">… Rechtsfolge.</button>
+          <button class="quiz-opt" onclick="quiz(this,'q3',false)">… Normkörper.</button>
+          <div class="quiz-fb" id="q3-fb"></div>
+        </div>
+
+        <div class="quiz-score" id="quiz-score"></div>
+        <div id="quiz-retry-wrap" style="display:none;margin-top:.75rem;">
+          <button class="btn btn-secondary" style="border-color:var(--red);color:var(--red);" onclick="retryQuiz()">🔄 Quiz nochmal versuchen</button>
+        </div>
+      </div>
+
+      <div class="info-box teal" style="margin-top:1.5rem;">
+        <strong>✅ Das hast du heute gelernt</strong>
+        Du kennst den Aufbau des BGB in fünf Büchern und die Klammertechnik, kannst Rechtsnormen korrekt zitieren (Paragraf → Untergliederung → Normkörper) und eine Norm in Tatbestand und Rechtsfolge zerlegen. In der mündlichen Abfrage zeigst du, dass du diese drei Werkzeuge an neuen Beispielen sicher anwendest – sie sind die Grundlage für den Gutachtenstil im Zivilrecht.
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-secondary" onclick="goStep(2)">← Zurück</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 4 · ABFRAGE ════════ -->
+  <section class="step teacher-only" id="step-4">
+    <div class="section">
+      <span class="section-label">Mündliche Abfrage · nur Lehrkraft</span>
+      <h2>Abfrage nach dem 4K-Modell</h2>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:.5rem;">
+        <button class="print-btn" onclick="window.print()">🖨 Abfrage drucken</button>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-header">Hinweis für die Lehrkraft</div>
+        Je eine Frage pro Kompetenzbereich. Erwartungshorizont aufklappbar. Empfohlene Dauer ca. 10 Minuten.
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-wissen">Wissen</span>
+          <span class="abfrage-q">Nenne die fünf Bücher des BGB und ordne § 433, § 854 und § 1922 jeweils zu.</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Allgemeiner Teil, Schuldrecht, Sachenrecht, Familienrecht, Erbrecht.</li>
+            <li>§ 433 → Buch 2 (Schuldrecht), § 854 → Buch 3 (Sachenrecht), § 1922 → Buch 5 (Erbrecht).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-kritik">Kritisches Denken</span>
+          <span class="abfrage-q">Warum ist die Klammertechnik sinnvoll? Was wäre die Folge, wenn jede Regelung in jedem Buch wiederholt würde?</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Allgemeines wird vor die Klammer gezogen → keine Wiederholung nötig, Gesetz bleibt schlank.</li>
+            <li>Ohne Klammertechnik: enorme Redundanz, Widersprüche, schwere Pflege des Gesetzes.</li>
+            <li>Bezug zu „lex specialis": Spezielleres geht vor Allgemeinerem.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-komm">Kommunikation</span>
+          <span class="abfrage-q">Erkläre einem Mitschüler in eigenen Worten, wie man § 823 Abs. 1 S. 1 BGB korrekt zitiert und was jeder Bestandteil bedeutet.</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Reihenfolge: Paragraf (§ 823) → Absatz (Abs. 1 / I) → Satz (S. 1) → Normkörper (BGB).</li>
+            <li>Erklärt, wofür Abs., S., Nr., lit. stehen – verständlich, nicht nur aufgezählt.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-kreativ">Kreativität</span>
+          <span class="abfrage-q">Such dir eine beliebige Norm aus und stelle sie als „Wenn–Dann"-Beziehung dar. Begründe deine Zerlegung.</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Eigenständige, korrekte Trennung in Tatbestandsmerkmal(e) und Rechtsfolge.</li>
+            <li>Begründung zeigt Verständnis: Welche Voraussetzungen müssen vorliegen, welche Folge tritt ein?</li>
+            <li>Transfer auf eine nicht im Unterricht behandelte Norm.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-secondary" onclick="goStep(3)">← Zurück</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- PIN-Modal -->
+<div class="modal-overlay" id="pin-modal">
+  <div class="modal" id="pin-box">
+    <h3>Lehrkraft-Bereich</h3>
+    <p>Bitte 8-stelligen PIN eingeben</p>
+    <div class="pin-display" id="pin-display"></div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinPress('1')">1</button>
+      <button class="pin-key" onclick="pinPress('2')">2</button>
+      <button class="pin-key" onclick="pinPress('3')">3</button>
+      <button class="pin-key" onclick="pinPress('4')">4</button>
+      <button class="pin-key" onclick="pinPress('5')">5</button>
+      <button class="pin-key" onclick="pinPress('6')">6</button>
+      <button class="pin-key" onclick="pinPress('7')">7</button>
+      <button class="pin-key" onclick="pinPress('8')">8</button>
+      <button class="pin-key" onclick="pinPress('9')">9</button>
+      <button class="pin-key wide" onclick="pinClear()">C</button>
+      <button class="pin-key" onclick="pinPress('0')">0</button>
+      <button class="pin-key wide" onclick="pinDel()">⌫</button>
+    </div>
+    <button class="modal-close" onclick="closePin()">Abbrechen</button>
+  </div>
+</div>
+
+<script>
+const TEACHER_PIN='13579135';
+let pinEntry='';
+function openPin(){
+  if(document.body.classList.contains('version-b')){document.body.classList.remove('version-b');return;}
+  document.getElementById('pin-modal').classList.add('open');pinClear();
+}
+function closePin(){document.getElementById('pin-modal').classList.remove('open');}
+function renderPin(){
+  const d=document.getElementById('pin-display');d.innerHTML='';
+  for(let i=0;i<8;i++){const dot=document.createElement('div');dot.className='pin-dot'+(i<pinEntry.length?' filled':'');d.appendChild(dot);}
+}
+function pinPress(n){if(pinEntry.length>=8)return;pinEntry+=n;renderPin();if(pinEntry.length===8)setTimeout(checkPin,150);}
+function pinDel(){pinEntry=pinEntry.slice(0,-1);renderPin();}
+function pinClear(){pinEntry='';renderPin();}
+function checkPin(){
+  if(pinEntry===TEACHER_PIN){document.body.classList.add('version-b');closePin();}
+  else{const box=document.getElementById('pin-box');box.classList.add('shake');setTimeout(()=>box.classList.remove('shake'),400);pinClear();}
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('pin-modal').classList.contains('open'))return;
+  if(e.key>='0'&&e.key<='9')pinPress(e.key);
+  else if(e.key==='Backspace')pinDel();
+  else if(e.key==='Escape')closePin();
+});
+
+function goStep(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step-'+n).classList.add('active');
+  document.querySelectorAll('.progress-step').forEach(p=>p.classList.toggle('active',p.dataset.step==n));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleRecap(id){document.getElementById(id).classList.toggle('open');}
+
+function checkMatch(btn,id){
+  const task=btn.closest('.task-content');let all=0,ok=0;
+  task.querySelectorAll('.match-select').forEach(sel=>{
+    all++;sel.classList.remove('correct','wrong');
+    if(sel.value===sel.dataset.correct){sel.classList.add('correct');ok++;}else sel.classList.add('wrong');
+  });
+  const fb=document.getElementById(id+'-fb');
+  if(ok===all){fb.style.color='var(--green-text)';fb.textContent='Alle '+all+' richtig – stark!';}
+  else{fb.style.color='var(--red-text)';fb.textContent=ok+' von '+all+' richtig. Schau dir die rot markierten nochmal an.';}
+}
+function resetMatch(btn){
+  const task=btn.closest('.task-content');
+  task.querySelectorAll('.match-select').forEach(sel=>{sel.classList.remove('correct','wrong');sel.value='';});
+  task.querySelector('.match-feedback').textContent='';
+}
+
+function checkFill(btn){
+  const task=btn.closest('.task-content');let all=0,ok=0;
+  task.querySelectorAll('.fill-input').forEach(inp=>{
+    all++;inp.classList.remove('correct','wrong');
+    if(inp.value.trim().toLowerCase()===inp.dataset.answer){inp.classList.add('correct');ok++;}else inp.classList.add('wrong');
+  });
+  const fb=document.getElementById('fill-fb');
+  if(ok===all){fb.style.color='var(--green-text)';fb.textContent='Richtig zerlegt!';}
+  else{fb.style.color='var(--red-text)';fb.textContent=ok+' von '+all+' richtig. Tipp: Besitz = tatsächliche Gewalt.';}
+}
+function resetFill(btn){
+  const task=btn.closest('.task-content');
+  task.querySelectorAll('.fill-input').forEach(inp=>{inp.classList.remove('correct','wrong');inp.value='';});
+  document.getElementById('fill-fb').textContent='';
+}
+
+function toggleSolution(id){document.getElementById(id).classList.toggle('visible');}
+
+let quizAnswers={};
+function quiz(btn,q,correct){
+  if(quizAnswers[q]!==undefined)return;
+  quizAnswers[q]=correct;
+  const box=document.getElementById(q);
+  box.querySelectorAll('.quiz-opt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById(q+'-fb');
+  if(correct){btn.classList.add('correct');fb.style.color='var(--green-text)';fb.textContent='Richtig!';}
+  else{
+    btn.classList.add('wrong');fb.style.color='var(--red-text)';fb.textContent='Nicht ganz – die richtige Antwort ist grün markiert.';
+    box.querySelectorAll('.quiz-opt').forEach(o=>{if(o.getAttribute('onclick').includes('true'))o.classList.add('correct');});
+  }
+  if(Object.keys(quizAnswers).length===3)showQuizScore();
+}
+function showQuizScore(){
+  const right=Object.values(quizAnswers).filter(Boolean).length;
+  const score=document.getElementById('quiz-score');
+  score.style.display='block';score.textContent='Ergebnis: '+right+' von 3 richtig.';
+  if(right<3)document.getElementById('quiz-retry-wrap').style.display='block';
+}
+function retryQuiz(){
+  quizAnswers={};
+  ['q1','q2','q3'].forEach(q=>{
+    const box=document.getElementById(q);
+    box.querySelectorAll('.quiz-opt').forEach(b=>b.classList.remove('disabled','correct','wrong'));
+    document.getElementById(q+'-fb').textContent='';
+  });
+  document.getElementById('quiz-score').style.display='none';
+  document.getElementById('quiz-retry-wrap').style.display='none';
+  window.scrollTo({top:document.getElementById('step-3').offsetTop,behavior:'smooth'});
+}
+
+function toggleAbfrage(head){head.closest('.abfrage-card').classList.toggle('open');}
+</script>
+</body>
+</html>
