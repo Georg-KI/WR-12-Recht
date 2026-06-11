@@ -325,7 +325,7 @@ body.version-b .teacher-only{display:block;}
             </div>
           </div>
           <div class="task-content">
-            <p style="margin-bottom:.6rem;">Du kaufst beim Bäcker zwei Hörnchen und bezahlst kontaktlos mit dem Handy. <strong>Wie viele Verträge bzw. rechtliche Einigungen schließt du dabei eigentlich ab?</strong></p>
+            <p style="margin-bottom:.6rem;">Du kaufst beim Bäcker zwei Hörnchen und bezahlst kontaktlos mit dem Handy. <strong>Wie viele eigenständige Rechtsgeschäfte schließt du dabei eigentlich ab?</strong></p>
             <button class="quiz-opt" data-poll="0" onclick="poll(this)">Einen Vertrag</button>
             <button class="quiz-opt" data-poll="0" onclick="poll(this)">Zwei Verträge</button>
             <button class="quiz-opt" data-poll="1" onclick="poll(this)">Drei Verträge</button>
@@ -749,7 +749,7 @@ function poll(btn){
   if(correct){
     btn.classList.add('correct');
     fb.style.color='var(--green-text)';
-    fb.textContent='Richtig! Es sind drei Einigungen: ein Kaufvertrag plus zwei Übereignungen (Ware und Geld). Genau das schauen wir uns jetzt an.';
+    fb.textContent='Richtig! Es sind drei Rechtsgeschäfte: ein Kaufvertrag (§ 433) und zwei Übereignungen von Ware und Geld (§ 929). Genau das schauen wir uns jetzt an.';
   }else{
     btn.classList.add('wrong');
     btn.parentElement.querySelector('[data-poll="1"]').classList.add('correct');
