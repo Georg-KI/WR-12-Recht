@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.2.1 – Ansprüche & Gutachtenstil (§ 823 BGB)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font:'Nunito',sans-serif;
+  /* Stunde 3 · Rubin */
+  --st:#9D174D; --st-light:#DB2777; --st-bg:#FDF2F8;
+  --grad:linear-gradient(135deg,#9D174D,#DB2777);
+  --green:#16A34A; --green-light:#DCFCE7; --green-text:#14532D;
+  --orange:#EA580C; --orange-light:#FFEDD5; --orange-text:#7C2D12;
+  --red:#DC2626; --red-light:#FEE2E2; --red-text:#7F1D1D;
+  --teal:#0D9488; --teal-light:#CCFBF1; --teal-text:#134E4A;
+  --purple:#7C3AED; --purple-light:#EDE9FE; --purple-text:#4C1D95;
+  --blue:#1D4ED8; --blue-light:#DBEAFE; --blue-text:#1E3A8A;
+  --teacher-bg:#FFFBEB; --teacher-border:#FBBF24; --teacher-text:#92400E;
+  --book-bg:#FAF5FF; --book-border:#D8B4FE; --book-title:#6B21A8; --book-text:#581C87;
+  --text:#1A1A1A; --text-secondary:#555; --text-muted:#AAA;
+  --border:#E2E0E8; --bg-card:#FFF; --bg-page:#F6F5FA;
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px;
+  --shadow:0 2px 8px rgba(0,0,0,.08); --shadow-lg:0 4px 20px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--bg-page);color:var(--text);line-height:1.6;}
+
+.topbar{background:var(--st);height:52px;position:sticky;top:0;z-index:50;padding:0 1.5rem;display:flex;align-items:center;gap:1rem;box-shadow:0 2px 12px rgba(157,23,77,.25);}
+.topbar-logo{font-weight:900;font-size:15px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:6px;}
+.topbar-logo span{color:#F9A8D4;}
+.topbar-logo-back{font-size:11px;color:rgba(255,255,255,.6);font-weight:400;border-left:1px solid rgba(255,255,255,.2);padding-left:8px;margin-left:2px;}
+.topbar-chip{margin:0 auto;background:rgba(255,255,255,.18);color:#fff;font-weight:800;font-size:13px;padding:4px 14px;border-radius:20px;letter-spacing:.5px;}
+.teacher-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:var(--radius-sm);padding:6px 14px;font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.teacher-btn:hover{background:rgba(255,255,255,.28);}
+
+.progress{background:#fff;border-bottom:1px solid var(--border);padding:.6rem 1.5rem;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:sticky;top:52px;z-index:40;}
+.progress-step{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--text-muted);cursor:pointer;padding:4px 10px;border-radius:20px;}
+.progress-step.active{color:var(--st);background:var(--st-bg);}
+.progress-step .dot{width:22px;height:22px;border-radius:50%;background:#EEE;color:#999;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+.progress-step.active .dot{background:var(--st);color:#fff;}
+.progress-step.teacher-only{display:none;}
+body.version-b .progress-step.teacher-only{display:flex;}
+
+.main{max-width:920px;margin:0 auto;padding:28px 20px 80px;}
+.step{display:none;}
+.step.active{display:block;}
+
+.hero{background:var(--grad);border-radius:var(--radius-lg);padding:2.3rem 2rem;color:#fff!important;position:relative;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:1.6rem;}
+.hero::before{content:'§';position:absolute;right:1.5rem;top:-25px;font-size:150px;font-weight:900;color:rgba(255,255,255,.08);}
+.hero-kapitel{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:.4rem;}
+.hero h1{font-size:27px;font-weight:900;color:#fff;line-height:1.2;position:relative;z-index:1;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.9);margin-top:.6rem;max-width:620px;position:relative;z-index:1;}
+.hero-lehrplan{background:rgba(255,255,255,.12);border-radius:var(--radius-sm);padding:.75rem 1rem;margin-top:1.2rem;position:relative;z-index:1;}
+.hero-lehrplan-label{font-weight:800;color:rgba(255,255,255,.7);font-size:11px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+.hero-lehrplan-text{color:rgba(255,255,255,.9);line-height:1.5;font-size:13px;}
+
+.section{background:#fff;border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);padding:1.6rem;margin-bottom:1.4rem;animation:fadeUp .4s ease both;}
+.section-label{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--st);background:var(--st-bg);padding:4px 12px;border-radius:20px;margin-bottom:.9rem;}
+.section h2{font-size:21px;font-weight:800;margin-bottom:.3rem;}
+.section p{margin-bottom:.8rem;}
+.section p:last-child{margin-bottom:0;}
+
+.info-box{border-radius:var(--radius-md);padding:1rem 1.2rem;margin:1rem 0;font-size:14px;}
+.info-box strong{display:block;margin-bottom:.3rem;}
+.info-box.green{background:var(--green-light);border-left:3px solid var(--green);color:var(--green-text);}
+.info-box.orange{background:var(--orange-light);border-left:3px solid var(--orange);color:var(--orange-text);}
+.info-box.red{background:var(--red-light);border-left:3px solid var(--red);color:var(--red-text);}
+.info-box.purple{background:var(--purple-light);border-left:3px solid var(--purple);color:var(--purple-text);}
+.info-box.teal{background:var(--teal-light);border-left:3px solid var(--teal);color:var(--teal-text);}
+.info-box.blue{background:var(--blue-light);border-left:3px solid var(--blue);color:var(--blue-text);}
+
+.recap{border:1.5px dashed var(--st-light);border-radius:var(--radius-md);background:var(--st-bg);margin:1.1rem 0;overflow:hidden;}
+.recap-toggle{width:100%;background:none;border:none;font-family:var(--font);cursor:pointer;display:flex;align-items:center;gap:10px;padding:.85rem 1.1rem;font-size:14px;font-weight:800;color:var(--st);text-align:left;}
+.recap-toggle .chev{margin-left:auto;transition:transform .25s;font-size:13px;}
+.recap.open .recap-toggle .chev{transform:rotate(180deg);}
+.recap-body{display:none;padding:0 1.1rem 1.1rem;font-size:13.5px;color:#7a1242;}
+.recap.open .recap-body{display:block;animation:fadeUp .3s ease both;}
+.recap-body ul{list-style:none;margin:.4rem 0;}
+.recap-body li{padding:5px 0 5px 20px;position:relative;}
+.recap-body li::before{content:'–';position:absolute;left:4px;color:var(--st-light);font-weight:800;}
+
+.task{border:1.5px solid var(--st-light);border-radius:var(--radius-md);overflow:hidden;margin:1.2rem 0;}
+.task-header{background:var(--st);padding:.7rem 1.1rem;display:flex;align-items:center;gap:12px;}
+.task-num{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;}
+.task-htext{display:flex;flex-direction:column;gap:1px;}
+.task-title{font-size:13.5px;font-weight:800;color:#fff;line-height:1.3;}
+.task-subtitle{font-size:11px;color:rgba(255,255,255,.72);font-weight:600;}
+.task-body{background:var(--st-bg);padding:1.1rem 1.2rem;display:flex;gap:14px;align-items:flex-start;}
+.task-icons{display:flex;flex-direction:column;gap:6px;flex-shrink:0;}
+.icon-tile{background:#fff;border-radius:8px;padding:8px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;}
+.task-content{flex:1;}
+.task-content ol{margin:.3rem 0 .3rem 1.1rem;}
+.task-content li{margin-bottom:.4rem;}
+
+.book-ref{background:var(--book-bg);border:1.5px solid var(--book-border);border-radius:var(--radius-md);padding:.85rem 1.1rem;margin:.9rem 0;display:flex;gap:10px;align-items:flex-start;}
+.book-ref-icon{font-size:18px;}
+.book-ref-title{color:var(--book-title);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.book-ref-text{color:var(--book-text);font-size:13.5px;}
+
+.para-quote{background:#1e293b;border-radius:var(--radius-md);padding:1rem 1.2rem;margin:.9rem 0;}
+.para-quote .pq-label{color:#f0a6c4;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3rem;}
+.para-quote p{color:#e2e8f0!important;font-style:italic;font-size:13.5px;margin:0;}
+
+.fall-box{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-md);padding:1.1rem 1.2rem;margin:.9rem 0;}
+.fall-box-label{font-size:11px;font-weight:800;color:var(--st);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.fall-box p{font-size:13.5px;margin-bottom:.5rem;}
+.fall-box p:last-child{margin-bottom:0;}
+
+.match-row{display:flex;gap:10px;align-items:center;margin:.5rem 0;flex-wrap:wrap;}
+.match-statement{flex:1;min-width:200px;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:13.5px;}
+.match-select{border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 10px;font-family:var(--font);font-size:13px;font-weight:700;background:#fff;color:var(--text);min-width:175px;cursor:pointer;}
+.match-select.correct{border-color:var(--green);background:var(--green-light);color:var(--green-text);}
+.match-select.wrong{border-color:var(--red);background:var(--red-light);color:var(--red-text);}
+
+.btn{font-family:var(--font);font-weight:800;font-size:14px;border-radius:var(--radius-md);padding:11px 22px;cursor:pointer;border:none;}
+.btn-primary{background:var(--st);color:#fff;}
+.btn-primary:hover{background:#80133f;transform:translateY(-1px);}
+.btn-secondary{background:#fff;color:var(--text);border:1.5px solid var(--border);font-weight:700;}
+.btn-secondary:hover{border-color:var(--st);color:var(--st);}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem;align-items:center;}
+.match-feedback{font-size:13.5px;font-weight:700;margin-top:.6rem;}
+
+.solution-btn{border:1.5px solid var(--border);background:#fff;border-radius:var(--radius-sm);padding:8px 16px;font-weight:700;font-family:var(--font);font-size:13px;color:var(--text-secondary);cursor:pointer;}
+.solution-btn:hover{border-color:var(--green);color:var(--green-text);background:var(--green-light);}
+.solution-reveal{display:none;background:var(--green-light);border-left:3px solid var(--green);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.2rem;margin-top:.8rem;color:var(--green-text);font-size:13.5px;}
+.solution-reveal.visible{display:block;animation:fadeUp .3s ease both;}
+.solution-reveal strong{color:#0f3d20;}
+.solution-reveal ul{margin:.4rem 0 .4rem 1.1rem;}
+.solution-reveal li{margin-bottom:.35rem;}
+.solution-reveal ol{margin:.4rem 0 .4rem 1.1rem;}
+.solution-reveal ol li{margin-bottom:.5rem;}
+
+.answer-area{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font);font-size:14px;resize:vertical;min-height:90px;background:#fff;margin-top:.5rem;}
+.answer-area:focus{outline:none;border-color:var(--st);}
+
+/* TBM-Liste (sieben Merkmale) */
+.tbm-list{counter-reset:tbm;margin:1rem 0;}
+.tbm-item{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-md);padding:.9rem 1.1rem;margin-bottom:.6rem;}
+.tbm-num{counter-increment:tbm;flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--st);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;}
+.tbm-num::before{content:counter(tbm);}
+.tbm-text{font-size:13.5px;}
+.tbm-text strong{color:var(--st);}
+
+/* Gutachten 4 Schritte */
+.gutachten-steps{display:flex;flex-wrap:wrap;gap:8px;margin:1rem 0;}
+.g-step{flex:1;min-width:130px;background:var(--st-bg);border:1.5px solid var(--st-light);border-radius:var(--radius-sm);padding:.7rem .8rem;}
+.g-step-num{font-size:11px;font-weight:800;color:var(--st);text-transform:uppercase;letter-spacing:.5px;}
+.g-step-title{font-size:13.5px;font-weight:800;margin:2px 0;}
+.g-step-desc{font-size:12px;color:var(--text-secondary);}
+
+.quiz-q{margin:1.3rem 0;}
+.quiz-q-text{font-weight:800;font-size:15px;margin-bottom:.6rem;}
+.quiz-opt{display:block;width:100%;text-align:left;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:11px 14px;background:#fff;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;margin-bottom:8px;}
+.quiz-opt:hover{border-color:var(--st-light);background:var(--st-bg);}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-light);color:var(--green-text);}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-light);color:var(--red-text);}
+.quiz-opt.disabled{pointer-events:none;}
+.quiz-fb{font-size:13.5px;font-weight:700;margin-top:.3rem;min-height:1px;}
+.quiz-score{display:none;margin-top:1rem;padding:1rem 1.2rem;border-radius:var(--radius-md);background:var(--st-bg);font-weight:800;color:var(--st);text-align:center;}
+
+.teacher-only{display:none;}
+body.version-b .teacher-only{display:block;}
+.teacher-note{background:var(--teacher-bg);border:1.5px solid var(--teacher-border);border-radius:var(--radius-md);padding:1.1rem 1.2rem;margin:1rem 0;}
+.teacher-note-header{font-weight:800;font-size:12px;color:var(--teacher-text);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.abfrage-card{border:1.5px solid var(--border);border-radius:var(--radius-md);margin:.9rem 0;overflow:hidden;}
+.abfrage-head{display:flex;align-items:center;gap:10px;padding:.8rem 1rem;background:#fcf7f9;cursor:pointer;}
+.k-badge{font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;color:#fff;flex-shrink:0;}
+.k-wissen{background:#1976D2;} .k-kritik{background:#7B1FA2;} .k-komm{background:#0d9488;} .k-kreativ{background:#EA580C;}
+.abfrage-q{flex:1;font-size:14px;font-weight:700;}
+.abfrage-chev{font-size:13px;color:var(--text-muted);transition:transform .25s;}
+.abfrage-card.open .abfrage-chev{transform:rotate(180deg);}
+.abfrage-reveal{display:none;padding:.9rem 1.1rem;background:#fff;border-top:1px solid var(--border);font-size:13.5px;}
+.abfrage-card.open .abfrage-reveal{display:block;}
+.abfrage-reveal-title{font-weight:800;color:var(--st);font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem;}
+.abfrage-reveal ul{margin-left:1.1rem;}
+.abfrage-reveal li{margin-bottom:.35rem;}
+
+.nav-btns{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:1.6rem;flex-wrap:wrap;}
+.btn-home{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--st);border:1.5px solid var(--st);border-radius:var(--radius-md);padding:11px 22px;font-family:var(--font);font-size:14px;font-weight:800;text-decoration:none;}
+.btn-home:hover{background:var(--st-bg);}
+
+.print-btn{background:none;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:7px 14px;font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer;color:var(--text-secondary);}
+.print-btn:hover{border-color:var(--st);color:var(--st);}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:var(--radius-lg);padding:2rem;width:90%;max-width:340px;text-align:center;box-shadow:var(--shadow-lg);}
+.modal h3{font-size:18px;font-weight:800;margin-bottom:.3rem;}
+.modal p{font-size:13px;color:var(--text-secondary);margin-bottom:1.2rem;}
+.pin-display{display:flex;gap:8px;justify-content:center;margin-bottom:1.2rem;}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--st);background:#fff;}
+.pin-dot.filled{background:var(--st);}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.pin-key{background:var(--st-bg);border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font);font-size:18px;font-weight:800;color:var(--st);cursor:pointer;}
+.pin-key:hover{background:#fbd9e8;}
+.pin-key.wide{font-size:13px;}
+.modal.shake{animation:shake .4s;}
+.modal-close{margin-top:1rem;background:none;border:none;color:var(--text-muted);font-family:var(--font);font-size:13px;cursor:pointer;text-decoration:underline;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes shake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-8px);}40%,80%{transform:translateX(8px);}}
+
+@media(max-width:600px){
+  .hero h1{font-size:22px;}
+  .topbar{padding:0 1rem;}
+  .main{padding:20px 14px 60px;}
+  .task-body{flex-direction:column;}
+  .task-icons{flex-direction:row;}
+}
+@media print{
+  .topbar,.progress,.nav-btns,.teacher-btn,.print-btn{display:none!important;}
+  .step{display:block!important;}
+  .section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">WR<span>&amp;</span>Recht<span class="topbar-logo-back">← Übersicht</span></a>
+  <span class="topbar-chip">3.2.1</span>
+  <button class="teacher-btn" onclick="openPin()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z" fill="currentColor"/></svg>
+    Lehrkraft
+  </button>
+</div>
+
+<div class="progress">
+  <div class="progress-step active" data-step="1" onclick="goStep(1)"><span class="dot">1</span>Ansprüche</div>
+  <div class="progress-step" data-step="2" onclick="goStep(2)"><span class="dot">2</span>§ 823 zerlegen</div>
+  <div class="progress-step" data-step="3" onclick="goStep(3)"><span class="dot">3</span>Gutachten</div>
+  <div class="progress-step teacher-only" data-step="4" onclick="goStep(4)"><span class="dot">4</span>Abfrage</div>
+</div>
+
+<div class="main">
+
+  <!-- ════════ STEP 1 · ANSPRÜCHE ════════ -->
+  <section class="step active" id="step-1">
+    <div class="hero">
+      <div class="hero-kapitel">Kapitel 3.2 · Zivilrecht</div>
+      <h1>Ansprüche begründen – mit System</h1>
+      <div class="hero-sub">Du unterscheidest vertragliche von gesetzlichen Ansprüchen und prüfst einen Schadensersatzanspruch aus § 823 I BGB im Gutachtenstil.</div>
+      <div class="hero-lehrplan">
+        <div class="hero-lehrplan-label">📋 Lehrplan-Bezug</div>
+        <div class="hero-lehrplan-text">Du begründest gesetzliche Ansprüche in konkreten Fallbeispielen, greifst dabei auf deine rechtstechnischen Kompetenzen zurück und formulierst Texte juristisch fundiert zur Durchsetzung der Ansprüche.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="section-label">Einstieg</span>
+      <h2>„Wer kann was von wem verlangen?"</h2>
+
+      <div class="info-box orange">
+        <strong>💡 Warum ist das relevant für dich?</strong>
+        Sobald es Streit gibt – ein geliehenes Gerät kommt nicht zurück, jemand beschädigt dein Eigentum – ist die entscheidende Frage immer dieselbe: Habe ich einen <em>Anspruch</em>, und worauf stützt er sich? Wer das sauber beantworten kann, ist im Recht klar im Vorteil.
+      </div>
+
+      <p>Ein <strong>Anspruch</strong> ist das Recht, von einem anderen ein Tun oder Unterlassen zu verlangen. Ansprüche entstehen auf zwei Wegen: aus einem <strong>Vertrag</strong> (z. B. Kauf, Leihe) oder unmittelbar aus dem <strong>Gesetz</strong> (z. B. bei einer Beschädigung deines Eigentums).</p>
+
+      <div class="recap" id="recap1">
+        <button class="recap-toggle" onclick="toggleRecap('recap1')">
+          <span>⚖️ Vertraglich oder gesetzlich? Der Unterschied</span>
+          <span class="chev">▼</span>
+        </button>
+        <div class="recap-body">
+          <ul>
+            <li><strong>Vertraglicher Anspruch:</strong> Es gibt vorher eine Vereinbarung zwischen den Beteiligten. Beispiel: Aus einem Leihvertrag (§ 598 BGB) folgt die Rückgabepflicht (§ 604 BGB).</li>
+            <li><strong>Gesetzlicher Anspruch:</strong> Es gibt keinen Vertrag – das Gesetz selbst ordnet den Anspruch an. Beispiele: Herausgabe aus dem Eigentum (§ 985 BGB) oder Schadensersatz aus unerlaubter Handlung (§ 823 BGB).</li>
+            <li>Merkhilfe: Frag dich „Haben die beiden vorher etwas miteinander vereinbart?" – wenn ja, ist es meist vertraglich, wenn nein, gesetzlich.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Materialien <strong>M1–M4</strong> auf <strong>Seite 156–157</strong> (Zechpreller, Dackeldame Lulu, Tritt gegen den Pkw, geliehener Laptop). Das Fachwissen findest du auf <strong>Seite 174</strong>.</div>
+        </div>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">1</div>
+          <div class="task-htext">
+            <span class="task-title">Ansprüche ihrer Grundlage zuordnen</span>
+            <span class="task-subtitle">Falllösung · Partnerarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #0d9488;">
+              <svg width="22" height="22" viewBox="0 0 44 36" fill="none"><circle cx="12" cy="10" r="6.5" fill="#0d9488"/><circle cx="32" cy="10" r="6.5" fill="#0d9488"/><path d="M1 34c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M21 34c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <p style="margin-bottom:.4rem;">Ordnet jedem Fall die richtige Anspruchsgrundlage zu und überlegt, ob der Anspruch vertraglich oder gesetzlich ist.</p>
+
+            <div class="match-row">
+              <div class="match-statement"><strong>M2:</strong> Der entlaufenen Hündin Lulu folgt ein jahrelanger Streit – der ursprüngliche Eigentümer will sie von der Familie zurück.</div>
+              <select class="match-select" data-correct="985">
+                <option value="">— Grundlage wählen —</option>
+                <option value="604">§ 604 BGB (Leihe, vertraglich)</option>
+                <option value="985">§ 985 BGB (Eigentum, gesetzlich)</option>
+                <option value="823">§ 823 BGB (Schaden, gesetzlich)</option>
+              </select>
+            </div>
+            <div class="match-row">
+              <div class="match-statement"><strong>M3:</strong> Jemand tritt vorsätzlich gegen einen geparkten Pkw, 300 € Schaden. Der Eigentümer will Ersatz.</div>
+              <select class="match-select" data-correct="823">
+                <option value="">— Grundlage wählen —</option>
+                <option value="604">§ 604 BGB (Leihe, vertraglich)</option>
+                <option value="985">§ 985 BGB (Eigentum, gesetzlich)</option>
+                <option value="823">§ 823 BGB (Schaden, gesetzlich)</option>
+              </select>
+            </div>
+            <div class="match-row">
+              <div class="match-statement"><strong>M4:</strong> Jan hat seinem Freund die Spielkonsole geliehen und will sie nach zwei Wochen zurück.</div>
+              <select class="match-select" data-correct="604">
+                <option value="">— Grundlage wählen —</option>
+                <option value="604">§ 604 BGB (Leihe, vertraglich)</option>
+                <option value="985">§ 985 BGB (Eigentum, gesetzlich)</option>
+                <option value="823">§ 823 BGB (Schaden, gesetzlich)</option>
+              </select>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-primary" onclick="checkMatch(this,'m1')">Prüfen</button>
+              <button class="btn btn-secondary" onclick="resetMatch(this)">↩ Zurücksetzen</button>
+            </div>
+            <div class="match-feedback" id="m1-fb"></div>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('sol1')">Musterlösung anzeigen</button>
+            <div class="solution-reveal" id="sol1">
+              <strong>Lösung:</strong>
+              <ul>
+                <li><strong>M2 → § 985 BGB (gesetzlich):</strong> Lulu ist entlaufen, der Eigentümer hat den Besitz nicht freiwillig aufgegeben. Die Familie wurde nur Besitzerin – der Eigentümer kann die Herausgabe verlangen.</li>
+                <li><strong>M3 → § 823 BGB (gesetzlich):</strong> Der Tritt verletzt vorsätzlich und widerrechtlich das Eigentum am Pkw und verursacht 300 € Schaden – Schadensersatz aus unerlaubter Handlung.</li>
+                <li><strong>M4 → § 604 BGB (vertraglich):</strong> Zwischen Jan und seinem Freund besteht ein Leihvertrag (§ 598). War keine Leihzeit bestimmt, kann Jan die Sache jederzeit zurückfordern (§ 604 III).</li>
+              </ul>
+              <p>Die gesetzlichen Ansprüche (M2, M3) brauchen keine Vereinbarung; der vertragliche (M4) setzt den Leihvertrag voraus.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-primary" onclick="goStep(2)">Weiter: § 823 zerlegen →</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 2 · § 823 ZERLEGEN ════════ -->
+  <section class="step" id="step-2">
+    <div class="section">
+      <span class="section-label">Erarbeitung</span>
+      <h2>Der Schadensersatzanspruch aus § 823 I BGB</h2>
+
+      <p>§ 823 I BGB ist die wichtigste Anspruchsgrundlage im Deliktsrecht. Damit jemand Schadensersatz schuldet, müssen <strong>sieben Tatbestandsmerkmale</strong> erfüllt sein – alle nacheinander, alle vollständig.</p>
+
+      <div class="para-quote">
+        <div class="pq-label">§ 823 Abs. 1 BGB · Schadensersatzpflicht</div>
+        <p>„Wer vorsätzlich oder fahrlässig das Leben, den Körper, die Gesundheit, die Freiheit, das Eigentum oder ein sonstiges Recht eines anderen widerrechtlich verletzt, ist dem anderen zum Ersatz des daraus entstehenden Schadens verpflichtet."</p>
+      </div>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Methode <strong>„Wie prüft man Ansprüche im Gutachtenstil?"</strong>, <strong>Seite 158–163</strong>. M2 und M3 erklären die Tatbestandsmerkmale im Einzelnen.</div>
+        </div>
+      </div>
+
+      <p style="font-weight:700;margin-top:1.2rem;">Die sieben Tatbestandsmerkmale des § 823 I BGB:</p>
+      <div class="tbm-list">
+        <div class="tbm-item"><div class="tbm-num"></div><div class="tbm-text"><strong>Verletzungshandlung</strong> – ein vom Willen beherrschbares Tun oder Unterlassen.</div></div>
+        <div class="tbm-item"><div class="tbm-num"></div><div class="tbm-text"><strong>Rechts(gut)verletzung</strong> – verletzt sein muss Leben, Körper, Gesundheit, Freiheit, Eigentum oder ein sonstiges Recht.</div></div>
+        <div class="tbm-item"><div class="tbm-num"></div><div class="tbm-text"><strong>Haftungsbegründende Kausalität</strong> – die Handlung muss die Rechtsgutverletzung verursacht haben (Äquivalenztheorie: nicht wegzudenken, ohne dass der Erfolg entfällt).</div></div>
+        <div class="tbm-item"><div class="tbm-num"></div><div class="tbm-text"><strong>Widerrechtlichkeit</strong> – wird durch die Verletzung indiziert, außer es liegt ein Rechtfertigungsgrund vor (z. B. Notwehr).</div></div>
+        <div class="tbm-item"><div class="tbm-num"></div><div class="tbm-text"><strong>Verschulden</strong> – Vorsatz oder Fahrlässigkeit (§ 276 BGB).</div></div>
+        <div class="tbm-item"><div class="tbm-num"></div><div class="tbm-text"><strong>Schaden</strong> – in der Regel ein Vermögensschaden.</div></div>
+        <div class="tbm-item"><div class="tbm-num"></div><div class="tbm-text"><strong>Haftungsausfüllende Kausalität</strong> – Zusammenhang zwischen Rechtsgutverletzung und Schaden (Adäquanztheorie).</div></div>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">2</div>
+          <div class="task-htext">
+            <span class="task-title">Tatbestandsmerkmale erkennen</span>
+            <span class="task-subtitle">Quiz · Einzelarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #1976D2;">
+              <svg width="22" height="22" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="12" r="7" fill="#1976D2"/><path d="M4 34c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#1976D2" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <p style="margin-bottom:.4rem;">Ordne jede Aussage dem richtigen Tatbestandsmerkmal zu.</p>
+
+            <div class="match-row">
+              <div class="match-statement">„Der Täter hat den Schaden billigend in Kauf genommen."</div>
+              <select class="match-select" data-correct="verschulden">
+                <option value="">— Merkmal wählen —</option>
+                <option value="handlung">Verletzungshandlung</option>
+                <option value="widerrecht">Widerrechtlichkeit</option>
+                <option value="verschulden">Verschulden</option>
+                <option value="schaden">Schaden</option>
+              </select>
+            </div>
+            <div class="match-row">
+              <div class="match-statement">„Es lag kein Rechtfertigungsgrund wie Notwehr vor."</div>
+              <select class="match-select" data-correct="widerrecht">
+                <option value="">— Merkmal wählen —</option>
+                <option value="handlung">Verletzungshandlung</option>
+                <option value="widerrecht">Widerrechtlichkeit</option>
+                <option value="verschulden">Verschulden</option>
+                <option value="schaden">Schaden</option>
+              </select>
+            </div>
+            <div class="match-row">
+              <div class="match-statement">„Die Restaurierung kostete 4.000 €."</div>
+              <select class="match-select" data-correct="schaden">
+                <option value="">— Merkmal wählen —</option>
+                <option value="handlung">Verletzungshandlung</option>
+                <option value="widerrecht">Widerrechtlichkeit</option>
+                <option value="verschulden">Verschulden</option>
+                <option value="schaden">Schaden</option>
+              </select>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-primary" onclick="checkMatch(this,'m2')">Prüfen</button>
+              <button class="btn btn-secondary" onclick="resetMatch(this)">↩ Zurücksetzen</button>
+            </div>
+            <div class="match-feedback" id="m2-fb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goStep(1)">← Zurück</button>
+      <button class="btn btn-primary" onclick="goStep(3)">Weiter: Gutachten →</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 3 · GUTACHTEN ════════ -->
+  <section class="step" id="step-3">
+    <div class="section">
+      <span class="section-label">Vertiefung</span>
+      <h2>Der Gutachtenstil – Schritt für Schritt</h2>
+
+      <p>Beim <strong>Gutachtenstil</strong> prüfst du <em>vom Zweifel zum Ergebnis</em>: Du behauptest nichts, sondern arbeitest dich Merkmal für Merkmal vor. Jedes der sieben Merkmale wird in vier Schritten geprüft.</p>
+
+      <div class="gutachten-steps">
+        <div class="g-step"><div class="g-step-num">Schritt 1</div><div class="g-step-title">Obersatz</div><div class="g-step-desc">Wer könnte was von wem woraus verlangen?</div></div>
+        <div class="g-step"><div class="g-step-num">Schritt 2</div><div class="g-step-title">Voraussetzungen & Definition</div><div class="g-step-desc">Was verlangt das Merkmal? Begriff definieren.</div></div>
+        <div class="g-step"><div class="g-step-num">Schritt 3</div><div class="g-step-title">Subsumtion</div><div class="g-step-desc">Passt der Sachverhalt unter die Definition?</div></div>
+        <div class="g-step"><div class="g-step-num">Schritt 4</div><div class="g-step-title">Ergebnis</div><div class="g-step-desc">Merkmal erfüllt – ja oder nein?</div></div>
+      </div>
+
+      <div class="info-box blue">
+        <strong>🔑 Gutachtenstil vs. Urteilsstil</strong>
+        Im <strong>Urteilsstil</strong> steht das Ergebnis vorne („Der Anspruch besteht, weil …"). Im <strong>Gutachtenstil</strong> kommt das Ergebnis zuletzt – du führst den Leser den Prüfungsweg entlang. Genau das wird in Schulaufgaben verlangt.
+      </div>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Der Fall <strong>M1 „Attacken auf Gemälde"</strong> (S. 158) und die Formulierungsbeispiele M5/M6 (S. 161–162) helfen beim Ausformulieren.</div>
+        </div>
+      </div>
+
+      <div class="fall-box">
+        <div class="fall-box-label">Der Fall: Attacke auf die „Sixtinische Madonna"</div>
+        <p>Zwei Umweltaktivisten kleben sich mit je einer Hand am Rahmen der „Sixtinischen Madonna" in der Dresdner Gemäldegalerie fest. Beim Entfernen wird der Rahmen beschädigt. Die Restaurierung kostet 4.000 €, durch die Schließung des Museums entsteht ein Einnahmeverlust von 7.000 €. Die Staatlichen Kunstsammlungen Dresden (SKD) sind Eigentümer des Rahmens.</p>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">3</div>
+          <div class="task-htext">
+            <span class="task-title">Schadensersatz im Gutachtenstil prüfen</span>
+            <span class="task-subtitle">Falllösung · Gruppenarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #7B1FA2;">
+              <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="8" stroke="#7B1FA2" stroke-width="2" fill="none"/><circle cx="20" cy="5" r="4" fill="#7B1FA2"/><path d="M14 13c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="#7B1FA2" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="20" cy="35" r="4" fill="#7B1FA2"/><path d="M14 27c0 3.314 2.686 6 6 6s6-2.686 6-6" stroke="#7B1FA2" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="5" cy="20" r="4" fill="#7B1FA2"/><path d="M13 14c-3.314 0-6 2.686-6 6s2.686 6 6 6" stroke="#7B1FA2" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="35" cy="20" r="4" fill="#7B1FA2"/><path d="M27 14c3.314 0 6 2.686 6 6s-2.686 6-6 6" stroke="#7B1FA2" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <p>Prüft gemeinsam im Gutachtenstil, ob die SKD von den Aktivisten Schadensersatz aus § 823 I BGB verlangen können. Geht die sieben Tatbestandsmerkmale der Reihe nach durch. Achtet besonders auf die Widerrechtlichkeit: Greift hier die Meinungs-/Versammlungsfreiheit als Rechtfertigung?</p>
+            <textarea class="answer-area" placeholder="Obersatz: Die SKD könnten gegen die Aktivisten einen Anspruch auf Schadensersatz aus § 823 I BGB haben, wenn ..."></textarea>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('sol3')">Musterlösung anzeigen</button>
+            <div class="solution-reveal" id="sol3">
+              <strong>Obersatz:</strong> Die SKD könnten gegen die Aktivisten einen Anspruch auf Schadensersatz aus § 823 I BGB haben, wenn dessen Tatbestandsmerkmale erfüllt sind.
+              <ol>
+                <li><strong>Verletzungshandlung:</strong> Die Aktivisten haben sich bewusst und willentlich am Rahmen festgeklebt – ein vom Willen beherrschbares Tun. (+)</li>
+                <li><strong>Rechtsgutverletzung:</strong> Betroffen ist das Eigentum der SKD am Rahmen. Durch den Klebstoff wurde der Rahmen beschädigt – Eigentumsverletzung. (+)</li>
+                <li><strong>Haftungsbegründende Kausalität:</strong> Ohne das Festkleben und Entfernen wäre der Rahmen nicht beschädigt worden (Äquivalenztheorie). (+)</li>
+                <li><strong>Widerrechtlichkeit:</strong> Wird durch die Eigentumsverletzung indiziert. Ein Rechtfertigungsgrund könnte die Meinungsfreiheit (Art. 5 GG) sein – aber sie deckt keine Sachbeschädigung. Die Aktion ist nicht gerechtfertigt. (+)</li>
+                <li><strong>Verschulden:</strong> Die Aktivisten nahmen die Beschädigung billigend in Kauf – zumindest bedingter Vorsatz. (+)</li>
+                <li><strong>Schaden:</strong> Restaurierung 4.000 € und Einnahmeverlust 7.000 € – unfreiwillige Vermögenseinbuße. (+)</li>
+                <li><strong>Haftungsausfüllende Kausalität:</strong> Dass durch die Beschädigung ein solcher Schaden entsteht, liegt nicht außerhalb der Lebenswahrscheinlichkeit (Adäquanztheorie). (+)</li>
+              </ol>
+              <strong>Ergebnis:</strong> Alle Tatbestandsmerkmale sind erfüllt. Die SKD haben einen Anspruch auf Schadensersatz aus § 823 I BGB. Die Höhe bemisst sich nach § 249 I BGB (Restaurierung + Einnahmeverlust).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz -->
+      <div class="section" style="box-shadow:none;border:1.5px solid var(--st-light);background:var(--st-bg);margin-bottom:0;">
+        <span class="section-label">Sicherung – kurzes Quiz</span>
+        <h2 style="font-size:18px;">Sitzt der Gutachtenstil?</h2>
+
+        <div class="quiz-q" id="q1">
+          <div class="quiz-q-text">1. Womit beginnt eine Prüfung im Gutachtenstil?</div>
+          <button class="quiz-opt" onclick="quiz(this,'q1',false)">Mit dem Ergebnis.</button>
+          <button class="quiz-opt" onclick="quiz(this,'q1',true)">Mit dem Obersatz (Wer will was von wem woraus?).</button>
+          <button class="quiz-opt" onclick="quiz(this,'q1',false)">Mit der Schadensberechnung.</button>
+          <div class="quiz-fb" id="q1-fb"></div>
+        </div>
+
+        <div class="quiz-q" id="q2">
+          <div class="quiz-q-text">2. Die Widerrechtlichkeit bei § 823 I BGB …</div>
+          <button class="quiz-opt" onclick="quiz(this,'q2',true)">… wird durch die Rechtsgutverletzung indiziert, außer es gibt einen Rechtfertigungsgrund.</button>
+          <button class="quiz-opt" onclick="quiz(this,'q2',false)">… muss immer eigens nachgewiesen werden.</button>
+          <button class="quiz-opt" onclick="quiz(this,'q2',false)">… ist dasselbe wie das Verschulden.</button>
+          <div class="quiz-fb" id="q2-fb"></div>
+        </div>
+
+        <div class="quiz-q" id="q3">
+          <div class="quiz-q-text">3. Warum scheitert die Rechtfertigung der Aktivisten über Art. 5 GG?</div>
+          <button class="quiz-opt" onclick="quiz(this,'q3',false)">Weil Klimaschutz kein wichtiges Anliegen ist.</button>
+          <button class="quiz-opt" onclick="quiz(this,'q3',true)">Weil die Meinungsfreiheit keine Beschädigung fremden Eigentums deckt.</button>
+          <button class="quiz-opt" onclick="quiz(this,'q3',false)">Weil Art. 5 GG nur für Journalisten gilt.</button>
+          <div class="quiz-fb" id="q3-fb"></div>
+        </div>
+
+        <div class="quiz-score" id="quiz-score"></div>
+        <div id="quiz-retry-wrap" style="display:none;margin-top:.75rem;">
+          <button class="btn btn-secondary" style="border-color:var(--red);color:var(--red);" onclick="retryQuiz()">🔄 Quiz nochmal versuchen</button>
+        </div>
+      </div>
+
+      <div class="info-box teal" style="margin-top:1.5rem;">
+        <strong>✅ Das hast du heute gelernt</strong>
+        Du unterscheidest vertragliche von gesetzlichen Ansprüchen, kennst die sieben Tatbestandsmerkmale des § 823 I BGB und prüfst einen Schadensersatzanspruch im Gutachtenstil (Obersatz → Voraussetzungen → Subsumtion → Ergebnis). In der mündlichen Abfrage zeigst du, dass du diesen Prüfungsweg an einem neuen Fall selbst gehen kannst.
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-secondary" onclick="goStep(2)">← Zurück</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 4 · ABFRAGE ════════ -->
+  <section class="step teacher-only" id="step-4">
+    <div class="section">
+      <span class="section-label">Mündliche Abfrage · nur Lehrkraft</span>
+      <h2>Abfrage nach dem 4K-Modell</h2>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:.5rem;">
+        <button class="print-btn" onclick="window.print()">🖨 Abfrage drucken</button>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-header">Hinweis für die Lehrkraft</div>
+        Je eine Frage pro Kompetenzbereich. Erwartungshorizont aufklappbar. Empfohlene Dauer ca. 10 Minuten.
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-wissen">Wissen</span>
+          <span class="abfrage-q">Nenne die sieben Tatbestandsmerkmale des § 823 I BGB in der richtigen Reihenfolge.</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Verletzungshandlung, Rechtsgutverletzung, haftungsbegründende Kausalität, Widerrechtlichkeit, Verschulden, Schaden, haftungsausfüllende Kausalität.</li>
+            <li>Reihenfolge korrekt; Verständnis, dass alle vorliegen müssen.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-kritik">Kritisches Denken</span>
+          <span class="abfrage-q">Die Aktivisten berufen sich auf die Meinungsfreiheit. Warum trägt dieses Argument bei der Widerrechtlichkeit nicht?</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Meinungs- und Versammlungsfreiheit (Art. 5/8 GG) haben Schranken.</li>
+            <li>Sie decken keine Beschädigung fremden Eigentums – auch ein wichtiges Anliegen rechtfertigt das nicht.</li>
+            <li>Abwägung: Schadenshöhe steht in keinem sinnvollen Verhältnis zum Protestziel.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-komm">Kommunikation</span>
+          <span class="abfrage-q">Erkläre den Unterschied zwischen Gutachten- und Urteilsstil so, dass ihn ein Mitschüler sofort versteht.</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Urteilsstil: Ergebnis zuerst, dann Begründung.</li>
+            <li>Gutachtenstil: Prüfungsweg zuerst (Obersatz → Definition → Subsumtion), Ergebnis zuletzt.</li>
+            <li>Anschauliches Bild oder Beispiel, verständliche Sprache.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-kreativ">Kreativität</span>
+          <span class="abfrage-q">Denk dir einen Alltagsfall aus, bei dem genau ein Tatbestandsmerkmal des § 823 I BGB fehlt – und der Anspruch deshalb scheitert.</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Plausibler eigener Fall (z. B. Schaden ohne Verschulden, oder Rechtfertigungsgrund vorhanden → keine Widerrechtlichkeit).</li>
+            <li>Korrekte Identifikation, welches Merkmal fehlt und warum der Anspruch dadurch scheitert.</li>
+            <li>Verständnis, dass alle Merkmale kumulativ vorliegen müssen.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-secondary" onclick="goStep(3)">← Zurück</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- PIN-Modal -->
+<div class="modal-overlay" id="pin-modal">
+  <div class="modal" id="pin-box">
+    <h3>Lehrkraft-Bereich</h3>
+    <p>Bitte 8-stelligen PIN eingeben</p>
+    <div class="pin-display" id="pin-display"></div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinPress('1')">1</button>
+      <button class="pin-key" onclick="pinPress('2')">2</button>
+      <button class="pin-key" onclick="pinPress('3')">3</button>
+      <button class="pin-key" onclick="pinPress('4')">4</button>
+      <button class="pin-key" onclick="pinPress('5')">5</button>
+      <button class="pin-key" onclick="pinPress('6')">6</button>
+      <button class="pin-key" onclick="pinPress('7')">7</button>
+      <button class="pin-key" onclick="pinPress('8')">8</button>
+      <button class="pin-key" onclick="pinPress('9')">9</button>
+      <button class="pin-key wide" onclick="pinClear()">C</button>
+      <button class="pin-key" onclick="pinPress('0')">0</button>
+      <button class="pin-key wide" onclick="pinDel()">⌫</button>
+    </div>
+    <button class="modal-close" onclick="closePin()">Abbrechen</button>
+  </div>
+</div>
+
+<script>
+const TEACHER_PIN='13579135';
+let pinEntry='';
+function openPin(){
+  if(document.body.classList.contains('version-b')){document.body.classList.remove('version-b');return;}
+  document.getElementById('pin-modal').classList.add('open');pinClear();
+}
+function closePin(){document.getElementById('pin-modal').classList.remove('open');}
+function renderPin(){
+  const d=document.getElementById('pin-display');d.innerHTML='';
+  for(let i=0;i<8;i++){const dot=document.createElement('div');dot.className='pin-dot'+(i<pinEntry.length?' filled':'');d.appendChild(dot);}
+}
+function pinPress(n){if(pinEntry.length>=8)return;pinEntry+=n;renderPin();if(pinEntry.length===8)setTimeout(checkPin,150);}
+function pinDel(){pinEntry=pinEntry.slice(0,-1);renderPin();}
+function pinClear(){pinEntry='';renderPin();}
+function checkPin(){
+  if(pinEntry===TEACHER_PIN){document.body.classList.add('version-b');closePin();}
+  else{const box=document.getElementById('pin-box');box.classList.add('shake');setTimeout(()=>box.classList.remove('shake'),400);pinClear();}
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('pin-modal').classList.contains('open'))return;
+  if(e.key>='0'&&e.key<='9')pinPress(e.key);
+  else if(e.key==='Backspace')pinDel();
+  else if(e.key==='Escape')closePin();
+});
+
+function goStep(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step-'+n).classList.add('active');
+  document.querySelectorAll('.progress-step').forEach(p=>p.classList.toggle('active',p.dataset.step==n));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleRecap(id){document.getElementById(id).classList.toggle('open');}
+
+function checkMatch(btn,id){
+  const task=btn.closest('.task-content');let all=0,ok=0;
+  task.querySelectorAll('.match-select').forEach(sel=>{
+    all++;sel.classList.remove('correct','wrong');
+    if(sel.value===sel.dataset.correct){sel.classList.add('correct');ok++;}else sel.classList.add('wrong');
+  });
+  const fb=document.getElementById(id+'-fb');
+  if(ok===all){fb.style.color='var(--green-text)';fb.textContent='Alle '+all+' richtig – stark!';}
+  else{fb.style.color='var(--red-text)';fb.textContent=ok+' von '+all+' richtig. Schau dir die rot markierten nochmal an.';}
+}
+function resetMatch(btn){
+  const task=btn.closest('.task-content');
+  task.querySelectorAll('.match-select').forEach(sel=>{sel.classList.remove('correct','wrong');sel.value='';});
+  task.querySelector('.match-feedback').textContent='';
+}
+
+function toggleSolution(id){document.getElementById(id).classList.toggle('visible');}
+
+let quizAnswers={};
+function quiz(btn,q,correct){
+  if(quizAnswers[q]!==undefined)return;
+  quizAnswers[q]=correct;
+  const box=document.getElementById(q);
+  box.querySelectorAll('.quiz-opt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById(q+'-fb');
+  if(correct){btn.classList.add('correct');fb.style.color='var(--green-text)';fb.textContent='Richtig!';}
+  else{
+    btn.classList.add('wrong');fb.style.color='var(--red-text)';fb.textContent='Nicht ganz – die richtige Antwort ist grün markiert.';
+    box.querySelectorAll('.quiz-opt').forEach(o=>{if(o.getAttribute('onclick').includes('true'))o.classList.add('correct');});
+  }
+  if(Object.keys(quizAnswers).length===3)showQuizScore();
+}
+function showQuizScore(){
+  const right=Object.values(quizAnswers).filter(Boolean).length;
+  const score=document.getElementById('quiz-score');
+  score.style.display='block';score.textContent='Ergebnis: '+right+' von 3 richtig.';
+  if(right<3)document.getElementById('quiz-retry-wrap').style.display='block';
+}
+function retryQuiz(){
+  quizAnswers={};
+  ['q1','q2','q3'].forEach(q=>{
+    const box=document.getElementById(q);
+    box.querySelectorAll('.quiz-opt').forEach(b=>b.classList.remove('disabled','correct','wrong'));
+    document.getElementById(q+'-fb').textContent='';
+  });
+  document.getElementById('quiz-score').style.display='none';
+  document.getElementById('quiz-retry-wrap').style.display='none';
+  window.scrollTo({top:document.getElementById('step-3').offsetTop,behavior:'smooth'});
+}
+
+function toggleAbfrage(head){head.closest('.abfrage-card').classList.toggle('open');}
+</script>
+</body>
+</html>
