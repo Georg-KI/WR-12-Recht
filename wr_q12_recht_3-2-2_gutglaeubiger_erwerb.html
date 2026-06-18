@@ -1,1 +1,715 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.2.2 – Gutgläubiger Erwerb & juristische Texte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font:'Nunito',sans-serif;
+  /* Stunde 4 · Bernstein */
+  --st:#B45309; --st-light:#F59E0B; --st-bg:#FFFBEB;
+  --grad:linear-gradient(135deg,#B45309,#F59E0B);
+  --green:#16A34A; --green-light:#DCFCE7; --green-text:#14532D;
+  --orange:#EA580C; --orange-light:#FFEDD5; --orange-text:#7C2D12;
+  --red:#DC2626; --red-light:#FEE2E2; --red-text:#7F1D1D;
+  --teal:#0D9488; --teal-light:#CCFBF1; --teal-text:#134E4A;
+  --purple:#7C3AED; --purple-light:#EDE9FE; --purple-text:#4C1D95;
+  --blue:#1D4ED8; --blue-light:#DBEAFE; --blue-text:#1E3A8A;
+  --teacher-bg:#FEF9E7; --teacher-border:#FBBF24; --teacher-text:#92400E;
+  --book-bg:#FAF5FF; --book-border:#D8B4FE; --book-title:#6B21A8; --book-text:#581C87;
+  --text:#1A1A1A; --text-secondary:#555; --text-muted:#AAA;
+  --border:#E2E0E8; --bg-card:#FFF; --bg-page:#F6F5FA;
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px;
+  --shadow:0 2px 8px rgba(0,0,0,.08); --shadow-lg:0 4px 20px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--bg-page);color:var(--text);line-height:1.6;}
 
+.topbar{background:var(--st);height:52px;position:sticky;top:0;z-index:50;padding:0 1.5rem;display:flex;align-items:center;gap:1rem;box-shadow:0 2px 12px rgba(180,83,9,.25);}
+.topbar-logo{font-weight:900;font-size:15px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:6px;}
+.topbar-logo span{color:#FDE68A;}
+.topbar-logo-back{font-size:11px;color:rgba(255,255,255,.65);font-weight:400;border-left:1px solid rgba(255,255,255,.2);padding-left:8px;margin-left:2px;}
+.topbar-chip{margin:0 auto;background:rgba(255,255,255,.18);color:#fff;font-weight:800;font-size:13px;padding:4px 14px;border-radius:20px;letter-spacing:.5px;}
+.teacher-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:var(--radius-sm);padding:6px 14px;font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.teacher-btn:hover{background:rgba(255,255,255,.28);}
+
+.progress{background:#fff;border-bottom:1px solid var(--border);padding:.6rem 1.5rem;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:sticky;top:52px;z-index:40;}
+.progress-step{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--text-muted);cursor:pointer;padding:4px 10px;border-radius:20px;}
+.progress-step.active{color:var(--st);background:var(--st-bg);}
+.progress-step .dot{width:22px;height:22px;border-radius:50%;background:#EEE;color:#999;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+.progress-step.active .dot{background:var(--st);color:#fff;}
+.progress-step.teacher-only{display:none;}
+body.version-b .progress-step.teacher-only{display:flex;}
+
+.main{max-width:920px;margin:0 auto;padding:28px 20px 80px;}
+.step{display:none;}
+.step.active{display:block;}
+
+.hero{background:var(--grad);border-radius:var(--radius-lg);padding:2.3rem 2rem;color:#fff!important;position:relative;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:1.6rem;}
+.hero::before{content:'§';position:absolute;right:1.5rem;top:-25px;font-size:150px;font-weight:900;color:rgba(255,255,255,.10);}
+.hero-kapitel{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:.4rem;}
+.hero h1{font-size:27px;font-weight:900;color:#fff;line-height:1.2;position:relative;z-index:1;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.92);margin-top:.6rem;max-width:620px;position:relative;z-index:1;}
+.hero-lehrplan{background:rgba(255,255,255,.15);border-radius:var(--radius-sm);padding:.75rem 1rem;margin-top:1.2rem;position:relative;z-index:1;}
+.hero-lehrplan-label{font-weight:800;color:rgba(255,255,255,.8);font-size:11px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+.hero-lehrplan-text{color:rgba(255,255,255,.92);line-height:1.5;font-size:13px;}
+
+.section{background:#fff;border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);padding:1.6rem;margin-bottom:1.4rem;animation:fadeUp .4s ease both;}
+.section-label{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--st);background:var(--st-bg);padding:4px 12px;border-radius:20px;margin-bottom:.9rem;}
+.section h2{font-size:21px;font-weight:800;margin-bottom:.3rem;}
+.section p{margin-bottom:.8rem;}
+.section p:last-child{margin-bottom:0;}
+
+.info-box{border-radius:var(--radius-md);padding:1rem 1.2rem;margin:1rem 0;font-size:14px;}
+.info-box strong{display:block;margin-bottom:.3rem;}
+.info-box.green{background:var(--green-light);border-left:3px solid var(--green);color:var(--green-text);}
+.info-box.orange{background:var(--orange-light);border-left:3px solid var(--orange);color:var(--orange-text);}
+.info-box.red{background:var(--red-light);border-left:3px solid var(--red);color:var(--red-text);}
+.info-box.purple{background:var(--purple-light);border-left:3px solid var(--purple);color:var(--purple-text);}
+.info-box.teal{background:var(--teal-light);border-left:3px solid var(--teal);color:var(--teal-text);}
+.info-box.blue{background:var(--blue-light);border-left:3px solid var(--blue);color:var(--blue-text);}
+
+.recap{border:1.5px dashed var(--st-light);border-radius:var(--radius-md);background:var(--st-bg);margin:1.1rem 0;overflow:hidden;}
+.recap-toggle{width:100%;background:none;border:none;font-family:var(--font);cursor:pointer;display:flex;align-items:center;gap:10px;padding:.85rem 1.1rem;font-size:14px;font-weight:800;color:var(--st);text-align:left;}
+.recap-toggle .chev{margin-left:auto;transition:transform .25s;font-size:13px;}
+.recap.open .recap-toggle .chev{transform:rotate(180deg);}
+.recap-body{display:none;padding:0 1.1rem 1.1rem;font-size:13.5px;color:#7c3a06;}
+.recap.open .recap-body{display:block;animation:fadeUp .3s ease both;}
+.recap-body ul{list-style:none;margin:.4rem 0;}
+.recap-body li{padding:5px 0 5px 20px;position:relative;}
+.recap-body li::before{content:'–';position:absolute;left:4px;color:var(--st-light);font-weight:800;}
+
+.task{border:1.5px solid var(--st-light);border-radius:var(--radius-md);overflow:hidden;margin:1.2rem 0;}
+.task-header{background:var(--st);padding:.7rem 1.1rem;display:flex;align-items:center;gap:12px;}
+.task-num{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.25);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;}
+.task-htext{display:flex;flex-direction:column;gap:1px;}
+.task-title{font-size:13.5px;font-weight:800;color:#fff;line-height:1.3;}
+.task-subtitle{font-size:11px;color:rgba(255,255,255,.78);font-weight:600;}
+.task-body{background:var(--st-bg);padding:1.1rem 1.2rem;display:flex;gap:14px;align-items:flex-start;}
+.task-icons{display:flex;flex-direction:column;gap:6px;flex-shrink:0;}
+.icon-tile{background:#fff;border-radius:8px;padding:8px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;}
+.task-content{flex:1;}
+.task-content ol{margin:.3rem 0 .3rem 1.1rem;}
+.task-content li{margin-bottom:.4rem;}
+
+.book-ref{background:var(--book-bg);border:1.5px solid var(--book-border);border-radius:var(--radius-md);padding:.85rem 1.1rem;margin:.9rem 0;display:flex;gap:10px;align-items:flex-start;}
+.book-ref-icon{font-size:18px;}
+.book-ref-title{color:var(--book-title);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.book-ref-text{color:var(--book-text);font-size:13.5px;}
+
+.para-quote{background:#1e293b;border-radius:var(--radius-md);padding:1rem 1.2rem;margin:.9rem 0;}
+.para-quote .pq-label{color:#fcd34d;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3rem;}
+.para-quote p{color:#e2e8f0!important;font-style:italic;font-size:13.5px;margin:0;}
+
+.fall-box{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-md);padding:1.1rem 1.2rem;margin:.9rem 0;}
+.fall-box-label{font-size:11px;font-weight:800;color:var(--st);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.fall-box p{font-size:13.5px;margin-bottom:.5rem;}
+.fall-box p:last-child{margin-bottom:0;}
+
+.match-row{display:flex;gap:10px;align-items:center;margin:.5rem 0;flex-wrap:wrap;}
+.match-statement{flex:1;min-width:200px;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:13.5px;}
+.match-select{border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 10px;font-family:var(--font);font-size:13px;font-weight:700;background:#fff;color:var(--text);min-width:175px;cursor:pointer;}
+.match-select.correct{border-color:var(--green);background:var(--green-light);color:var(--green-text);}
+.match-select.wrong{border-color:var(--red);background:var(--red-light);color:var(--red-text);}
+
+.btn{font-family:var(--font);font-weight:800;font-size:14px;border-radius:var(--radius-md);padding:11px 22px;cursor:pointer;border:none;}
+.btn-primary{background:var(--st);color:#fff;}
+.btn-primary:hover{background:#92400e;transform:translateY(-1px);}
+.btn-secondary{background:#fff;color:var(--text);border:1.5px solid var(--border);font-weight:700;}
+.btn-secondary:hover{border-color:var(--st);color:var(--st);}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem;align-items:center;}
+.match-feedback{font-size:13.5px;font-weight:700;margin-top:.6rem;}
+
+.solution-btn{border:1.5px solid var(--border);background:#fff;border-radius:var(--radius-sm);padding:8px 16px;font-weight:700;font-family:var(--font);font-size:13px;color:var(--text-secondary);cursor:pointer;}
+.solution-btn:hover{border-color:var(--green);color:var(--green-text);background:var(--green-light);}
+.solution-reveal{display:none;background:var(--green-light);border-left:3px solid var(--green);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.2rem;margin-top:.8rem;color:var(--green-text);font-size:13.5px;}
+.solution-reveal.visible{display:block;animation:fadeUp .3s ease both;}
+.solution-reveal strong{color:#0f3d20;}
+.solution-reveal ul{margin:.4rem 0 .4rem 1.1rem;}
+.solution-reveal li{margin-bottom:.35rem;}
+.solution-reveal ol{margin:.4rem 0 .4rem 1.1rem;}
+.solution-reveal ol li{margin-bottom:.5rem;}
+
+.answer-area{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font);font-size:14px;resize:vertical;min-height:90px;background:#fff;margin-top:.5rem;}
+.answer-area:focus{outline:none;border-color:var(--st);}
+
+/* Pro/Kontra */
+.prokontra{display:flex;gap:12px;flex-wrap:wrap;margin:1rem 0;}
+.pk-col{flex:1;min-width:240px;border-radius:var(--radius-md);padding:1rem 1.1rem;}
+.pk-pro{background:var(--green-light);border:1.5px solid #86efac;}
+.pk-kontra{background:var(--red-light);border:1.5px solid #fca5a5;}
+.pk-title{font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem;}
+.pk-pro .pk-title{color:var(--green-text);}
+.pk-kontra .pk-title{color:var(--red-text);}
+.pk-col ul{margin-left:1.1rem;font-size:13px;}
+.pk-col li{margin-bottom:.4rem;}
+
+/* Merkmale-Chips */
+.merkmal-chips{display:flex;flex-wrap:wrap;gap:8px;margin:1rem 0;}
+.merkmal-chip{background:var(--st-bg);border:1.5px solid var(--st-light);border-radius:20px;padding:6px 14px;font-size:12.5px;font-weight:700;color:var(--st);}
+
+.quiz-q{margin:1.3rem 0;}
+.quiz-q-text{font-weight:800;font-size:15px;margin-bottom:.6rem;}
+.quiz-opt{display:block;width:100%;text-align:left;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:11px 14px;background:#fff;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;margin-bottom:8px;}
+.quiz-opt:hover{border-color:var(--st-light);background:var(--st-bg);}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-light);color:var(--green-text);}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-light);color:var(--red-text);}
+.quiz-opt.disabled{pointer-events:none;}
+.quiz-fb{font-size:13.5px;font-weight:700;margin-top:.3rem;min-height:1px;}
+.quiz-score{display:none;margin-top:1rem;padding:1rem 1.2rem;border-radius:var(--radius-md);background:var(--st-bg);font-weight:800;color:var(--st);text-align:center;}
+
+.teacher-only{display:none;}
+body.version-b .teacher-only{display:block;}
+.teacher-note{background:var(--teacher-bg);border:1.5px solid var(--teacher-border);border-radius:var(--radius-md);padding:1.1rem 1.2rem;margin:1rem 0;}
+.teacher-note-header{font-weight:800;font-size:12px;color:var(--teacher-text);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.abfrage-card{border:1.5px solid var(--border);border-radius:var(--radius-md);margin:.9rem 0;overflow:hidden;}
+.abfrage-head{display:flex;align-items:center;gap:10px;padding:.8rem 1rem;background:#fdfaf2;cursor:pointer;}
+.k-badge{font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;color:#fff;flex-shrink:0;}
+.k-wissen{background:#1976D2;} .k-kritik{background:#7B1FA2;} .k-komm{background:#0d9488;} .k-kreativ{background:#EA580C;}
+.abfrage-q{flex:1;font-size:14px;font-weight:700;}
+.abfrage-chev{font-size:13px;color:var(--text-muted);transition:transform .25s;}
+.abfrage-card.open .abfrage-chev{transform:rotate(180deg);}
+.abfrage-reveal{display:none;padding:.9rem 1.1rem;background:#fff;border-top:1px solid var(--border);font-size:13.5px;}
+.abfrage-card.open .abfrage-reveal{display:block;}
+.abfrage-reveal-title{font-weight:800;color:var(--st);font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem;}
+.abfrage-reveal ul{margin-left:1.1rem;}
+.abfrage-reveal li{margin-bottom:.35rem;}
+
+.nav-btns{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:1.6rem;flex-wrap:wrap;}
+.btn-home{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--st);border:1.5px solid var(--st);border-radius:var(--radius-md);padding:11px 22px;font-family:var(--font);font-size:14px;font-weight:800;text-decoration:none;}
+.btn-home:hover{background:var(--st-bg);}
+
+.print-btn{background:none;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:7px 14px;font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer;color:var(--text-secondary);}
+.print-btn:hover{border-color:var(--st);color:var(--st);}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:var(--radius-lg);padding:2rem;width:90%;max-width:340px;text-align:center;box-shadow:var(--shadow-lg);}
+.modal h3{font-size:18px;font-weight:800;margin-bottom:.3rem;}
+.modal p{font-size:13px;color:var(--text-secondary);margin-bottom:1.2rem;}
+.pin-display{display:flex;gap:8px;justify-content:center;margin-bottom:1.2rem;}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--st);background:#fff;}
+.pin-dot.filled{background:var(--st);}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.pin-key{background:var(--st-bg);border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font);font-size:18px;font-weight:800;color:var(--st);cursor:pointer;}
+.pin-key:hover{background:#fde9c8;}
+.pin-key.wide{font-size:13px;}
+.modal.shake{animation:shake .4s;}
+.modal-close{margin-top:1rem;background:none;border:none;color:var(--text-muted);font-family:var(--font);font-size:13px;cursor:pointer;text-decoration:underline;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes shake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-8px);}40%,80%{transform:translateX(8px);}}
+
+@media(max-width:600px){
+  .hero h1{font-size:22px;}
+  .topbar{padding:0 1rem;}
+  .main{padding:20px 14px 60px;}
+  .task-body{flex-direction:column;}
+  .task-icons{flex-direction:row;}
+}
+@media print{
+  .topbar,.progress,.nav-btns,.teacher-btn,.print-btn{display:none!important;}
+  .step{display:block!important;}
+  .section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">WR<span>&amp;</span>Recht<span class="topbar-logo-back">← Übersicht</span></a>
+  <span class="topbar-chip">3.2.2</span>
+  <button class="teacher-btn" onclick="openPin()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z" fill="currentColor"/></svg>
+    Lehrkraft
+  </button>
+</div>
+
+<div class="progress">
+  <div class="progress-step active" data-step="1" onclick="goStep(1)"><span class="dot">1</span>Gutgläubig?</div>
+  <div class="progress-step" data-step="2" onclick="goStep(2)"><span class="dot">2</span>Gerechtigkeit</div>
+  <div class="progress-step" data-step="3" onclick="goStep(3)"><span class="dot">3</span>Text schreiben</div>
+  <div class="progress-step teacher-only" data-step="4" onclick="goStep(4)"><span class="dot">4</span>Abfrage</div>
+</div>
+
+<div class="main">
+
+  <!-- ════════ STEP 1 · GUTGLÄUBIG? ════════ -->
+  <section class="step active" id="step-1">
+    <div class="hero">
+      <div class="hero-kapitel">Kapitel 3.2 · Zivilrecht</div>
+      <h1>Gutgläubig Eigentümer werden</h1>
+      <div class="hero-sub">Du vollziehst nach, wie jemand auch vom Nichtberechtigten Eigentum erwerben kann – und formulierst einen juristisch fundierten Text zur Durchsetzung von Ansprüchen.</div>
+      <div class="hero-lehrplan">
+        <div class="hero-lehrplan-label">📋 Lehrplan-Bezug</div>
+        <div class="hero-lehrplan-text">Du begründest Ansprüche bei Verfügung Nichtberechtigter im Rahmen des gutgläubigen Eigentumserwerbs und formulierst Texte juristisch fundiert zur Durchsetzung der Ansprüche.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="section-label">Einstieg</span>
+      <h2>Kann man Eigentum von jemandem bekommen, dem die Sache gar nicht gehört?</h2>
+
+      <div class="info-box orange">
+        <strong>💡 Warum ist das relevant für dich?</strong>
+        Du kaufst gebraucht – auf dem Flohmarkt, online, vom Bekannten. Aber woher weißt du, dass der Verkäufer überhaupt der Eigentümer ist? Das Gesetz schützt dich als gutgläubigen Käufer in vielen Fällen – aber eben nicht in allen. Wo genau die Grenze liegt, klärst du heute.
+      </div>
+
+      <p>Grundsatz: Nach § 929 BGB kann nur der <strong>Eigentümer</strong> das Eigentum übertragen. Aber das Gesetz macht eine wichtige Ausnahme – den <strong>gutgläubigen Erwerb</strong> (§ 932 BGB): Wer gutgläubig von einem Nichtberechtigten kauft, kann trotzdem Eigentümer werden.</p>
+
+      <div class="recap" id="recap1">
+        <button class="recap-toggle" onclick="toggleRecap('recap1')">
+          <span>🔑 Gutgläubiger Erwerb – die drei entscheidenden Normen</span>
+          <span class="chev">▼</span>
+        </button>
+        <div class="recap-body">
+          <ul>
+            <li><strong>§ 932 I BGB:</strong> Der Erwerber wird auch dann Eigentümer, wenn die Sache dem Veräußerer nicht gehört – vorausgesetzt, er ist <em>gutgläubig</em>.</li>
+            <li><strong>§ 932 II BGB:</strong> Nicht gutgläubig ist, wer <em>weiß</em> oder <em>grob fahrlässig nicht weiß</em>, dass die Sache dem Veräußerer nicht gehört.</li>
+            <li><strong>§ 935 BGB:</strong> Kein gutgläubiger Erwerb bei <em>abhandengekommenen</em> Sachen – also wenn die Sache dem Eigentümer gestohlen wurde, verloren ging oder sonst unfreiwillig wegkam.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Materialien <strong>M1–M4</strong> auf <strong>Seite 164–165</strong> (Kunsthändler, Notebook, Wohnmobil, BGH-Urteil Probefahrt). Das Fachwissen findest du auf <strong>Seite 177</strong>.</div>
+        </div>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">1</div>
+          <div class="task-htext">
+            <span class="task-title">Der Kunsthändler-Fall im Gutachtenstil</span>
+            <span class="task-subtitle">Falllösung · Partnerarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #0d9488;">
+              <svg width="22" height="22" viewBox="0 0 44 36" fill="none"><circle cx="12" cy="10" r="6.5" fill="#0d9488"/><circle cx="32" cy="10" r="6.5" fill="#0d9488"/><path d="M1 34c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M21 34c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <div class="fall-box">
+              <div class="fall-box-label">Der Fall (M1, S. 164)</div>
+              <p>Ein Autohändler bekommt von einem Bekannten ein wertvolles Originalgemälde („Versuchung") <strong>leihweise</strong> für seine Ausstellung. Ein Kunde sieht das Bild in den Verkaufsräumen, bietet spontan 10.000 € – und der Autohändler verkauft es ihm und übergibt es gegen Barzahlung.</p>
+            </div>
+
+            <p>Klärt: Ist der Kunde Eigentümer des Bildes geworden? Prüft Schritt für Schritt – und denkt besonders an § 932 II (Gutgläubigkeit) und § 935 (abhandengekommen).</p>
+            <textarea class="answer-area" placeholder="Meine Antwort: ..."></textarea>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('sol1')">Musterlösung anzeigen</button>
+            <div class="solution-reveal" id="sol1">
+              <strong>Ist der Kunde Eigentümer geworden? Ja.</strong>
+              <ol>
+                <li><strong>Ausgangslage:</strong> Der Bekannte hat dem Autohändler das Bild nur geliehen (§ 598). Er bleibt Eigentümer; der Autohändler ist lediglich Besitzer (§ 854).</li>
+                <li><strong>Verkauf:</strong> Autohändler und Kunde einigen sich (§ 433), das Bild wird übergeben (§ 929 + § 854).</li>
+                <li><strong>Problem:</strong> Der Autohändler ist nicht Eigentümer – nach § 929 könnte er das Eigentum eigentlich nicht übertragen.</li>
+                <li><strong>Gutgläubiger Erwerb (§ 932 I):</strong> Der Kunde durfte davon ausgehen, dass dem Autohändler das teure Bild gehört. Es gibt keine Anhaltspunkte für Bösgläubigkeit oder grobe Fahrlässigkeit (§ 932 II). Er war also gutgläubig.</li>
+                <li><strong>Kein Ausschluss nach § 935:</strong> Das Bild ist nicht abhandengekommen – der Bekannte hat es freiwillig hergegeben (Leihe). Der gutgläubige Erwerb scheitert also nicht.</li>
+              </ol>
+              <strong>Ergebnis:</strong> Der Kunde ist gutgläubig Eigentümer geworden. Der Bekannte hat sein Eigentum verloren – er kann sich nur an den Autohändler halten.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-primary" onclick="goStep(2)">Weiter: Ist das gerecht? →</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 2 · GERECHTIGKEIT ════════ -->
+  <section class="step" id="step-2">
+    <div class="section">
+      <span class="section-label">Vertiefung · Beurteilung</span>
+      <h2>Ist der gutgläubige Erwerb gerecht?</h2>
+
+      <p>Der gutgläubige Erwerb führt zu einem Konflikt: Der ursprüngliche Eigentümer verliert sein Eigentum, obwohl er nichts falsch gemacht hat. Auf der anderen Seite steht der Schutz des Käufers und des Rechtsverkehrs. Hier prallen zwei berechtigte Interessen aufeinander.</p>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Aufgabe 6 auf <strong>Seite 165</strong>: Diskutiert, ob der gutgläubige Erwerb gerecht ist. Geht dabei besonders auf die Schutzfunktion des Rechts ein.</div>
+        </div>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">2</div>
+          <div class="task-htext">
+            <span class="task-title">Pro und Kontra abwägen</span>
+            <span class="task-subtitle">Diskussion · Gruppenarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #7B1FA2;">
+              <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="8" stroke="#7B1FA2" stroke-width="2" fill="none"/><circle cx="20" cy="5" r="4" fill="#7B1FA2"/><path d="M14 13c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="#7B1FA2" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="20" cy="35" r="4" fill="#7B1FA2"/><path d="M14 27c0 3.314 2.686 6 6 6s6-2.686 6-6" stroke="#7B1FA2" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="5" cy="20" r="4" fill="#7B1FA2"/><path d="M13 14c-3.314 0-6 2.686-6 6s2.686 6 6 6" stroke="#7B1FA2" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="35" cy="20" r="4" fill="#7B1FA2"/><path d="M27 14c3.314 0 6 2.686 6 6s-2.686 6-6 6" stroke="#7B1FA2" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <p>Sammelt in der Gruppe Argumente für beide Seiten. Leitfrage: <strong>Unter welchen Bedingungen ist der gutgläubige Erwerb überzeugend – und wann wirkt er ungerecht?</strong> Formuliert am Ende ein begründetes Fazit.</p>
+            <textarea class="answer-area" placeholder="Pro: ...&#10;Kontra: ...&#10;Unser Fazit: ..."></textarea>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('sol2')">Mögliche Argumente anzeigen</button>
+            <div class="solution-reveal" id="sol2">
+              <div class="prokontra">
+                <div class="pk-col pk-pro">
+                  <div class="pk-title">Pro – dafür spricht</div>
+                  <ul>
+                    <li>Schutz des Käufers und des Rechtsverkehrs: Man kann nicht bei jedem Kauf die Eigentümerstellung prüfen.</li>
+                    <li>Risikoverteilung: Wer einem anderen seine Sache anvertraut, trägt das Risiko – er hatte die Kontrolle, wem er sie überlässt.</li>
+                    <li>Wirtschaftliche Effizienz: Handel bleibt schnell und sicher, kein ständiges Misstrauen nötig.</li>
+                  </ul>
+                </div>
+                <div class="pk-col pk-kontra">
+                  <div class="pk-title">Kontra – dagegen spricht</div>
+                  <ul>
+                    <li>Eingriff ins Eigentumsrecht (Art. 14 GG): Der Eigentümer verliert seine Sache ohne Zustimmung.</li>
+                    <li>Missbrauchsgefahr: Betrug oder Unterschlagung könnten erleichtert werden.</li>
+                  </ul>
+                </div>
+              </div>
+              <strong>Mögliches Fazit:</strong> Der gutgläubige Erwerb ist gerecht, wenn die Interessen ausgewogen abgewogen werden – strenge Anforderungen an die Gutgläubigkeit (§ 932 II) und der Ausschluss bei abhandengekommenen Sachen (§ 935) schützen den Eigentümer, während der Rechtsverkehr funktionsfähig bleibt.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box blue">
+        <strong>⚖️ So formuliert man ein Beurteilungs-Urteil</strong>
+        Bei einer Beurteilung lautet die Frage nicht „Wer hat recht?", sondern „Unter welchen Bedingungen ist welche Position überzeugender?". Wäge ab, beziehe dich auf Werte (hier: Eigentumsschutz vs. Rechtssicherheit) und triff am Ende ein begründetes Urteil.
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goStep(1)">← Zurück</button>
+      <button class="btn btn-primary" onclick="goStep(3)">Weiter: Text schreiben →</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 3 · TEXT SCHREIBEN ════════ -->
+  <section class="step" id="step-3">
+    <div class="section">
+      <span class="section-label">Methode · Texte juristisch formulieren</span>
+      <h2>Ansprüche schriftlich durchsetzen</h2>
+
+      <p>Einen Anspruch zu haben ist das eine – ihn durchzusetzen das andere. Ein juristisch fundiertes Schreiben folgt klaren Regeln.</p>
+
+      <div class="merkmal-chips">
+        <span class="merkmal-chip">Klarheit</span>
+        <span class="merkmal-chip">Fakten</span>
+        <span class="merkmal-chip">Gesetzliche Grundlage</span>
+        <span class="merkmal-chip">Begründung</span>
+        <span class="merkmal-chip">Konsequenzen</span>
+        <span class="merkmal-chip">Höflichkeit</span>
+      </div>
+
+      <div class="info-box teal">
+        <strong>Die sechs Merkmale eines juristisch fundierten Textes</strong>
+        <strong style="font-weight:700;display:inline;">Klarheit</strong> (präzise Forderung) · <strong style="font-weight:700;display:inline;">Fakten</strong> (auf Beweise stützen) · <strong style="font-weight:700;display:inline;">Gesetzliche Grundlage</strong> (Normen nennen) · <strong style="font-weight:700;display:inline;">Begründung</strong> (warum gerechtfertigt) · <strong style="font-weight:700;display:inline;">Konsequenzen</strong> (was bei Nichterfüllung folgt) · <strong style="font-weight:700;display:inline;">Höflichkeit</strong> (sachlich bleiben).
+      </div>
+
+      <div class="book-ref">
+        <span class="book-ref-icon">📖</span>
+        <div>
+          <div class="book-ref-title">Im Buch</div>
+          <div class="book-ref-text">Methode <strong>„Wie formuliere ich Texte juristisch fundiert?"</strong>, <strong>Seite 166–169</strong>. M2 zeigt den Unfall „Lastenfahrrad touchiert PKW" mit der Reparaturrechnung.</div>
+        </div>
+      </div>
+
+      <div class="task">
+        <div class="task-header">
+          <div class="task-num">3</div>
+          <div class="task-htext">
+            <span class="task-title">Ein Schadensersatz-Schreiben verfassen</span>
+            <span class="task-subtitle">Falllösung · Einzelarbeit</span>
+          </div>
+        </div>
+        <div class="task-body">
+          <div class="task-icons">
+            <div class="icon-tile" style="border:1.5px solid #1976D2;">
+              <svg width="22" height="22" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="12" r="7" fill="#1976D2"/><path d="M4 34c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#1976D2" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="task-content">
+            <div class="fall-box">
+              <div class="fall-box-label">Der Fall (M2, S. 167)</div>
+              <p>Katharina P. parkt ihren PKW ordnungsgemäß. Andrea K. kommt mit ihrem Lastenrad vom Radweg ab und schrammt die rechte Fahrzeugseite entlang – Lackschaden und eine Delle. Drei Zeuginnen sind dabei. Die Reparaturrechnung beläuft sich auf 2.403,82 € brutto.</p>
+            </div>
+
+            <p>Verfasse im Namen von Katharina P. ein juristisch fundiertes Schreiben an Andrea K., das Schadensersatz fordert. Berücksichtige die sechs Merkmale und stütze dich auf § 823 I BGB.</p>
+            <textarea class="answer-area" placeholder="Betreff: ...&#10;&#10;Sehr geehrte Frau K., ..." style="min-height:140px;"></textarea>
+
+            <button class="solution-btn" style="margin-top:.9rem;" onclick="toggleSolution('sol3')">Musterlösung anzeigen</button>
+            <div class="solution-reveal" id="sol3">
+              <strong>Betreff: Forderung von Schadensersatz aufgrund des Unfalls am 23. Juni</strong>
+              <p style="margin-top:.5rem;">Sehr geehrte Frau K.,</p>
+              <p>hiermit mache ich Schadensersatzansprüche aus dem Unfall vom 23. Juni in der Leopoldstraße geltend. An diesem Tag sind Sie gegen 14:30 Uhr mit Ihrem Lastenrad von der Fahrbahn abgekommen und haben mein ordnungsgemäß geparktes Fahrzeug an der rechten Seite beschädigt (Lackschaden und Delle). Drei Zeuginnen können den Vorfall bestätigen.</p>
+              <p>Die Reparaturkosten belaufen sich laut Fachwerkstatt auf 2.403,82 € brutto (Rechnung anbei). Gemäß § 823 I BGB haben Sie durch Ihr fahrlässiges Verhalten mein Eigentum verletzt: Es liegt eine Rechtsgutverletzung vor, die Sie kausal verursacht haben, ein Rechtfertigungsgrund ist nicht ersichtlich, und durch das Abkommen vom Radweg ist von Fahrlässigkeit auszugehen.</p>
+              <p>Ich fordere Sie auf, den Betrag bis spätestens [Frist] auf mein Konto zu überweisen. Sollte die Zahlung ausbleiben, behalte ich mir rechtliche Schritte vor, die zusätzliche Kosten verursachen würden.</p>
+              <p>Für Rückfragen stehe ich gerne zur Verfügung.</p>
+              <p>Mit freundlichen Grüßen, Katharina P. — Anlagen: Reparaturrechnung, Kontodaten</p>
+              <p style="margin-top:.5rem;"><em>Beachte, wie alle sechs Merkmale vorkommen: klare Forderung, Fakten, § 823 als Grundlage, Begründung, angekündigte Konsequenzen und durchgehend höflicher Ton.</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz -->
+      <div class="section" style="box-shadow:none;border:1.5px solid var(--st-light);background:var(--st-bg);margin-bottom:0;">
+        <span class="section-label">Sicherung – kurzes Quiz</span>
+        <h2 style="font-size:18px;">Sitzt der gutgläubige Erwerb?</h2>
+
+        <div class="quiz-q" id="q1">
+          <div class="quiz-q-text">1. Wann ist ein gutgläubiger Erwerb nach § 935 BGB ausgeschlossen?</div>
+          <button class="quiz-opt" onclick="quiz(this,'q1',false)">Immer, wenn der Verkäufer nicht der Eigentümer ist.</button>
+          <button class="quiz-opt" onclick="quiz(this,'q1',true)">Wenn die Sache dem Eigentümer abhandengekommen ist (gestohlen, verloren).</button>
+          <button class="quiz-opt" onclick="quiz(this,'q1',false)">Wenn der Käufer in bar bezahlt.</button>
+          <div class="quiz-fb" id="q1-fb"></div>
+        </div>
+
+        <div class="quiz-q" id="q2">
+          <div class="quiz-q-text">2. Wann ist der Käufer NICHT gutgläubig (§ 932 II BGB)?</div>
+          <button class="quiz-opt" onclick="quiz(this,'q2',true)">Wenn er weiß oder grob fahrlässig nicht weiß, dass die Sache dem Verkäufer nicht gehört.</button>
+          <button class="quiz-opt" onclick="quiz(this,'q2',false)">Wenn er den Kaufpreis für zu hoch hält.</button>
+          <button class="quiz-opt" onclick="quiz(this,'q2',false)">Wenn er die Sache weiterverkaufen will.</button>
+          <div class="quiz-fb" id="q2-fb"></div>
+        </div>
+
+        <div class="quiz-q" id="q3">
+          <div class="quiz-q-text">3. Welches Merkmal fehlt einem Forderungsschreiben, das keine Norm nennt?</div>
+          <button class="quiz-opt" onclick="quiz(this,'q3',false)">Höflichkeit</button>
+          <button class="quiz-opt" onclick="quiz(this,'q3',true)">Gesetzliche Grundlage</button>
+          <button class="quiz-opt" onclick="quiz(this,'q3',false)">Konsequenzen</button>
+          <div class="quiz-fb" id="q3-fb"></div>
+        </div>
+
+        <div class="quiz-score" id="quiz-score"></div>
+        <div id="quiz-retry-wrap" style="display:none;margin-top:.75rem;">
+          <button class="btn btn-secondary" style="border-color:var(--red);color:var(--red);" onclick="retryQuiz()">🔄 Quiz nochmal versuchen</button>
+        </div>
+      </div>
+
+      <div class="info-box teal" style="margin-top:1.5rem;">
+        <strong>✅ Das hast du heute gelernt</strong>
+        Du vollziehst den gutgläubigen Eigentumserwerb nach (§§ 929, 932), kennst die Grenzen bei Bösgläubigkeit (§ 932 II) und abhandengekommenen Sachen (§ 935), kannst die Gerechtigkeit dieser Regelung abwägen und ein juristisch fundiertes Schreiben verfassen. In der mündlichen Abfrage zeigst du, dass du gutgläubigen Erwerb prüfen und begründen kannst.
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-secondary" onclick="goStep(2)">← Zurück</button>
+    </div>
+  </section>
+
+  <!-- ════════ STEP 4 · ABFRAGE ════════ -->
+  <section class="step teacher-only" id="step-4">
+    <div class="section">
+      <span class="section-label">Mündliche Abfrage · nur Lehrkraft</span>
+      <h2>Abfrage nach dem 4K-Modell</h2>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:.5rem;">
+        <button class="print-btn" onclick="window.print()">🖨 Abfrage drucken</button>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-header">Hinweis für die Lehrkraft</div>
+        Je eine Frage pro Kompetenzbereich. Erwartungshorizont aufklappbar. Empfohlene Dauer ca. 10 Minuten.
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-wissen">Wissen</span>
+          <span class="abfrage-q">Unter welchen Voraussetzungen wird ein gutgläubiger Käufer nach § 932 BGB Eigentümer? Wann scheitert es?</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Voraussetzungen: Veräußerung nach § 929, Veräußerer ist nicht Eigentümer, Erwerber ist gutgläubig.</li>
+            <li>Scheitert bei Bösgläubigkeit/grober Fahrlässigkeit (§ 932 II) und bei abhandengekommenen Sachen (§ 935).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-kritik">Kritisches Denken</span>
+          <span class="abfrage-q">Warum macht das Gesetz bei gestohlenen Sachen (§ 935) eine Ausnahme vom gutgläubigen Erwerb?</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Bei abhandengekommenen Sachen hat der Eigentümer den Besitz nicht freiwillig aufgegeben – er trägt keine Mitverantwortung.</li>
+            <li>Abwägung Eigentumsschutz vs. Verkehrsschutz fällt zugunsten des Eigentümers aus.</li>
+            <li>Bei freiwilliger Besitzaufgabe (Leihe etc.) ist es umgekehrt: Der Eigentümer trägt das Risiko.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-komm">Kommunikation</span>
+          <span class="abfrage-q">Nenne die sechs Merkmale eines juristisch fundierten Schreibens und erkläre eines davon genauer.</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Klarheit, Fakten, gesetzliche Grundlage, Begründung, Konsequenzen, Höflichkeit.</li>
+            <li>Eines wird vertieft und an einem Beispiel erläutert.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="abfrage-card">
+        <div class="abfrage-head" onclick="toggleAbfrage(this)">
+          <span class="k-badge k-kreativ">Kreativität</span>
+          <span class="abfrage-q">Wandle den Kunsthändler-Fall so ab, dass der Käufer NICHT Eigentümer wird. Was müsste anders sein?</span>
+          <span class="abfrage-chev">▼</span>
+        </div>
+        <div class="abfrage-reveal">
+          <div class="abfrage-reveal-title">Erwartungshorizont</div>
+          <ul>
+            <li>Variante 1: Das Bild war gestohlen → § 935 schließt gutgläubigen Erwerb aus.</li>
+            <li>Variante 2: Der Käufer wusste, dass das Bild nur geliehen war → keine Gutgläubigkeit (§ 932 II).</li>
+            <li>Korrekte Begründung, welches Merkmal jeweils den Erwerb verhindert.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+      <button class="btn btn-secondary" onclick="goStep(3)">← Zurück</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- PIN-Modal -->
+<div class="modal-overlay" id="pin-modal">
+  <div class="modal" id="pin-box">
+    <h3>Lehrkraft-Bereich</h3>
+    <p>Bitte 8-stelligen PIN eingeben</p>
+    <div class="pin-display" id="pin-display"></div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinPress('1')">1</button>
+      <button class="pin-key" onclick="pinPress('2')">2</button>
+      <button class="pin-key" onclick="pinPress('3')">3</button>
+      <button class="pin-key" onclick="pinPress('4')">4</button>
+      <button class="pin-key" onclick="pinPress('5')">5</button>
+      <button class="pin-key" onclick="pinPress('6')">6</button>
+      <button class="pin-key" onclick="pinPress('7')">7</button>
+      <button class="pin-key" onclick="pinPress('8')">8</button>
+      <button class="pin-key" onclick="pinPress('9')">9</button>
+      <button class="pin-key wide" onclick="pinClear()">C</button>
+      <button class="pin-key" onclick="pinPress('0')">0</button>
+      <button class="pin-key wide" onclick="pinDel()">⌫</button>
+    </div>
+    <button class="modal-close" onclick="closePin()">Abbrechen</button>
+  </div>
+</div>
+
+<script>
+const TEACHER_PIN='13579135';
+let pinEntry='';
+function openPin(){
+  if(document.body.classList.contains('version-b')){document.body.classList.remove('version-b');return;}
+  document.getElementById('pin-modal').classList.add('open');pinClear();
+}
+function closePin(){document.getElementById('pin-modal').classList.remove('open');}
+function renderPin(){
+  const d=document.getElementById('pin-display');d.innerHTML='';
+  for(let i=0;i<8;i++){const dot=document.createElement('div');dot.className='pin-dot'+(i<pinEntry.length?' filled':'');d.appendChild(dot);}
+}
+function pinPress(n){if(pinEntry.length>=8)return;pinEntry+=n;renderPin();if(pinEntry.length===8)setTimeout(checkPin,150);}
+function pinDel(){pinEntry=pinEntry.slice(0,-1);renderPin();}
+function pinClear(){pinEntry='';renderPin();}
+function checkPin(){
+  if(pinEntry===TEACHER_PIN){document.body.classList.add('version-b');closePin();}
+  else{const box=document.getElementById('pin-box');box.classList.add('shake');setTimeout(()=>box.classList.remove('shake'),400);pinClear();}
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('pin-modal').classList.contains('open'))return;
+  if(e.key>='0'&&e.key<='9')pinPress(e.key);
+  else if(e.key==='Backspace')pinDel();
+  else if(e.key==='Escape')closePin();
+});
+
+function goStep(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step-'+n).classList.add('active');
+  document.querySelectorAll('.progress-step').forEach(p=>p.classList.toggle('active',p.dataset.step==n));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleRecap(id){document.getElementById(id).classList.toggle('open');}
+
+function checkMatch(btn,id){
+  const task=btn.closest('.task-content');let all=0,ok=0;
+  task.querySelectorAll('.match-select').forEach(sel=>{
+    all++;sel.classList.remove('correct','wrong');
+    if(sel.value===sel.dataset.correct){sel.classList.add('correct');ok++;}else sel.classList.add('wrong');
+  });
+  const fb=document.getElementById(id+'-fb');
+  if(ok===all){fb.style.color='var(--green-text)';fb.textContent='Alle '+all+' richtig – stark!';}
+  else{fb.style.color='var(--red-text)';fb.textContent=ok+' von '+all+' richtig. Schau dir die rot markierten nochmal an.';}
+}
+function resetMatch(btn){
+  const task=btn.closest('.task-content');
+  task.querySelectorAll('.match-select').forEach(sel=>{sel.classList.remove('correct','wrong');sel.value='';});
+  task.querySelector('.match-feedback').textContent='';
+}
+
+function toggleSolution(id){document.getElementById(id).classList.toggle('visible');}
+
+let quizAnswers={};
+function quiz(btn,q,correct){
+  if(quizAnswers[q]!==undefined)return;
+  quizAnswers[q]=correct;
+  const box=document.getElementById(q);
+  box.querySelectorAll('.quiz-opt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById(q+'-fb');
+  if(correct){btn.classList.add('correct');fb.style.color='var(--green-text)';fb.textContent='Richtig!';}
+  else{
+    btn.classList.add('wrong');fb.style.color='var(--red-text)';fb.textContent='Nicht ganz – die richtige Antwort ist grün markiert.';
+    box.querySelectorAll('.quiz-opt').forEach(o=>{if(o.getAttribute('onclick').includes('true'))o.classList.add('correct');});
+  }
+  if(Object.keys(quizAnswers).length===3)showQuizScore();
+}
+function showQuizScore(){
+  const right=Object.values(quizAnswers).filter(Boolean).length;
+  const score=document.getElementById('quiz-score');
+  score.style.display='block';score.textContent='Ergebnis: '+right+' von 3 richtig.';
+  if(right<3)document.getElementById('quiz-retry-wrap').style.display='block';
+}
+function retryQuiz(){
+  quizAnswers={};
+  ['q1','q2','q3'].forEach(q=>{
+    const box=document.getElementById(q);
+    box.querySelectorAll('.quiz-opt').forEach(b=>b.classList.remove('disabled','correct','wrong'));
+    document.getElementById(q+'-fb').textContent='';
+  });
+  document.getElementById('quiz-score').style.display='none';
+  document.getElementById('quiz-retry-wrap').style.display='none';
+  window.scrollTo({top:document.getElementById('step-3').offsetTop,behavior:'smooth'});
+}
+
+function toggleAbfrage(head){head.closest('.abfrage-card').classList.toggle('open');}
+</script>
+</body>
+</html>
