@@ -1,1 +1,1626 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>3.2.3 Ansprüche nach gutgläubigem Erwerb · WR Q12</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* === Tann (Stunde 5) === */
+  --tann-900:#14532D;
+  --tann-800:#166534;
+  --tann-700:#15803D;   /* Primärfarbe */
+  --tann-600:#16A34A;
+  --tann-500:#22C55E;
+  --tann-100:#DCFCE7;
+  --tann-50: #F0FDF4;
+  --tann-grad: linear-gradient(135deg,#15803D 0%,#16A34A 60%,#22C55E 100%);
+
+  /* === Akzente === */
+  --blue:    #1976D2;
+  --blue-50: #E3F2FD;
+  --teal:    #0d9488;
+  --teal-50: #ccfbf1;
+  --purple:  #7B1FA2;
+  --purple-50:#F3E5F5;
+  --orange:  #E65100;
+  --orange-50:#FFF3E0;
+  --red:     #DC2626;
+  --red-50:  #FEE2E2;
+  --green:   #16A34A;
+  --green-50:#DCFCE7;
+  --amber-bg:#FFFBEB;
+  --amber-bd:#FBBF24;
+  --amber-tx:#92400E;
+
+  --text:#0F172A;
+  --text-2:#475569;
+  --muted:#94A3B8;
+  --border:#E2E8F0;
+  --bg-page:#F8FAFC;
+  --bg-card:#FFFFFF;
+
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --shadow:0 2px 8px rgba(15,23,42,0.06);
+  --shadow-lg:0 8px 28px rgba(15,23,42,0.10);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Nunito',system-ui,sans-serif;
+  background:var(--bg-page);
+  color:var(--text);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─────────── Topbar ─────────── */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--tann-700);
+  color:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;height:56px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+}
+.topbar-logo{
+  font-weight:900;font-size:15px;color:#fff;text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+}
+.topbar-logo .ovr{color:var(--tann-100);font-weight:700;font-size:13px;}
+.topbar-chip{
+  background:rgba(255,255,255,0.18);
+  padding:4px 12px;border-radius:20px;
+  font-size:12px;font-weight:800;letter-spacing:0.5px;
+}
+.btn-teacher{
+  background:rgba(255,255,255,0.15);
+  color:#fff;border:1px solid rgba(255,255,255,0.3);
+  padding:6px 14px;border-radius:8px;font-size:12px;
+  font-family:inherit;font-weight:700;cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-teacher:hover{background:rgba(255,255,255,0.25);}
+.btn-teacher.active{
+  background:#FBBF24;color:#7C2D12;border-color:#FBBF24;
+}
+
+/* ─────────── Progress ─────────── */
+.progress{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:14px 18px;
+  display:flex;gap:6px;flex-wrap:wrap;justify-content:center;
+}
+.step-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 11px;border-radius:18px;
+  background:var(--bg-page);
+  color:var(--text-2);
+  font-size:11px;font-weight:700;
+  border:1px solid var(--border);
+  cursor:pointer;text-decoration:none;
+  transition:all 0.15s;
+}
+.step-chip:hover{border-color:var(--tann-600);color:var(--tann-700);}
+.step-chip .n{
+  background:var(--tann-700);color:#fff;
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:900;
+}
+.step-chip.teacher-only{
+  background:var(--amber-bg);
+  border-color:var(--amber-bd);
+  color:var(--amber-tx);
+  display:none;
+}
+.step-chip.teacher-only .n{background:var(--amber-bd);color:var(--amber-tx);}
+body.teacher-mode .step-chip.teacher-only{display:flex;}
+
+/* ─────────── Main ─────────── */
+main{
+  max-width:960px;margin:0 auto;
+  padding:24px 18px 80px;
+}
+
+/* ─────────── Hero ─────────── */
+.hero{
+  background:var(--tann-grad);
+  border-radius:var(--radius-lg);
+  padding:36px 32px;color:#fff;
+  position:relative;overflow:hidden;
+  margin-bottom:28px;
+  box-shadow:var(--shadow-lg);
+}
+.hero::before{
+  content:'§';
+  position:absolute;right:-12px;top:-40px;
+  font-size:240px;font-weight:900;
+  color:rgba(255,255,255,0.07);
+  font-family:Georgia,serif;line-height:1;
+}
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,255,255,0.22);
+  padding:4px 12px;border-radius:20px;
+  font-size:12px;font-weight:800;letter-spacing:0.6px;
+  margin-bottom:14px;
+}
+.hero h1{
+  font-size:32px;font-weight:900;line-height:1.15;
+  margin-bottom:8px;
+  position:relative;z-index:1;
+}
+.hero-sub{
+  font-size:16px;font-weight:600;
+  color:rgba(255,255,255,0.95);
+  margin-bottom:22px;
+  position:relative;z-index:1;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+  position:relative;z-index:1;
+}
+.hero-box{
+  background:rgba(255,255,255,0.14);
+  border:1px solid rgba(255,255,255,0.22);
+  border-radius:var(--radius-md);
+  padding:14px 16px;
+  backdrop-filter:blur(4px);
+}
+.hero-box-title{
+  font-size:11px;font-weight:800;letter-spacing:0.8px;
+  color:rgba(255,255,255,0.9);margin-bottom:5px;
+  text-transform:uppercase;
+}
+.hero-box-text{font-size:13.5px;color:rgba(255,255,255,0.95);line-height:1.5;}
+@media (max-width:640px){
+  .hero{padding:28px 22px;}
+  .hero h1{font-size:25px;}
+  .hero-grid{grid-template-columns:1fr;}
+}
+
+/* ─────────── Section / Card ─────────── */
+.section{
+  background:var(--bg-card);
+  border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+  padding:28px 26px;
+  margin-bottom:22px;
+  box-shadow:var(--shadow);
+  animation:fadeUp 0.4s ease both;
+}
+.section-head{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;padding-bottom:14px;
+  border-bottom:1.5px solid var(--border);
+}
+.section-num{
+  background:var(--tann-700);color:#fff;
+  width:34px;height:34px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;
+  flex-shrink:0;
+}
+.section-title{
+  font-size:21px;font-weight:800;color:var(--text);
+}
+.section-meta{
+  font-size:12px;font-weight:600;color:var(--muted);
+  margin-top:2px;
+}
+
+/* ─────────── Aufgaben-Box (Task) ─────────── */
+.task{
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-md);
+  margin:18px 0;
+  overflow:hidden;
+}
+.task-head{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 16px;
+  background:var(--tann-50);
+  border-bottom:1.5px solid var(--border);
+}
+.task-icon{
+  background:#fff;
+  border:1.5px solid var(--blue);
+  border-radius:8px;
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.task-icon.partner{border-color:var(--teal);}
+.task-icon.group{border-color:var(--purple);}
+.task-icon.plenum{border-color:var(--orange);}
+.task-title{font-weight:800;font-size:15px;color:var(--text);}
+.task-form{
+  font-size:11px;font-weight:700;color:var(--text-2);
+  text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;
+}
+.task-form.partner{color:var(--teal);}
+.task-form.group{color:var(--purple);}
+.task-form.plenum{color:var(--orange);}
+.task-body{padding:16px;}
+.task-body p{margin-bottom:10px;}
+.task-body p:last-child{margin-bottom:0;}
+
+/* ─────────── Textarea ─────────── */
+.answer-area{
+  width:100%;
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:10px 12px;
+  font-family:'Nunito',sans-serif;font-size:14px;
+  resize:vertical;min-height:80px;
+  background:#fff;color:var(--text);
+  transition:border-color 0.15s;
+}
+.answer-area:focus{outline:none;border-color:var(--tann-700);}
+
+/* ─────────── Buttons ─────────── */
+.btn{
+  font-family:inherit;font-weight:700;
+  border:none;border-radius:var(--radius-sm);
+  cursor:pointer;padding:10px 18px;font-size:13px;
+  transition:all 0.15s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-primary{
+  background:var(--tann-700);color:#fff;
+}
+.btn-primary:hover{background:var(--tann-800);transform:translateY(-1px);}
+.btn-secondary{
+  background:#fff;color:var(--text);
+  border:1.5px solid var(--border);
+}
+.btn-secondary:hover{border-color:var(--tann-700);color:var(--tann-700);background:var(--tann-50);}
+.btn-solution{
+  background:#fff;color:var(--text-2);
+  border:1.5px solid var(--border);
+  padding:8px 14px;font-size:12px;font-weight:700;
+}
+.btn-solution:hover{border-color:var(--green);color:var(--green);background:var(--green-50);}
+.btn-retry{
+  background:#fff;color:var(--text-2);
+  border:1.5px solid var(--border);
+  padding:6px 12px;font-size:11px;font-weight:700;
+  margin-top:8px;
+}
+.btn-retry:hover{border-color:var(--blue);color:var(--blue);}
+
+/* ─────────── Musterlösung ─────────── */
+.solution{
+  background:var(--green-50);
+  border-left:3px solid var(--green);
+  border-radius:0 8px 8px 0;
+  padding:12px 16px;
+  color:#14532D;font-size:13.5px;
+  display:none;margin-top:10px;
+  line-height:1.6;
+}
+.solution.visible{display:block;animation:fadeUp 0.3s ease both;}
+.solution strong{color:#166534;}
+.solution ul{margin:6px 0 6px 18px;}
+.solution li{margin-bottom:4px;}
+
+/* ─────────── Buchverweis ─────────── */
+.book-ref{
+  background:#FAF5FF;
+  border:1.5px solid #D8B4FE;
+  border-radius:var(--radius-md);
+  padding:12px 16px;
+  margin:14px 0;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.book-ref-icon{
+  flex-shrink:0;color:#6B21A8;
+  background:#fff;border:1.5px solid #D8B4FE;
+  border-radius:8px;padding:6px;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+}
+.book-ref-title{
+  color:#6B21A8;font-weight:800;font-size:12px;
+  text-transform:uppercase;letter-spacing:0.5px;
+  margin-bottom:3px;
+}
+.book-ref-text{color:#581C87;font-size:13.5px;line-height:1.5;}
+
+/* ─────────── Lehrkraft-Hinweis ─────────── */
+.teacher-note{
+  background:var(--amber-bg);
+  border:1.5px solid var(--amber-bd);
+  border-radius:var(--radius-md);
+  padding:14px 16px;margin:14px 0;
+  display:none;
+}
+body.teacher-mode .teacher-note{display:block;}
+.teacher-note-header{
+  font-weight:900;font-size:11px;color:var(--amber-tx);
+  text-transform:uppercase;letter-spacing:0.7px;
+  margin-bottom:8px;
+  display:flex;align-items:center;gap:6px;
+}
+.teacher-note p{color:#78350F;font-size:13.5px;line-height:1.55;}
+.teacher-note p + p{margin-top:6px;}
+
+/* ─────────── Lehrkraft-Steps ─────────── */
+.section.teacher-only{display:none;}
+body.teacher-mode .section.teacher-only{display:block;}
+
+/* ─────────── Info-Box (neutral) ─────────── */
+.info-box{
+  background:var(--tann-50);
+  border-left:3px solid var(--tann-600);
+  border-radius:0 8px 8px 0;
+  padding:12px 16px;
+  margin:14px 0;
+  font-size:14px;line-height:1.55;
+  color:#14532D;
+}
+.info-box strong{color:var(--tann-800);}
+
+/* ─────────── Drei-Wege-Übersicht (Step 1) ─────────── */
+.routes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;margin:18px 0;
+}
+@media (max-width:680px){.routes{grid-template-columns:1fr;}}
+.route{
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-md);
+  padding:14px 14px;
+  background:#fff;
+  position:relative;
+}
+.route.dimmed{opacity:0.55;background:var(--bg-page);}
+.route.spotlight{
+  border-color:var(--tann-600);
+  background:var(--tann-50);
+  box-shadow:0 4px 14px rgba(21,128,61,0.12);
+}
+.route-title{
+  font-weight:900;font-size:14px;color:var(--text);
+  margin-bottom:4px;
+}
+.route-para{
+  display:inline-block;
+  background:var(--bg-page);
+  padding:2px 8px;border-radius:6px;
+  font-size:11px;font-weight:800;
+  color:var(--text-2);margin-bottom:8px;
+}
+.route.spotlight .route-para{background:var(--tann-700);color:#fff;}
+.route-target{font-size:13px;color:var(--text-2);line-height:1.45;}
+.route-status{
+  margin-top:10px;padding-top:8px;
+  border-top:1px dashed var(--border);
+  font-size:11px;font-weight:700;letter-spacing:0.4px;
+  text-transform:uppercase;
+}
+.route.dimmed .route-status{color:var(--muted);}
+.route.spotlight .route-status{color:var(--tann-700);}
+.route .route-status{color:var(--text-2);}
+
+/* ─────────── Normtext-Box ─────────── */
+.norm-box{
+  background:#0F172A;
+  border-radius:var(--radius-md);
+  padding:18px 20px;color:#E2E8F0;
+  margin:14px 0;font-size:14px;line-height:1.65;
+}
+.norm-box .norm-title{
+  font-size:12px;font-weight:800;
+  color:#86EFAC;letter-spacing:0.6px;
+  text-transform:uppercase;margin-bottom:8px;
+}
+.norm-box .norm-text{font-style:italic;color:#F1F5F9;}
+.norm-box .norm-text strong{color:#86EFAC;font-style:normal;font-weight:800;}
+.norm-box a{color:#86EFAC;font-weight:700;text-decoration:none;border-bottom:1px dotted #86EFAC;}
+.norm-box a:hover{color:#BBF7D0;}
+
+/* ─────────── TBM-Liste ─────────── */
+.tbm-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:10px;margin:14px 0;
+}
+.tbm-card{
+  background:var(--tann-50);
+  border:1.5px solid var(--tann-100);
+  border-radius:var(--radius-md);
+  padding:12px 14px;
+  position:relative;
+}
+.tbm-num{
+  position:absolute;top:-9px;left:12px;
+  background:var(--tann-700);color:#fff;
+  font-size:11px;font-weight:900;
+  padding:2px 8px;border-radius:10px;
+  letter-spacing:0.5px;
+}
+.tbm-title{font-weight:800;font-size:13.5px;color:var(--tann-800);margin-bottom:4px;margin-top:4px;}
+.tbm-desc{font-size:12.5px;color:var(--text-2);line-height:1.45;}
+
+/* ─────────── Vergleichstabelle ─────────── */
+.compare-table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  margin:14px 0;font-size:13.5px;
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+}
+.compare-table th,.compare-table td{
+  padding:10px 14px;text-align:left;
+  border-bottom:1px solid var(--border);
+}
+.compare-table th{
+  background:var(--tann-50);
+  font-weight:800;color:var(--tann-800);
+  font-size:12.5px;
+}
+.compare-table th:first-child{background:#fff;}
+.compare-table td:first-child{
+  font-weight:700;color:var(--text-2);
+  background:var(--bg-page);
+  font-size:12.5px;
+}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table .col-816{color:var(--tann-800);}
+.compare-table .col-823{color:#7C2D12;}
+@media (max-width:600px){
+  .compare-table th,.compare-table td{padding:8px 10px;font-size:12.5px;}
+}
+
+/* ─────────── Quiz ─────────── */
+.quiz-q{margin-bottom:18px;}
+.quiz-q:last-child{margin-bottom:0;}
+.quiz-prompt{font-weight:700;font-size:14px;margin-bottom:8px;color:var(--text);}
+.quiz-opts{display:flex;flex-direction:column;gap:6px;}
+.quiz-opt{
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:11px 14px;
+  background:#fff;
+  font-size:13.5px;font-weight:600;
+  cursor:pointer;text-align:left;
+  font-family:inherit;color:var(--text);
+  transition:all 0.15s;
+}
+.quiz-opt:hover{border-color:var(--tann-600);background:var(--tann-50);}
+.quiz-opt.correct{
+  border-color:var(--green);background:var(--green-50);color:#14532D;
+  font-weight:700;
+}
+.quiz-opt.wrong{
+  border-color:var(--red);background:var(--red-50);color:#7F1D1D;
+}
+.quiz-opt:disabled{cursor:default;}
+.quiz-feedback{
+  margin-top:8px;font-size:13px;
+  padding:8px 12px;border-radius:6px;
+  display:none;line-height:1.5;
+}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.ok{background:var(--green-50);color:#14532D;border-left:3px solid var(--green);}
+.quiz-feedback.no{background:var(--red-50);color:#7F1D1D;border-left:3px solid var(--red);}
+
+/* ─────────── §-Links ─────────── */
+a.para-link{
+  color:var(--tann-700);text-decoration:none;
+  border-bottom:1px dotted var(--tann-700);
+  font-weight:700;
+}
+a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
+
+/* ─────────── Closing Box ─────────── */
+.closing{
+  background:var(--tann-grad);
+  border-radius:var(--radius-lg);
+  padding:24px 24px;color:#fff;
+  margin-top:22px;
+  box-shadow:var(--shadow-lg);
+}
+.closing-head{
+  font-weight:900;font-size:13px;
+  text-transform:uppercase;letter-spacing:0.8px;
+  margin-bottom:12px;
+  color:rgba(255,255,255,0.9);
+}
+.closing ul{list-style:none;padding:0;}
+.closing li{
+  padding:6px 0 6px 26px;position:relative;
+  font-size:14px;line-height:1.5;
+}
+.closing li::before{
+  content:'✓';position:absolute;left:0;top:6px;
+  background:rgba(255,255,255,0.25);
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;color:#fff;
+}
+
+/* ─────────── PIN Modal ─────────── */
+.pin-modal{
+  position:fixed;inset:0;
+  background:rgba(15,23,42,0.6);
+  display:none;align-items:center;justify-content:center;
+  z-index:100;padding:18px;
+}
+.pin-modal.show{display:flex;}
+.pin-card{
+  background:#fff;border-radius:var(--radius-lg);
+  padding:28px 26px;width:100%;max-width:340px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.pin-title{font-weight:900;font-size:18px;margin-bottom:6px;color:var(--text);}
+.pin-sub{font-size:13px;color:var(--text-2);margin-bottom:18px;}
+.pin-dots{
+  display:flex;gap:8px;justify-content:center;
+  margin-bottom:18px;
+}
+.pin-dot{
+  width:14px;height:14px;border-radius:50%;
+  background:var(--border);
+  transition:all 0.15s;
+}
+.pin-dot.filled{background:var(--tann-700);}
+.pin-modal.error .pin-dots{animation:shake 0.4s;}
+.pin-modal.error .pin-dot.filled{background:var(--red);}
+.pin-pad{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+}
+.pin-key{
+  background:var(--bg-page);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:14px 0;
+  font-family:inherit;font-weight:800;font-size:18px;
+  color:var(--text);cursor:pointer;
+  transition:all 0.1s;
+}
+.pin-key:hover{background:var(--tann-50);border-color:var(--tann-600);}
+.pin-key:active{transform:scale(0.96);}
+.pin-actions{
+  display:flex;justify-content:space-between;
+  margin-top:14px;
+}
+.pin-actions button{
+  background:none;border:none;
+  color:var(--text-2);font-family:inherit;
+  font-weight:700;font-size:13px;cursor:pointer;
+  padding:6px 10px;
+}
+.pin-actions button:hover{color:var(--tann-700);}
+
+/* ─────────── Animations ─────────── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  20%,60%{transform:translateX(-8px);}
+  40%,80%{transform:translateX(8px);}
+}
+
+/* ─────────── Print (für mündliche Abfrage) ─────────── */
+@media print{
+  .topbar,.progress,.section:not(.teacher-only),.btn-teacher,
+  .hero,.closing,.pin-modal,.section-num{display:none !important;}
+  .section.teacher-only{display:block !important;page-break-inside:avoid;
+    border:none;box-shadow:none;padding:0;}
+  body{background:#fff;}
+  main{max-width:none;padding:0;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TOPBAR ═══════════════ -->
+<header class="topbar">
+  <a href="index.html" class="topbar-logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M5 12h14M5 12l5-5M5 12l5 5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>WR <span class="ovr">&amp; Recht</span></span>
+  </a>
+  <div class="topbar-chip">3.2.3</div>
+  <button id="teacherBtn" class="btn-teacher" onclick="toggleTeacher()">Lehrkraft</button>
+</header>
+
+<!-- ═══════════════ PROGRESS ═══════════════ -->
+<nav class="progress" aria-label="Stundenverlauf">
+  <a class="step-chip" href="#step1"><span class="n">1</span>Rückblick</a>
+  <a class="step-chip" href="#step2"><span class="n">2</span>Leitfall</a>
+  <a class="step-chip" href="#step3"><span class="n">3</span>§ 816 BGB</a>
+  <a class="step-chip" href="#step4"><span class="n">4</span>Fallarbeit</a>
+  <a class="step-chip" href="#step5"><span class="n">5</span>Sicherung</a>
+  <a class="step-chip teacher-only" href="#step6"><span class="n">6</span>Abfrage</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <span class="hero-badge">Stunde 5 · 3.2.3 · Zivilrecht</span>
+  <h1>Ansprüche nach gutgläubigem Erwerb</h1>
+  <p class="hero-sub">Eigentum verloren – was bleibt dir noch?</p>
+
+  <div class="hero-grid">
+    <div class="hero-box">
+      <div class="hero-box-title">Lehrplan-Bezug</div>
+      <div class="hero-box-text">
+        Du begründest gesetzliche Ansprüche in Fallbeispielen und greifst dabei auf
+        rechtstechnische Kompetenzen zurück. Zentrale Norm der Stunde:
+        <strong>§ 816 BGB</strong> (Verfügung eines Nichtberechtigten).
+      </div>
+    </div>
+    <div class="hero-box">
+      <div class="hero-box-title">Warum relevant?</div>
+      <div class="hero-box-text">
+        Wenn jemand deinen Besitz unrechtmäßig an einen gutgläubigen Käufer verkauft,
+        bist du dein Eigentum los. Aber: Du gehst <em>nicht</em> leer aus. Das Recht
+        sorgt für einen Interessenausgleich – nur eben nicht da, wo man ihn zuerst sucht.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ STEP 1 ═══════════════ -->
+<section class="section" id="step1">
+  <header class="section-head">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">Rückblick – und das ungelöste Problem</div>
+      <div class="section-meta">Anschluss an 3.2.2 · Plenum · ca. 5 Min.</div>
+    </div>
+  </header>
+
+  <p>In der letzten Stunde hast du den <strong>gutgläubigen Erwerb</strong> kennengelernt:
+  Verkauft ein Nichtberechtigter eine fremde Sache an einen gutgläubigen Käufer, geht das
+  Eigentum nach <a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__932.html" target="_blank" rel="noopener">§ 932 BGB</a> auf den Käufer über.
+  Der ursprüngliche Eigentümer verliert sein Eigentum endgültig.</p>
+
+  <p style="margin-top:10px;">Bleibt eine drängende Frage: <strong>Schaut der Alteigentümer jetzt einfach in die Röhre?</strong>
+  Schauen wir uns die drei möglichen Wege an, etwas zurückzuholen:</p>
+
+  <div class="routes">
+    <div class="route dimmed">
+      <div class="route-title">Gegen den Käufer</div>
+      <span class="route-para">§ 985 BGB</span>
+      <div class="route-target">Herausgabe der Sache</div>
+      <div class="route-status">Scheitert hier ✗</div>
+    </div>
+    <div class="route spotlight">
+      <div class="route-title">Gegen den Veräußerer</div>
+      <span class="route-para">§ 816 I BGB</span>
+      <div class="route-target">Herausgabe des Erlöses</div>
+      <div class="route-status">★ Heute neu</div>
+    </div>
+    <div class="route">
+      <div class="route-title">Gegen den Veräußerer</div>
+      <span class="route-para">§ 823 I BGB</span>
+      <div class="route-target">Schadensersatz</div>
+      <div class="route-status">Kennst du aus 3.2.1</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Warum scheitert § 985 BGB gegen den Käufer?</strong> § 985 setzt voraus,
+    dass <em>du</em> noch Eigentümer bist. Genau das bist du aber nicht mehr – durch
+    den gutgläubigen Erwerb ist der Käufer rechtmäßig Eigentümer geworden. Wir kommen
+    in <strong>Stunde 6</strong> ausführlich auf § 985 zurück; heute halten wir nur
+    fest: <em>Dieser Weg ist hier verbaut.</em>
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon plenum">
+        <svg width="22" height="22" viewBox="0 0 44 38" fill="none">
+          <circle cx="22" cy="30" r="5" fill="#E65100"/>
+          <path d="M13 38c0-4.418 4.03-8 9-8s9 3.582 9 8" stroke="#E65100" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <circle cx="7" cy="14" r="3.5" fill="#E65100" opacity="0.7"/>
+          <path d="M2 22c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
+          <circle cx="16" cy="10" r="3.5" fill="#E65100" opacity="0.75"/>
+          <path d="M11 18c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+          <circle cx="28" cy="10" r="3.5" fill="#E65100" opacity="0.75"/>
+          <path d="M23 18c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+          <circle cx="37" cy="14" r="3.5" fill="#E65100" opacity="0.7"/>
+          <path d="M32 22c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Sprichwort als Leitgedanke</div>
+        <div class="task-form plenum">Plenum · Kurzes Gespräch</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p style="font-style:italic;font-size:15px;color:var(--tann-800);font-weight:700;">
+        „Wo du deinen Glauben gelassen hast, dort sollst du ihn suchen."
+      </p>
+      <p>Welche juristische Logik steckt hinter diesem alten Sprichwort? Überlegt
+      gemeinsam: An wen muss sich der Alteigentümer halten – und warum gerade dort?</p>
+
+      <button class="btn-solution" onclick="toggleSol(this)">Deutung anzeigen</button>
+      <div class="solution">
+        Wer einer Person seinen Besitz freiwillig anvertraut hat (z. B. zur Aufbewahrung,
+        zum Transport, zur Reparatur), <strong>trägt das Risiko</strong>, dass diese
+        Person das Vertrauen missbraucht. Der gutgläubige Dritte hat dieses Vertrauen nicht
+        veranlasst – ihn darf das Recht nicht treffen. Folge: Die Ansprüche richten sich
+        gegen den Veräußerer („dort, wo der Glaube gelassen wurde"), nicht gegen den Erwerber.
+      </div>
+    </div>
+  </div>
+
+  <div class="teacher-note">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweis Lehrkraft
+    </div>
+    <p>Plenumsphase als Aktivierung. Falls Klasse schnell ist, direkt auf § 935 BGB
+    (Abhandenkommen) verweisen: Das Sprichwort gilt nur dort, wo der Eigentümer den
+    Besitz <em>freiwillig</em> aus der Hand gegeben hat. Bei Diebstahl wäre § 932
+    bereits über § 935 gesperrt – dann bliebe sogar § 985 erhalten.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ STEP 2 ═══════════════ -->
+<section class="section" id="step2">
+  <header class="section-head">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">Leitfall – Mirko und der Oldtimer</div>
+      <div class="section-meta">Partnerarbeit · Sachverhalt einlesen · ca. 5 Min.</div>
+    </div>
+  </header>
+
+  <div class="book-ref">
+    <div class="book-ref-icon">
+      <svg width="20" height="20" viewBox="0 0 40 34" fill="none">
+        <path d="M20 6C20 6 14 4 6 5C4 5 3 6 3 8L3 30C3 31.5 4.5 32.5 6 32C14 31 20 32 20 32" stroke="#6B21A8" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <path d="M20 6C20 6 26 4 34 5C36 5 37 6 37 8L37 30C37 31.5 35.5 32.5 34 32C26 31 20 32 20 32" stroke="#6B21A8" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <line x1="20" y1="6" x2="20" y2="32" stroke="#6B21A8" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <div class="book-ref-title">Buchverweis</div>
+      <div class="book-ref-text">
+        Sachverhalt orientiert am Fall <strong>S. 170–171</strong>. Lies dort
+        zuerst den Originaltext, bevor du den Sachverhalt unten als Arbeitsgrundlage nutzt.
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Sachverhalt (verkürzt zur Arbeit am Bildschirm):</strong><br>
+    Mirko besitzt einen Oldtimer im Wert von <strong>mindestens 3.000 €</strong>.
+    Vor einem längeren Auslandsaufenthalt bittet er seinen Nachbarn, das Fahrzeug
+    in dessen Garage unterzustellen und stillzulegen. Er übergibt dem Nachbarn dazu
+    den Fahrzeugbrief – allein zum Abmelden, nicht zum Verkauf. Während Mirko weg ist,
+    verkauft der Nachbar den Oldtimer für <strong>900 €</strong> an einen Bekannten.
+    Dieser geht davon aus, dass der Nachbar Eigentümer ist – nichts deutet auf etwas
+    anderes hin. Der Bekannte zahlt 250 € an, der Rest soll später folgen.
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon partner">
+        <svg width="22" height="22" viewBox="0 0 40 36" fill="none">
+          <circle cx="13" cy="11" r="5" fill="#0d9488"/>
+          <circle cx="27" cy="11" r="5" fill="#0d9488"/>
+          <path d="M3 32c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M17 32c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Wer ist jetzt Eigentümer?</div>
+        <div class="task-form partner">Partnerarbeit · Begründe mit §§</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p>Klärt zu zweit die Eigentumslage <em>nach</em> dem Verkauf des Nachbarn:
+      Wem gehört der Oldtimer jetzt? Welche §§ trägt dein Ergebnis?
+      Notiert eure Begründung in drei knappen Schritten.</p>
+
+      <textarea class="answer-area" rows="4" placeholder="Vor dem Verkauf: Eigentümer war …&#10;Nach dem Verkauf: Eigentümer ist …&#10;Begründung: §§ …"></textarea>
+
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Musterlösung anzeigen</button>
+      <div class="solution">
+        <strong>Vor dem Verkauf:</strong> Mirko war Eigentümer und unmittelbarer Besitzer.
+        Mit der Übergabe an den Nachbarn (nur zur Verwahrung) wurde der Nachbar
+        unmittelbarer Besitzer (<a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__854.html" target="_blank" rel="noopener">§ 854 BGB</a>),
+        Mirko mittelbarer Besitzer (<a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__868.html" target="_blank" rel="noopener">§ 868 BGB</a>).
+        Das <strong>Eigentum</strong> blieb bei Mirko, weil keine Einigung über einen
+        Eigentumsübergang vorlag (<a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__929.html" target="_blank" rel="noopener">§ 929 BGB</a>).
+        <br><br>
+        <strong>Nach dem Verkauf:</strong> Der Bekannte ist Eigentümer geworden. Zwar
+        war der Nachbar <em>nicht</em> Eigentümer, aber der Bekannte hat in gutem Glauben
+        gehandelt und wusste auch nicht grob fahrlässig, dass der Nachbar nicht
+        berechtigt war (<a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__932.html" target="_blank" rel="noopener">§ 932 BGB</a>).
+        <a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__935.html" target="_blank" rel="noopener">§ 935 BGB</a>
+        sperrt den gutgläubigen Erwerb nicht, weil Mirko den Besitz <em>freiwillig</em>
+        weggegeben hat – das Auto ist ihm nicht abhandengekommen.
+        <br><br>
+        <strong>Ergebnis:</strong> Eigentum am Oldtimer liegt jetzt beim Bekannten.
+        Mirko hat sein Eigentum endgültig verloren.
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:14px;font-weight:700;color:var(--tann-800);">
+    → Damit ist die Eigentumsfrage geklärt. Bleibt die zweite, viel spannendere Frage:
+    <em>Was kann Mirko gegen seinen Nachbarn unternehmen?</em>
+  </p>
+</section>
+
+<!-- ═══════════════ STEP 3 ═══════════════ -->
+<section class="section" id="step3">
+  <header class="section-head">
+    <div class="section-num">3</div>
+    <div>
+      <div class="section-title">§ 816 I BGB – die Eingriffskondiktion</div>
+      <div class="section-meta">Erarbeitung · Einzelarbeit + Plenum · ca. 12 Min.</div>
+    </div>
+  </header>
+
+  <p>§ 816 BGB regelt einen Fall des <strong>Bereicherungsrechts</strong>: Wenn ein
+  Nichtberechtigter wirksam über fremdes Eigentum verfügt, soll er das, was er dadurch
+  erlangt hat, an den eigentlichen Berechtigten herausgeben.</p>
+
+  <div class="norm-box">
+    <div class="norm-title">§ 816 BGB · Verfügung eines Nichtberechtigten</div>
+    <p class="norm-text">
+      (1) Trifft ein <strong>Nichtberechtigter</strong> über einen Gegenstand eine
+      <strong>Verfügung</strong>, die dem <strong>Berechtigten gegenüber wirksam</strong> ist,
+      so ist er dem Berechtigten zur <strong>Herausgabe des durch die Verfügung Erlangten</strong>
+      verpflichtet. Erfolgt die Verfügung unentgeltlich, so trifft die gleiche Verpflichtung
+      denjenigen, welcher auf Grund der Verfügung unmittelbar einen rechtlichen Vorteil erlangt.
+    </p>
+    <p style="margin-top:10px;font-size:12px;color:#94A3B8;">
+      Quelle: <a href="https://www.gesetze-im-internet.de/bgb/__816.html" target="_blank" rel="noopener">gesetze-im-internet.de/bgb/__816.html</a>
+    </p>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:800;margin:18px 0 6px;color:var(--tann-800);">
+    Die Tatbestandsmerkmale (Satz 1)
+  </h3>
+
+  <div class="tbm-grid">
+    <div class="tbm-card">
+      <span class="tbm-num">1</span>
+      <div class="tbm-title">Verfügung</div>
+      <div class="tbm-desc">Rechtsgeschäft, das ein Recht unmittelbar überträgt, ändert oder aufhebt –
+        z. B. die Übereignung nach § 929 BGB.</div>
+    </div>
+    <div class="tbm-card">
+      <span class="tbm-num">2</span>
+      <div class="tbm-title">durch einen Nichtberechtigten</div>
+      <div class="tbm-desc">Der Verfügende war nicht Eigentümer und hatte auch
+        keine Ermächtigung des Eigentümers.</div>
+    </div>
+    <div class="tbm-card">
+      <span class="tbm-num">3</span>
+      <div class="tbm-title">wirksam gegenüber dem Berechtigten</div>
+      <div class="tbm-desc">Trotz fehlender Berechtigung greift die Verfügung durch –
+        typischerweise wegen <strong>gutgläubigen Erwerbs</strong> nach §§ 932 ff. BGB.</div>
+    </div>
+    <div class="tbm-card" style="background:#FEF3C7;border-color:#FCD34D;">
+      <span class="tbm-num" style="background:#B45309;">RF</span>
+      <div class="tbm-title" style="color:#92400E;">Rechtsfolge</div>
+      <div class="tbm-desc" style="color:#78350F;">Herausgabe <strong>des Erlangten</strong>
+        an den Berechtigten – also des Verkaufserlöses, <em>nicht</em> des Verkehrswerts.</div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#DC2626" stroke-width="2.5" fill="none"/>
+          <path d="M14 14c0-2.761 2.239-5 5-5s5 2.239 5 5c0 2-1.5 3-3 4s-2 2.5-2 3.5" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="19" cy="28" r="1.8" fill="#DC2626"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Mini-Quiz: § 816 I 1 verstanden?</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · 3 Fragen · Retry erlaubt</div>
+      </div>
+    </div>
+    <div class="task-body">
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">1. Mirkos Nachbar verkauft den Oldtimer (Wert 3.000 €) für 900 €. Wie viel kann Mirko nach § 816 I 1 verlangen?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">3.000 € – der Verkehrswert</button>
+          <button class="quiz-opt" data-correct="1">900 € – das, was der Nachbar erlangt hat</button>
+          <button class="quiz-opt" data-correct="0">2.100 € – die Differenz</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. „Das Erlangte" ist der Verkaufserlös. Den Verkehrswert kann Mirko nur über § 823 I BGB erreichen – das schauen wir uns gleich an.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">2. Wäre der Käufer <em>nicht</em> gutgläubig gewesen – könnte § 816 I 1 dann noch greifen?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">Ja, der Anspruch besteht unabhängig vom guten Glauben.</button>
+          <button class="quiz-opt" data-correct="1">Nein, dann scheitert die Verfügung – sie wäre nicht „wirksam gegenüber dem Berechtigten".</button>
+          <button class="quiz-opt" data-correct="0">Ja, nur die Höhe wäre eine andere.</button>
+        </div>
+        <div class="quiz-feedback ok">Richtig. Ohne gutgläubigen Erwerb bliebe Mirko Eigentümer – und müsste über § 985 BGB direkt gegen den Käufer vorgehen. § 816 wäre überflüssig.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">3. Was passiert, wenn der Nachbar den Oldtimer <em>verschenkt</em> statt verkauft hätte?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">Mirko bekommt nichts, weil der Nachbar nichts erlangt hat.</button>
+          <button class="quiz-opt" data-correct="0">Mirko kann nur den Verkehrswert beim Beschenkten holen.</button>
+          <button class="quiz-opt" data-correct="1">Mirko kann sich direkt an den Beschenkten halten (§ 816 I Satz 2 BGB).</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. Bei unentgeltlicher Verfügung „rutscht" der Anspruch zum Beschenkten durch – darum kümmern wir uns gleich.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+    </div>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:800;margin:24px 0 6px;color:var(--tann-800);">
+    Satz 2 – die unentgeltliche Verfügung
+  </h3>
+  <p>Hätte der Nachbar den Oldtimer nicht verkauft, sondern <strong>verschenkt</strong>,
+  hätte er selbst <em>nichts</em> erlangt – Satz 1 ginge ins Leere. Satz 2 schließt diese
+  Lücke: Der Beschenkte erhält zwar gutgläubig Eigentum, hat aber kein Vermögensopfer
+  erbracht. Im Konflikt zwischen ihm und Mirko überwiegt deshalb der Schutz des
+  Alteigentümers – Mirko kann sich direkt an den Beschenkten halten und von ihm
+  Herausgabe der Sache (bzw. Wertersatz) verlangen.</p>
+
+  <div class="info-box">
+    <strong>Merksatz.</strong> § 816 I 1 verlagert den <em>Erlös</em> vom unredlichen
+    Veräußerer zum Alteigentümer. § 816 I 2 verlagert die <em>geschenkte Sache</em>
+    vom gutgläubigen, aber unentgeltlich begünstigten Empfänger zum Alteigentümer.
+  </div>
+
+  <h3 style="font-size:16px;font-weight:800;margin:24px 0 6px;color:var(--tann-800);">
+    § 816 vs. § 823 BGB – wann lohnt sich was?
+  </h3>
+
+  <table class="compare-table" role="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="col-816">§ 816 I 1 BGB</th>
+        <th class="col-823">§ 823 I BGB</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Anspruchsart</td>
+        <td class="col-816">Bereicherungsanspruch</td>
+        <td class="col-823">Schadensersatzanspruch</td></tr>
+      <tr><td>Gegen wen</td>
+        <td class="col-816">Nichtberechtigter Veräußerer</td>
+        <td class="col-823">Schädiger (hier: Veräußerer)</td></tr>
+      <tr><td>Voraussetzung</td>
+        <td class="col-816">Wirksame Verfügung des Nichtberechtigten</td>
+        <td class="col-823">Eigentumsverletzung + Verschulden + Schaden</td></tr>
+      <tr><td>Verschulden nötig?</td>
+        <td class="col-816"><strong>Nein</strong> – verschuldensunabhängig</td>
+        <td class="col-823">Ja – Vorsatz oder Fahrlässigkeit (§ 276 BGB)</td></tr>
+      <tr><td>Höhe</td>
+        <td class="col-816">Das Erlangte (Erlös)</td>
+        <td class="col-823">Voller Schaden (Verkehrswert)</td></tr>
+      <tr><td>Im Mirko-Fall</td>
+        <td class="col-816"><strong>900 €</strong></td>
+        <td class="col-823"><strong>3.000 €</strong> (ggf. ./. 250 €)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    <strong>Didaktischer Clou:</strong> Auf den ersten Blick ist § 823 immer attraktiver
+    (mehr Geld). Aber § 823 setzt <em>Verschulden</em> voraus. Hätte der Nachbar sich
+    z. B. selbst irrtümlich für berechtigt gehalten (kein Verschulden) oder wäre die
+    Schadenshöhe schwer beweisbar, scheitert § 823 – § 816 läuft trotzdem.
+  </div>
+
+  <div class="teacher-note">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweis Lehrkraft
+    </div>
+    <p>Vergleichstabelle eignet sich gut für eine kurze fragend-entwickelnde Phase:
+    „Welche der beiden Normen ist Mirkos bevorzugte Wahl?" → § 823 (höhere Summe).
+    „Und wenn der Nachbar plötzlich nicht zahlungsfähig ist?" → beide Ansprüche
+    laufen kumulativ; § 816 ist nicht ausgeschlossen.</p>
+    <p>Anwendungsfall mit fehlendem Verschulden: Erbe verkauft Gegenstand aus dem
+    Nachlass, von dem er nicht wusste, dass er einer dritten Person gehört.
+    § 823 scheitert mangels Fahrlässigkeit, § 816 greift trotzdem.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ STEP 4 ═══════════════ -->
+<section class="section" id="step4">
+  <header class="section-head">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">Fallarbeit – Mirko ↔ Nachbar</div>
+      <div class="section-meta">Gruppenarbeit · 3er-Gruppen · ca. 10 Min.</div>
+    </div>
+  </header>
+
+  <p>Prüft in Gruppen <strong>beide Anspruchsgrundlagen</strong> für Mirkos Forderungen
+  gegen seinen Nachbarn. Arbeitet kompakt – beim § 823 I BGB nennt ihr nur die
+  <em>kritischen</em> TBM (also dort, wo etwas zu prüfen <em>ist</em>; bei Selbstverständlichem
+  genügt eine Zeile).</p>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon group">
+        <svg width="22" height="22" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="9" r="4.5" fill="#7B1FA2"/>
+          <circle cx="9" cy="22" r="4.5" fill="#7B1FA2"/>
+          <circle cx="35" cy="22" r="4.5" fill="#7B1FA2"/>
+          <circle cx="22" cy="35" r="4.5" fill="#7B1FA2"/>
+          <circle cx="22" cy="22" r="11" stroke="#7B1FA2" stroke-width="1.8" fill="none" opacity="0.5" stroke-dasharray="2,2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">A) Mirko gegen Nachbar nach § 816 I 1 BGB</div>
+        <div class="task-form group">Gruppenarbeit · 3 Felder</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Obersatz / Anspruchsgrundlage:</strong></p>
+      <textarea class="answer-area" rows="2" placeholder="Mirko könnte gegen … aus § 816 I 1 BGB einen Anspruch auf … haben, wenn …"></textarea>
+
+      <p style="margin-top:10px;"><strong>Subsumtion (TBM 1–3):</strong></p>
+      <textarea class="answer-area" rows="5" placeholder="1. Verfügung: …&#10;2. Nichtberechtigter: …&#10;3. Wirksamkeit gegenüber Berechtigtem: …"></textarea>
+
+      <p style="margin-top:10px;"><strong>Ergebnis / Rechtsfolge:</strong></p>
+      <textarea class="answer-area" rows="2" placeholder="Mirko hat einen Anspruch auf … in Höhe von …"></textarea>
+
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Musterlösung A anzeigen</button>
+      <div class="solution">
+        <strong>Obersatz:</strong> Mirko könnte gegen den Nachbarn aus § 816 I 1 BGB
+        einen Anspruch auf Herausgabe der erlangten 900 € haben, wenn der Nachbar als
+        Nichtberechtigter eine Mirko gegenüber wirksame Verfügung getroffen hat.
+        <br><br>
+        <strong>Subsumtion:</strong>
+        <ul>
+          <li><strong>Verfügung:</strong> Der Nachbar hat den Oldtimer durch Übereignung
+          nach § 929 BGB an den Bekannten übertragen – ein klassisches Verfügungsgeschäft.</li>
+          <li><strong>Nichtberechtigter:</strong> Der Nachbar war weder Eigentümer
+          noch ermächtigt; das bloße Besitzen begründet keine Verfügungsbefugnis.</li>
+          <li><strong>Wirksamkeit gegenüber dem Berechtigten:</strong> Der gutgläubige
+          Bekannte hat nach §§ 929, 932 BGB Eigentum erworben (§ 935 BGB greift nicht,
+          da Mirko den Besitz freiwillig hergegeben hat). Damit wirkt die Verfügung auch
+          gegen Mirko als ursprünglichen Berechtigten.</li>
+        </ul>
+        <strong>Ergebnis:</strong> Mirko hat gegen den Nachbarn einen Anspruch auf
+        Herausgabe des Erlangten in Höhe von <strong>900 €</strong> (Kaufpreis).
+        Was der Nachbar tatsächlich schon vereinnahmt hat (250 €) und was noch offen
+        ist, spielt für die Höhe des Anspruchs keine Rolle.
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon group">
+        <svg width="22" height="22" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="9" r="4.5" fill="#7B1FA2"/>
+          <circle cx="9" cy="22" r="4.5" fill="#7B1FA2"/>
+          <circle cx="35" cy="22" r="4.5" fill="#7B1FA2"/>
+          <circle cx="22" cy="35" r="4.5" fill="#7B1FA2"/>
+          <circle cx="22" cy="22" r="11" stroke="#7B1FA2" stroke-width="1.8" fill="none" opacity="0.5" stroke-dasharray="2,2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">B) Mirko gegen Nachbar nach § 823 I BGB</div>
+        <div class="task-form group">Gruppenarbeit · nur kritische TBM</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p>Hier reicht eine knappe Prüfung. Nennt zu jedem TBM <em>einen</em> Satz,
+      konzentriert euch auf die kritischen Stellen (Rechtsgutverletzung, Verschulden,
+      Schaden).</p>
+
+      <textarea class="answer-area" rows="9" placeholder="Verletzungshandlung: …&#10;Rechtsgutverletzung: …&#10;Kausalität (haftungsbegründend): …&#10;Widerrechtlichkeit: …&#10;Verschulden: …&#10;Schaden: …&#10;Kausalität (haftungsausfüllend): …&#10;&#10;Ergebnis: …"></textarea>
+
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Musterlösung B anzeigen</button>
+      <div class="solution">
+        <ul>
+          <li><strong>Verletzungshandlung:</strong> Der nicht autorisierte Verkauf und
+          die Übereignung des Oldtimers an den gutgläubigen Bekannten.</li>
+          <li><strong>Rechtsgutverletzung:</strong> Mirko verliert durch den gutgläubigen
+          Erwerb sein Eigentum am Fahrzeug – Verletzung des absoluten Rechts „Eigentum".</li>
+          <li><strong>Haftungsbegründende Kausalität:</strong> Ohne den Verkauf des
+          Nachbarn wäre Mirko weiterhin Eigentümer. Kausalität gegeben.</li>
+          <li><strong>Widerrechtlichkeit:</strong> Indiziert durch die Eigentumsverletzung;
+          ein Rechtfertigungsgrund ist nicht ersichtlich.</li>
+          <li><strong>Verschulden:</strong> Der Nachbar handelte absichtlich, also
+          vorsätzlich (§ 276 BGB). Ihm war bekannt, dass das Fahrzeug nicht ihm gehört.</li>
+          <li><strong>Schaden:</strong> Vermögensschaden in Höhe des Verkehrswerts –
+          mindestens 3.000 €.</li>
+          <li><strong>Haftungsausfüllende Kausalität:</strong> Der Eigentumsverlust führt
+          adäquat zum Vermögensschaden. Gegeben.</li>
+        </ul>
+        <strong>Ergebnis:</strong> Mirko hat gegen den Nachbarn einen Schadensersatzanspruch
+        nach § 823 I BGB; der Umfang bestimmt sich nach §§ 249 ff. BGB und liegt bei
+        <strong>3.000 €</strong> (ggf. abzüglich der bereits geleisteten 250 €, sofern Mirko diese
+        vom Nachbarn weitergereicht bekommt).
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Verhältnis der Ansprüche:</strong> § 816 und § 823 stehen <em>nebeneinander</em>
+    (Anspruchskonkurrenz). Mirko kann beide geltend machen – allerdings <strong>nicht doppelt
+    kassieren</strong>: Was er über § 816 erhält, wird auf den Schadensersatz angerechnet.
+    In der Praxis wird er deshalb auf § 823 zielen, § 816 dient als Auffangposition.
+  </div>
+
+  <div class="teacher-note">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweis Lehrkraft
+    </div>
+    <p>Die Anspruchskonkurrenz ist erfahrungsgemäß ein Punkt, an dem Schüler ins
+    Schleudern geraten („Bekommt Mirko jetzt 3.000 € oder 3.900 €?"). Eindeutige
+    Antwort: 3.000 €. § 816 wird über § 818 BGB durch die Auszahlung über § 823
+    erfüllt; doppelte Bereicherung ist ausgeschlossen.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ STEP 5 ═══════════════ -->
+<section class="section" id="step5">
+  <header class="section-head">
+    <div class="section-num">5</div>
+    <div>
+      <div class="section-title">Beurteilung &amp; Sicherung</div>
+      <div class="section-meta">Einzelarbeit · ca. 8 Min.</div>
+    </div>
+  </header>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 36 40" fill="none">
+          <path d="M18 4C11.373 4 6 9.373 6 16c0 4.136 2.022 7.789 5.1 10.053C12.2 27.26 13 28.5 13 30h10c0-1.5.8-2.74 1.9-3.947C27.978 23.789 30 20.136 30 16c0-6.627-5.373-12-12-12z" fill="#FFC107" stroke="#FF9800" stroke-width="2"/>
+          <rect x="13" y="30" width="10" height="3" rx="1" fill="#9E9E9E"/>
+          <rect x="14" y="33" width="8" height="3" rx="1" fill="#9E9E9E"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Beurteilungsfrage</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · Eigene Position begründen</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><em>„Unter welchen Bedingungen schützt das Zusammenspiel aus § 816 BGB und
+      § 823 BGB den ursprünglichen Eigentümer angemessen – und wann bleibt er
+      trotzdem auf einem Schaden sitzen?"</em></p>
+      <p style="font-size:13px;color:var(--text-2);">Argumentiere differenziert in
+      ca. 4–6 Sätzen. Berücksichtige die Frage der Zahlungsfähigkeit, des Verschuldens
+      und der Beweislage.</p>
+
+      <textarea class="answer-area" rows="6" placeholder="Das System schützt den Eigentümer dann angemessen, wenn …&#10;Hingegen bleibt er trotzdem leer aus, wenn …"></textarea>
+
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Mögliche Argumentationslinie</button>
+      <div class="solution">
+        Das System schützt den Alteigentümer angemessen, solange der nichtberechtigte
+        Veräußerer <em>solvent</em> ist und ihm mindestens Fahrlässigkeit nachgewiesen
+        werden kann – dann erreicht der Alteigentümer über § 823 den vollen
+        Verkehrswert; § 816 fängt als verschuldensunabhängige Reserve auf, was
+        an § 823 scheitert.
+        <br><br>
+        Trotzdem bleibt er auf einem Schaden sitzen, wenn (a) der Veräußerer
+        <strong>zahlungsunfähig</strong> ist – dann nützt die schönste Anspruchsgrundlage
+        nichts; (b) der Verkehrswert höher liegt als der Erlös <em>und</em> kein
+        Verschulden vorliegt – dann gibt § 816 nur den Erlös, § 823 fällt weg;
+        (c) der Veräußerer den Erlös bereits selbst verloren oder verbraucht hat –
+        § 818 III BGB („Entreicherung") kann Mirkos Anspruch reduzieren.
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#DC2626" stroke-width="2.5" fill="none"/>
+          <path d="M14 14c0-2.761 2.239-5 5-5s5 2.239 5 5c0 2-1.5 3-3 4s-2 2.5-2 3.5" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="19" cy="28" r="1.8" fill="#DC2626"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Sicherungs-Quiz</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · 4 Fragen · Retry erlaubt</div>
+      </div>
+    </div>
+    <div class="task-body">
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">1. Warum scheitert § 985 BGB gegen den gutgläubigen Käufer?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">Weil der Käufer noch nicht gezahlt hat.</button>
+          <button class="quiz-opt" data-correct="1">Weil der Alteigentümer durch den gutgläubigen Erwerb sein Eigentum verloren hat.</button>
+          <button class="quiz-opt" data-correct="0">Weil § 985 nur bei beweglichen Sachen gilt.</button>
+        </div>
+        <div class="quiz-feedback ok">Genau – § 985 setzt Eigentum voraus, und das ist auf den Käufer übergegangen.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">2. § 816 I 1 BGB gewährt dem Berechtigten …</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="1">… die Herausgabe des Erlangten (Erlös).</button>
+          <button class="quiz-opt" data-correct="0">… Schadensersatz in Höhe des Verkehrswerts.</button>
+          <button class="quiz-opt" data-correct="0">… die Rückgabe der Sache selbst.</button>
+        </div>
+        <div class="quiz-feedback ok">Richtig. „Das Erlangte" = der konkrete Erlös aus der Verfügung.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">3. Welche Aussage über das Verhältnis von § 816 und § 823 stimmt?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">§ 823 schließt § 816 aus.</button>
+          <button class="quiz-opt" data-correct="1">Beide Ansprüche bestehen nebeneinander, ohne dass doppelt gezahlt wird.</button>
+          <button class="quiz-opt" data-correct="0">§ 816 setzt voraus, dass § 823 zuerst geprüft wurde.</button>
+        </div>
+        <div class="quiz-feedback ok">Korrekt. Anspruchskonkurrenz – aber keine Bereicherung des Geschädigten.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">4. Wann ist § 816 wertvoller als § 823?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">Wenn der Erlös höher ist als der Verkehrswert.</button>
+          <button class="quiz-opt" data-correct="1">Wenn der Veräußerer ohne Verschulden gehandelt hat.</button>
+          <button class="quiz-opt" data-correct="0">Wenn der Käufer nicht gutgläubig war.</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. § 816 ist verschuldensunabhängig – damit bleibt er auch dann nutzbar, wenn dem Veräußerer kein Vorwurf gemacht werden kann.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="closing">
+    <div class="closing-head">Das hast du heute gelernt</div>
+    <ul>
+      <li>Nach gutgläubigem Erwerb ist § 985 BGB gegen den Käufer versperrt – das Eigentum ist endgültig weg.</li>
+      <li>§ 816 I 1 BGB verschafft dem Alteigentümer den Verkaufserlös vom nichtberechtigten Veräußerer (verschuldensunabhängig).</li>
+      <li>§ 816 I 2 BGB greift bei unentgeltlicher Verfügung direkt gegen den Beschenkten.</li>
+      <li>§ 823 I BGB liefert daneben den vollen Schadensersatz – aber nur bei Verschulden.</li>
+      <li>Beide Ansprüche bestehen nebeneinander; doppelt erstattet wird aber nicht.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════ STEP 6 · LEHRKRAFT ═══════════════ -->
+<section class="section teacher-only" id="step6">
+  <header class="section-head">
+    <div class="section-num" style="background:var(--amber-bd);color:var(--amber-tx);">6</div>
+    <div>
+      <div class="section-title" style="color:var(--amber-tx);">Mündliche Abfrage · 4K-Modell</div>
+      <div class="section-meta">Nur Lehrkraft · 1 Schüler · ca. 10 Min.</div>
+    </div>
+  </header>
+
+  <div class="teacher-note" style="display:block;margin-top:0;">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweise zur Durchführung
+    </div>
+    <p>Die vier Fragen decken jeweils einen 4K-Kompetenzbereich ab. Erwartungshorizonte
+    aufklappbar; Bewertung entlang der etablierten Notenskala. Empfehlung: Wissen
+    zuerst, dann zwei „mittlere" Kompetenzen, abschließend Kreativität als offene
+    Frage.</p>
+    <p style="margin-top:8px;">
+      <button class="btn btn-secondary" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="vertical-align:-2px;">
+          <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Abfrage drucken
+      </button>
+    </p>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#7B1FA2;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#7B1FA2" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#7B1FA2" font-family="Nunito,sans-serif">W</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Wissen</div>
+        <div class="task-form" style="color:#7B1FA2;">Reproduktion</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Nenne und erkläre die drei Tatbestandsmerkmale des
+      § 816 I 1 BGB. Welche Rechtsfolge knüpft die Norm daran?</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        (1) Verfügung über einen Gegenstand – Rechtsgeschäft, das ein Recht überträgt
+        oder belastet (typisch: § 929 BGB). (2) Nichtberechtigter – ohne Eigentum oder
+        Ermächtigung. (3) Wirksamkeit gegenüber dem Berechtigten – meist über gutgläubigen
+        Erwerb (§§ 932 ff. BGB). Rechtsfolge: Herausgabe des durch die Verfügung
+        <em>Erlangten</em> an den Berechtigten (i. d. R. der Verkaufserlös, nicht der Verkehrswert).
+      </div>
+    </div>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#DC2626;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#DC2626" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#DC2626" font-family="Nunito,sans-serif">K</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Kritisches Denken</div>
+        <div class="task-form" style="color:#DC2626;">Analyse / Bewertung</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Warum gibt § 816 BGB nur den <em>Erlös</em>, während
+      § 823 BGB den vollen <em>Schaden</em> ersetzt? Wo liegt der dogmatische Unterschied,
+      und welche praktische Konsequenz hat das?</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        § 816 ist <strong>Bereicherungsrecht</strong>: Es will ungerechtfertigte
+        Vermögensverschiebungen rückabwickeln – also herausgeben, was der eine zu
+        Unrecht hat. § 823 ist <strong>Deliktsrecht</strong>: Es will Schäden
+        ausgleichen, die durch ein vorwerfbares Verhalten entstanden sind. Praktisch:
+        § 816 ist verschuldensunabhängig, dafür auf das Erlangte begrenzt; § 823
+        verlangt Vorsatz oder Fahrlässigkeit, ersetzt aber den vollen Wert.
+        Im Mirko-Fall: 900 € vs. 3.000 €. Wer beide Wege gehen kann, kombiniert sie –
+        ohne doppelt zu kassieren.
+      </div>
+    </div>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#0d9488;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#0d9488" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#0d9488" font-family="Nunito,sans-serif">K</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Kommunikation</div>
+        <div class="task-form" style="color:#0d9488;">Adressatengerecht erklären</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Stell dir vor, Mirko (ohne juristische Kenntnisse)
+      sitzt vor dir und fragt: „Kann ich nicht einfach den Käufer verklagen, der
+      hat doch jetzt mein Auto?" Erkläre ihm in zwei, drei Sätzen, warum das nicht
+      funktioniert – und an wen er sich stattdessen wenden muss.</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        Der Käufer hat dein Auto rechtmäßig erworben: Das Gesetz schützt Käufer, die
+        nichts Böses ahnen, damit der Handel funktioniert (§ 932 BGB). Damit bist du
+        offiziell nicht mehr Eigentümer – und der Käufer muss dir das Auto nicht
+        zurückgeben. Halten kannst du dich aber an deinen Nachbarn: Er hat das Geld
+        bekommen, das dir zusteht (§ 816 BGB), und er muss dir den vollen Schaden
+        ersetzen, weil er wusste, dass das Auto nicht ihm gehört (§ 823 BGB).
+      </div>
+    </div>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#FF9800;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#FF9800" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#FF9800" font-family="Nunito,sans-serif">K</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Kreativität</div>
+        <div class="task-form" style="color:#FF9800;">Transfer / Fallkonstruktion</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Konstruiere einen Fall, in dem § 816 BGB für den
+      Alteigentümer <em>wertvoller</em> ist als § 823 BGB. Begründe, warum.</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        Beispielfall: Eine Erbin verkauft im Glauben, alleinige Erbin zu sein, einen
+        wertvollen Gegenstand aus dem Nachlass an einen gutgläubigen Käufer. Später
+        stellt sich heraus, dass eine weitere Miterbin existiert, der dieser Gegenstand
+        aufgrund einer Teilungsanordnung allein zugestanden hätte. § 823 scheitert
+        mangels Fahrlässigkeit (die Erbin hat von der anderen schlicht nichts gewusst
+        und musste auch nichts wissen). § 816 greift trotzdem: Eine Nichtberechtigte
+        hat wirksam verfügt – die Miterbin bekommt den Erlös.
+        <br><br>
+        Alternative gute Lösung: Veräußerer hat den Erlös zwar erhalten, ist aber
+        zwischenzeitlich insolvent, sodass eine sieben­stellige Schadens­ersatz­forderung
+        nach § 823 ins Leere geht. § 816 kann gegen Mitgläubiger der Insolvenz dennoch
+        eine bessere Position liefern, weil das „Erlangte" als konkreter
+        Gegenstand/Konto identifizierbar bleibt.
+      </div>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<!-- ═══════════════ PIN MODAL ═══════════════ -->
+<div class="pin-modal" id="pinModal">
+  <div class="pin-card">
+    <div class="pin-title">Lehrkraft-Modus</div>
+    <div class="pin-sub">8-stelliger PIN zum Freischalten</div>
+    <div class="pin-dots" id="pinDots">
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinIn(1)">1</button>
+      <button class="pin-key" onclick="pinIn(2)">2</button>
+      <button class="pin-key" onclick="pinIn(3)">3</button>
+      <button class="pin-key" onclick="pinIn(4)">4</button>
+      <button class="pin-key" onclick="pinIn(5)">5</button>
+      <button class="pin-key" onclick="pinIn(6)">6</button>
+      <button class="pin-key" onclick="pinIn(7)">7</button>
+      <button class="pin-key" onclick="pinIn(8)">8</button>
+      <button class="pin-key" onclick="pinIn(9)">9</button>
+      <button class="pin-key" style="visibility:hidden;"></button>
+      <button class="pin-key" onclick="pinIn(0)">0</button>
+      <button class="pin-key" onclick="pinDel()" style="font-size:14px;">⌫</button>
+    </div>
+    <div class="pin-actions">
+      <button onclick="closePin()">Abbrechen</button>
+      <button onclick="pinReset()">Zurücksetzen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════ TEACHER PIN (8-stellig, Kapitel 3) ═══════════════
+const TEACHER_PIN = '13579135';
+let pinBuffer = '';
+
+function toggleTeacher(){
+  if(document.body.classList.contains('teacher-mode')){
+    document.body.classList.remove('teacher-mode');
+    document.getElementById('teacherBtn').classList.remove('active');
+    document.getElementById('teacherBtn').textContent = 'Lehrkraft';
+  } else {
+    document.getElementById('pinModal').classList.add('show');
+    pinReset();
+  }
+}
+function closePin(){
+  document.getElementById('pinModal').classList.remove('show');
+  pinReset();
+}
+function pinIn(d){
+  if(pinBuffer.length >= 8) return;
+  pinBuffer += d;
+  renderDots();
+  if(pinBuffer.length === 8) setTimeout(checkPin, 120);
+}
+function pinDel(){
+  pinBuffer = pinBuffer.slice(0,-1);
+  renderDots();
+}
+function pinReset(){
+  pinBuffer = '';
+  renderDots();
+  document.getElementById('pinModal').classList.remove('error');
+}
+function renderDots(){
+  const dots = document.querySelectorAll('#pinDots .pin-dot');
+  dots.forEach((d,i)=>{
+    d.classList.toggle('filled', i < pinBuffer.length);
+  });
+}
+function checkPin(){
+  if(pinBuffer === TEACHER_PIN){
+    document.body.classList.add('teacher-mode');
+    document.getElementById('teacherBtn').classList.add('active');
+    document.getElementById('teacherBtn').textContent = '✓ Lehrkraft';
+    document.getElementById('pinModal').classList.remove('show');
+    pinReset();
+  } else {
+    const m = document.getElementById('pinModal');
+    m.classList.add('error');
+    setTimeout(()=>{ m.classList.remove('error'); pinReset(); }, 500);
+  }
+}
+// Keyboard support
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('pinModal').classList.contains('show')) return;
+  if(e.key >= '0' && e.key <= '9') pinIn(parseInt(e.key));
+  else if(e.key === 'Backspace') pinDel();
+  else if(e.key === 'Escape') closePin();
+  else if(e.key === 'Enter' && pinBuffer.length === 8) checkPin();
+});
+
+// ═══════════════ Musterlösung Toggle ═══════════════
+function toggleSol(btn){
+  const sol = btn.nextElementSibling;
+  if(!sol || !sol.classList.contains('solution')) return;
+  const open = sol.classList.toggle('visible');
+  btn.textContent = open ? btn.textContent.replace(/anzeigen|Anzeigen|Mögliche|Erwartungshorizont/, m=>{
+    const map={'anzeigen':'verbergen','Anzeigen':'Verbergen','Mögliche':'Mögliche','Erwartungshorizont':'Erwartungshorizont'};
+    return map[m];
+  }) : btn.textContent;
+  // Simpler: just toggle text
+  if(open && !btn.dataset.origText){ btn.dataset.origText = btn.textContent; btn.textContent = btn.textContent.replace('anzeigen','verbergen').replace('Anzeigen','Verbergen'); }
+  else if(!open && btn.dataset.origText){ btn.textContent = btn.dataset.origText; }
+}
+
+// ═══════════════ Quiz Logic ═══════════════
+document.querySelectorAll('.quiz-q').forEach(q=>{
+  const opts = q.querySelectorAll('.quiz-opt');
+  const feedback = q.querySelector('.quiz-feedback');
+  const retry = q.querySelector('.btn-retry');
+  opts.forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      const correct = opt.dataset.correct === '1';
+      opts.forEach(o=>o.disabled = true);
+      if(correct){
+        opt.classList.add('correct');
+        feedback.classList.add('show','ok');
+      } else {
+        opt.classList.add('wrong');
+        // Highlight correct answer
+        opts.forEach(o=>{
+          if(o.dataset.correct === '1') o.classList.add('correct');
+        });
+        feedback.classList.add('show','no');
+        feedback.textContent = '✗ Leider falsch. Die richtige Antwort ist markiert.';
+        if(retry) retry.style.display = 'inline-block';
+      }
+    });
+  });
+});
+function retryQuiz(btn){
+  const q = btn.closest('.quiz-q');
+  q.querySelectorAll('.quiz-opt').forEach(o=>{
+    o.disabled = false;
+    o.classList.remove('correct','wrong');
+  });
+  const fb = q.querySelector('.quiz-feedback');
+  fb.classList.remove('show','no');
+  fb.classList.add('ok'); // reset to default ok variant
+  // restore original feedback text (it's the “ok” variant text from HTML)
+  // Since we changed feedback text on "wrong", we need to restore.
+  // Simplest fix: read from data attribute initialized once.
+  if(!fb.dataset.orig) fb.dataset.orig = fb.innerHTML;
+  fb.innerHTML = fb.dataset.orig;
+  fb.classList.remove('show');
+  btn.style.display = 'none';
+}
+// Capture original feedback text on load (for restore after retry)
+document.querySelectorAll('.quiz-feedback').forEach(fb=>{
+  fb.dataset.orig = fb.innerHTML;
+});
+
+</script>
+
+</body>
+</html>
