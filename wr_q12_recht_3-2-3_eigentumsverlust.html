@@ -124,7 +124,7 @@ body{
   display:none;
 }
 .step-chip.teacher-only .n{background:var(--amber-bd);color:var(--amber-tx);}
-body.teacher-mode .step-chip.teacher-only{display:flex;}
+body.version-b .step-chip.teacher-only{display:flex;}
 
 /* ─────────── Main ─────────── */
 main{
@@ -345,7 +345,7 @@ main{
   padding:14px 16px;margin:14px 0;
   display:none;
 }
-body.teacher-mode .teacher-note{display:block;}
+body.version-b .teacher-note{display:block;}
 .teacher-note-header{
   font-weight:900;font-size:11px;color:var(--amber-tx);
   text-transform:uppercase;letter-spacing:0.7px;
@@ -357,7 +357,7 @@ body.teacher-mode .teacher-note{display:block;}
 
 /* ─────────── Lehrkraft-Steps ─────────── */
 .section.teacher-only{display:none;}
-body.teacher-mode .section.teacher-only{display:block;}
+body.version-b .section.teacher-only{display:block;}
 
 /* ─────────── Info-Box (neutral) ─────────── */
 .info-box{
@@ -603,6 +603,34 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
 }
 .pin-actions button:hover{color:var(--tann-700);}
 
+/* ─────────── Step-Mechanik (analog 3.2.2) ─────────── */
+.step{display:none;}
+.step.active{display:block;}
+body:not(.version-b) .step.teacher-only{display:none !important;}
+.nav-btns{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;flex-wrap:wrap;margin-top:24px;
+}
+.nav-btns.end{justify-content:flex-end;}
+.btn-home{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--tann-700);
+  border:1.5px solid var(--tann-700);
+  border-radius:var(--radius-md);
+  padding:11px 22px;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;
+  text-decoration:none;
+  transition:all 0.15s;
+}
+.btn-home:hover{background:var(--tann-50);}
+.step-chip{cursor:pointer;}
+.step-chip.active{
+  background:var(--tann-50);
+  border-color:var(--tann-600);
+  color:var(--tann-700);
+}
+.step-chip.active .n{background:var(--tann-700);}
+
 /* ─────────── Animations ─────────── */
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(8px);}
@@ -616,8 +644,11 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
 
 /* ─────────── Print (für mündliche Abfrage) ─────────── */
 @media print{
-  .topbar,.progress,.section:not(.teacher-only),.btn-teacher,
-  .hero,.closing,.pin-modal,.section-num{display:none !important;}
+  .topbar,.progress,.nav-btns,.btn-teacher,.pin-modal,
+  .section-num,.hero,.closing{display:none !important;}
+  .step{display:none !important;}
+  .step.teacher-only{display:block !important;}
+  .section:not(.teacher-only){display:none !important;}
   .section.teacher-only{display:block !important;page-break-inside:avoid;
     border:none;box-shadow:none;padding:0;}
   body{background:#fff;}
@@ -642,18 +673,20 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
 
 <!-- ═══════════════ PROGRESS ═══════════════ -->
 <nav class="progress" aria-label="Stundenverlauf">
-  <a class="step-chip" href="#step1"><span class="n">1</span>Rückblick</a>
-  <a class="step-chip" href="#step2"><span class="n">2</span>Leitfall</a>
-  <a class="step-chip" href="#step3"><span class="n">3</span>§ 816 BGB</a>
-  <a class="step-chip" href="#step4"><span class="n">4</span>Fallarbeit</a>
-  <a class="step-chip" href="#step5"><span class="n">5</span>Sicherung</a>
-  <a class="step-chip teacher-only" href="#step6"><span class="n">6</span>Abfrage</a>
+  <div class="step-chip active" data-step="1" onclick="goStep(1)"><span class="n">1</span>Rückblick</div>
+  <div class="step-chip" data-step="2" onclick="goStep(2)"><span class="n">2</span>Leitfall</div>
+  <div class="step-chip" data-step="3" onclick="goStep(3)"><span class="n">3</span>§ 816 BGB</div>
+  <div class="step-chip" data-step="4" onclick="goStep(4)"><span class="n">4</span>Fallarbeit</div>
+  <div class="step-chip" data-step="5" onclick="goStep(5)"><span class="n">5</span>Sicherung</div>
+  <div class="step-chip teacher-only" data-step="6" onclick="goStep(6)"><span class="n">6</span>Abfrage</div>
 </nav>
 
 <main>
 
-<!-- ═══════════════ HERO ═══════════════ -->
-<section class="hero">
+<!-- ═══════════════ STEP 1 (mit Hero) ═══════════════ -->
+<section class="step active" id="step-1">
+
+<div class="hero">
   <span class="hero-badge">Stunde 5 · 3.2.3 · Zivilrecht</span>
   <h1>Ansprüche nach gutgläubigem Erwerb</h1>
   <p class="hero-sub">Eigentum verloren – was bleibt dir noch?</p>
@@ -676,9 +709,8 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ═══════════════ STEP 1 ═══════════════ -->
 <section class="section" id="step1">
   <header class="section-head">
     <div class="section-num">1</div>
@@ -776,7 +808,14 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
   </div>
 </section>
 
+<nav class="nav-btns end">
+  <button class="btn btn-primary" onclick="goStep(2)">Weiter: Leitfall →</button>
+</nav>
+
+</section><!-- /step-1 -->
+
 <!-- ═══════════════ STEP 2 ═══════════════ -->
+<section class="step" id="step-2">
 <section class="section" id="step2">
   <header class="section-head">
     <div class="section-num">2</div>
@@ -865,7 +904,15 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
   </p>
 </section>
 
+<nav class="nav-btns">
+  <button class="btn btn-secondary" onclick="goStep(1)">← Zurück</button>
+  <button class="btn btn-primary" onclick="goStep(3)">Weiter: § 816 BGB →</button>
+</nav>
+
+</section><!-- /step-2 -->
+
 <!-- ═══════════════ STEP 3 ═══════════════ -->
+<section class="step" id="step-3">
 <section class="section" id="step3">
   <header class="section-head">
     <div class="section-num">3</div>
@@ -1048,7 +1095,15 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
   </div>
 </section>
 
+<nav class="nav-btns">
+  <button class="btn btn-secondary" onclick="goStep(2)">← Zurück</button>
+  <button class="btn btn-primary" onclick="goStep(4)">Weiter: Fallarbeit →</button>
+</nav>
+
+</section><!-- /step-3 -->
+
 <!-- ═══════════════ STEP 4 ═══════════════ -->
+<section class="step" id="step-4">
 <section class="section" id="step4">
   <header class="section-head">
     <div class="section-num">4</div>
@@ -1182,7 +1237,15 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
   </div>
 </section>
 
+<nav class="nav-btns">
+  <button class="btn btn-secondary" onclick="goStep(3)">← Zurück</button>
+  <button class="btn btn-primary" onclick="goStep(5)">Weiter: Sicherung →</button>
+</nav>
+
+</section><!-- /step-4 -->
+
 <!-- ═══════════════ STEP 5 ═══════════════ -->
+<section class="step" id="step-5">
 <section class="section" id="step5">
   <header class="section-head">
     <div class="section-num">5</div>
@@ -1309,7 +1372,15 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
   </div>
 </section>
 
+<nav class="nav-btns">
+  <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+  <button class="btn btn-secondary" onclick="goStep(4)">← Zurück</button>
+</nav>
+
+</section><!-- /step-5 -->
+
 <!-- ═══════════════ STEP 6 · LEHRKRAFT ═══════════════ -->
+<section class="step teacher-only" id="step-6">
 <section class="section teacher-only" id="step6">
   <header class="section-head">
     <div class="section-num" style="background:var(--amber-bd);color:var(--amber-tx);">6</div>
@@ -1463,6 +1534,13 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
 
 </section>
 
+<nav class="nav-btns">
+  <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+  <button class="btn btn-secondary" onclick="goStep(5)">← Zurück</button>
+</nav>
+
+</section><!-- /step-6 -->
+
 </main>
 
 <!-- ═══════════════ PIN MODAL ═══════════════ -->
@@ -1498,13 +1576,27 @@ a.para-link:hover{color:var(--tann-800);border-bottom-style:solid;}
 </div>
 
 <script>
+// ═══════════════ Step-Navigation (analog 3.2.2) ═══════════════
+function goStep(n){
+  // Lehrer-Step nur im Lehrer-Modus erreichbar
+  const target = document.getElementById('step-'+n);
+  if(!target) return;
+  if(target.classList.contains('teacher-only') && !document.body.classList.contains('version-b')) return;
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  target.classList.add('active');
+  document.querySelectorAll('.step-chip').forEach(p=>{
+    p.classList.toggle('active', p.dataset.step == n);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
 // ═══════════════ TEACHER PIN (8-stellig, Kapitel 3) ═══════════════
 const TEACHER_PIN = '13579135';
 let pinBuffer = '';
 
 function toggleTeacher(){
-  if(document.body.classList.contains('teacher-mode')){
-    document.body.classList.remove('teacher-mode');
+  if(document.body.classList.contains('version-b')){
+    document.body.classList.remove('version-b');
     document.getElementById('teacherBtn').classList.remove('active');
     document.getElementById('teacherBtn').textContent = 'Lehrkraft';
   } else {
@@ -1539,7 +1631,7 @@ function renderDots(){
 }
 function checkPin(){
   if(pinBuffer === TEACHER_PIN){
-    document.body.classList.add('teacher-mode');
+    document.body.classList.add('version-b');
     document.getElementById('teacherBtn').classList.add('active');
     document.getElementById('teacherBtn').textContent = '✓ Lehrkraft';
     document.getElementById('pinModal').classList.remove('show');
