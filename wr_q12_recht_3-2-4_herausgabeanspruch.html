@@ -1,1 +1,1804 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>3.2.4 Herausgabeanspruch · WR Q12</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* === Saphir (Stunde 6) === */
+  --saphir-900:#172554;
+  --saphir-800:#1E3A8A;
+  --saphir-700:#1E40AF;   /* Primärfarbe */
+  --saphir-600:#2563EB;
+  --saphir-500:#3B82F6;
+  --saphir-100:#DBEAFE;
+  --saphir-50: #EFF6FF;
+  --saphir-grad: linear-gradient(135deg,#1E40AF 0%,#2563EB 60%,#3B82F6 100%);
+
+  /* === Akzente === */
+  --blue:    #1976D2;
+  --blue-50: #E3F2FD;
+  --teal:    #0d9488;
+  --teal-50: #ccfbf1;
+  --purple:  #7B1FA2;
+  --purple-50:#F3E5F5;
+  --orange:  #E65100;
+  --orange-50:#FFF3E0;
+  --red:     #DC2626;
+  --red-50:  #FEE2E2;
+  --green:   #16A34A;
+  --green-50:#DCFCE7;
+  --amber-bg:#FFFBEB;
+  --amber-bd:#FBBF24;
+  --amber-tx:#92400E;
+
+  --text:#0F172A;
+  --text-2:#475569;
+  --muted:#94A3B8;
+  --border:#E2E8F0;
+  --bg-page:#F8FAFC;
+  --bg-card:#FFFFFF;
+
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --shadow:0 2px 8px rgba(15,23,42,0.06);
+  --shadow-lg:0 8px 28px rgba(15,23,42,0.10);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Nunito',system-ui,sans-serif;
+  background:var(--bg-page);
+  color:var(--text);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─────────── Topbar ─────────── */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--saphir-700);
+  color:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;height:56px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+}
+.topbar-logo{
+  font-weight:900;font-size:15px;color:#fff;text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+}
+.topbar-logo .ovr{color:var(--saphir-100);font-weight:700;font-size:13px;}
+.topbar-chip{
+  background:rgba(255,255,255,0.18);
+  padding:4px 12px;border-radius:20px;
+  font-size:12px;font-weight:800;letter-spacing:0.5px;
+}
+.btn-teacher{
+  background:rgba(255,255,255,0.15);
+  color:#fff;border:1px solid rgba(255,255,255,0.3);
+  padding:6px 14px;border-radius:8px;font-size:12px;
+  font-family:inherit;font-weight:700;cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-teacher:hover{background:rgba(255,255,255,0.25);}
+.btn-teacher.active{
+  background:#FBBF24;color:#7C2D12;border-color:#FBBF24;
+}
+
+/* ─────────── Progress ─────────── */
+.progress{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:14px 18px;
+  display:flex;gap:6px;flex-wrap:wrap;justify-content:center;
+}
+.step-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 11px;border-radius:18px;
+  background:var(--bg-page);
+  color:var(--text-2);
+  font-size:11px;font-weight:700;
+  border:1px solid var(--border);
+  cursor:pointer;text-decoration:none;
+  transition:all 0.15s;
+}
+.step-chip:hover{border-color:var(--saphir-600);color:var(--saphir-700);}
+.step-chip .n{
+  background:var(--saphir-700);color:#fff;
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:900;
+}
+.step-chip.teacher-only{
+  background:var(--amber-bg);
+  border-color:var(--amber-bd);
+  color:var(--amber-tx);
+  display:none;
+}
+.step-chip.teacher-only .n{background:var(--amber-bd);color:var(--amber-tx);}
+body.version-b .step-chip.teacher-only{display:flex;}
+
+/* ─────────── Main ─────────── */
+main{
+  max-width:960px;margin:0 auto;
+  padding:24px 18px 80px;
+}
+
+/* ─────────── Hero ─────────── */
+.hero{
+  background:var(--saphir-grad);
+  border-radius:var(--radius-lg);
+  padding:36px 32px;color:#fff;
+  position:relative;overflow:hidden;
+  margin-bottom:28px;
+  box-shadow:var(--shadow-lg);
+}
+.hero::before{
+  content:'§';
+  position:absolute;right:-12px;top:-40px;
+  font-size:240px;font-weight:900;
+  color:rgba(255,255,255,0.07);
+  font-family:Georgia,serif;line-height:1;
+}
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,255,255,0.22);
+  padding:4px 12px;border-radius:20px;
+  font-size:12px;font-weight:800;letter-spacing:0.6px;
+  margin-bottom:14px;
+}
+.hero h1{
+  font-size:32px;font-weight:900;line-height:1.15;
+  margin-bottom:8px;
+  position:relative;z-index:1;
+}
+.hero-sub{
+  font-size:16px;font-weight:600;
+  color:rgba(255,255,255,0.95);
+  margin-bottom:22px;
+  position:relative;z-index:1;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+  position:relative;z-index:1;
+}
+.hero-box{
+  background:rgba(255,255,255,0.14);
+  border:1px solid rgba(255,255,255,0.22);
+  border-radius:var(--radius-md);
+  padding:14px 16px;
+  backdrop-filter:blur(4px);
+}
+.hero-box-title{
+  font-size:11px;font-weight:800;letter-spacing:0.8px;
+  color:rgba(255,255,255,0.9);margin-bottom:5px;
+  text-transform:uppercase;
+}
+.hero-box-text{font-size:13.5px;color:rgba(255,255,255,0.95);line-height:1.5;}
+@media (max-width:640px){
+  .hero{padding:28px 22px;}
+  .hero h1{font-size:25px;}
+  .hero-grid{grid-template-columns:1fr;}
+}
+
+/* ─────────── Section / Card ─────────── */
+.section{
+  background:var(--bg-card);
+  border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+  padding:28px 26px;
+  margin-bottom:22px;
+  box-shadow:var(--shadow);
+  animation:fadeUp 0.4s ease both;
+}
+.section-head{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;padding-bottom:14px;
+  border-bottom:1.5px solid var(--border);
+}
+.section-num{
+  background:var(--saphir-700);color:#fff;
+  width:34px;height:34px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;
+  flex-shrink:0;
+}
+.section-title{
+  font-size:21px;font-weight:800;color:var(--text);
+}
+.section-meta{
+  font-size:12px;font-weight:600;color:var(--muted);
+  margin-top:2px;
+}
+
+/* ─────────── Aufgaben-Box (Task) ─────────── */
+.task{
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-md);
+  margin:18px 0;
+  overflow:hidden;
+}
+.task-head{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 16px;
+  background:var(--saphir-50);
+  border-bottom:1.5px solid var(--border);
+}
+.task-icon{
+  background:#fff;
+  border:1.5px solid var(--blue);
+  border-radius:8px;
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.task-icon.partner{border-color:var(--teal);}
+.task-icon.group{border-color:var(--purple);}
+.task-icon.plenum{border-color:var(--orange);}
+.task-title{font-weight:800;font-size:15px;color:var(--text);}
+.task-form{
+  font-size:11px;font-weight:700;color:var(--text-2);
+  text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;
+}
+.task-form.partner{color:var(--teal);}
+.task-form.group{color:var(--purple);}
+.task-form.plenum{color:var(--orange);}
+.task-body{padding:16px;}
+.task-body p{margin-bottom:10px;}
+.task-body p:last-child{margin-bottom:0;}
+
+/* ─────────── Textarea ─────────── */
+.answer-area{
+  width:100%;
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:10px 12px;
+  font-family:'Nunito',sans-serif;font-size:14px;
+  resize:vertical;min-height:80px;
+  background:#fff;color:var(--text);
+  transition:border-color 0.15s;
+}
+.answer-area:focus{outline:none;border-color:var(--saphir-700);}
+
+/* ─────────── Buttons ─────────── */
+.btn{
+  font-family:inherit;font-weight:700;
+  border:none;border-radius:var(--radius-sm);
+  cursor:pointer;padding:10px 18px;font-size:13px;
+  transition:all 0.15s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-primary{
+  background:var(--saphir-700);color:#fff;
+}
+.btn-primary:hover{background:var(--saphir-800);transform:translateY(-1px);}
+.btn-secondary{
+  background:#fff;color:var(--text);
+  border:1.5px solid var(--border);
+}
+.btn-secondary:hover{border-color:var(--saphir-700);color:var(--saphir-700);background:var(--saphir-50);}
+.btn-solution{
+  background:#fff;color:var(--text-2);
+  border:1.5px solid var(--border);
+  padding:8px 14px;font-size:12px;font-weight:700;
+}
+.btn-solution:hover{border-color:var(--green);color:var(--green);background:var(--green-50);}
+.btn-retry{
+  background:#fff;color:var(--text-2);
+  border:1.5px solid var(--border);
+  padding:6px 12px;font-size:11px;font-weight:700;
+  margin-top:8px;
+}
+.btn-retry:hover{border-color:var(--blue);color:var(--blue);}
+
+/* ─────────── Musterlösung ─────────── */
+.solution{
+  background:var(--green-50);
+  border-left:3px solid var(--green);
+  border-radius:0 8px 8px 0;
+  padding:12px 16px;
+  color:#14532D;font-size:13.5px;
+  display:none;margin-top:10px;
+  line-height:1.6;
+}
+.solution.visible{display:block;animation:fadeUp 0.3s ease both;}
+.solution strong{color:#166534;}
+.solution ul{margin:6px 0 6px 18px;}
+.solution li{margin-bottom:4px;}
+
+/* ─────────── Buchverweis ─────────── */
+.book-ref{
+  background:#FAF5FF;
+  border:1.5px solid #D8B4FE;
+  border-radius:var(--radius-md);
+  padding:12px 16px;
+  margin:14px 0;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.book-ref-icon{
+  flex-shrink:0;color:#6B21A8;
+  background:#fff;border:1.5px solid #D8B4FE;
+  border-radius:8px;padding:6px;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+}
+.book-ref-title{
+  color:#6B21A8;font-weight:800;font-size:12px;
+  text-transform:uppercase;letter-spacing:0.5px;
+  margin-bottom:3px;
+}
+.book-ref-text{color:#581C87;font-size:13.5px;line-height:1.5;}
+
+/* ─────────── Lehrkraft-Hinweis ─────────── */
+.teacher-note{
+  background:var(--amber-bg);
+  border:1.5px solid var(--amber-bd);
+  border-radius:var(--radius-md);
+  padding:14px 16px;margin:14px 0;
+  display:none;
+}
+body.version-b .teacher-note{display:block;}
+.teacher-note-header{
+  font-weight:900;font-size:11px;color:var(--amber-tx);
+  text-transform:uppercase;letter-spacing:0.7px;
+  margin-bottom:8px;
+  display:flex;align-items:center;gap:6px;
+}
+.teacher-note p{color:#78350F;font-size:13.5px;line-height:1.55;}
+.teacher-note p + p{margin-top:6px;}
+
+/* ─────────── Lehrkraft-Steps ─────────── */
+.section.teacher-only{display:none;}
+body.version-b .section.teacher-only{display:block;}
+
+/* ─────────── Info-Box (neutral) ─────────── */
+.info-box{
+  background:var(--saphir-50);
+  border-left:3px solid var(--saphir-600);
+  border-radius:0 8px 8px 0;
+  padding:12px 16px;
+  margin:14px 0;
+  font-size:14px;line-height:1.55;
+  color:#172554;
+}
+.info-box strong{color:var(--saphir-800);}
+
+/* ─────────── Drei-Wege-Übersicht (Step 1) ─────────── */
+.routes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;margin:18px 0;
+}
+@media (max-width:680px){.routes{grid-template-columns:1fr;}}
+.route{
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-md);
+  padding:14px 14px;
+  background:#fff;
+  position:relative;
+}
+.route.dimmed{opacity:0.55;background:var(--bg-page);}
+.route.spotlight{
+  border-color:var(--saphir-600);
+  background:var(--saphir-50);
+  box-shadow:0 4px 14px rgba(21,128,61,0.12);
+}
+.route-title{
+  font-weight:900;font-size:14px;color:var(--text);
+  margin-bottom:4px;
+}
+.route-para{
+  display:inline-block;
+  background:var(--bg-page);
+  padding:2px 8px;border-radius:6px;
+  font-size:11px;font-weight:800;
+  color:var(--text-2);margin-bottom:8px;
+}
+.route.spotlight .route-para{background:var(--saphir-700);color:#fff;}
+.route-target{font-size:13px;color:var(--text-2);line-height:1.45;}
+.route-status{
+  margin-top:10px;padding-top:8px;
+  border-top:1px dashed var(--border);
+  font-size:11px;font-weight:700;letter-spacing:0.4px;
+  text-transform:uppercase;
+}
+.route.dimmed .route-status{color:var(--muted);}
+.route.spotlight .route-status{color:var(--saphir-700);}
+.route .route-status{color:var(--text-2);}
+
+/* ─────────── Normtext-Box ─────────── */
+.norm-box{
+  background:#0F172A;
+  border-radius:var(--radius-md);
+  padding:18px 20px;color:#E2E8F0;
+  margin:14px 0;font-size:14px;line-height:1.65;
+}
+.norm-box .norm-title{
+  font-size:12px;font-weight:800;
+  color:#93C5FD;letter-spacing:0.6px;
+  text-transform:uppercase;margin-bottom:8px;
+}
+.norm-box .norm-text{font-style:italic;color:#F1F5F9;}
+.norm-box .norm-text strong{color:#93C5FD;font-style:normal;font-weight:800;}
+.norm-box a{color:#93C5FD;font-weight:700;text-decoration:none;border-bottom:1px dotted #93C5FD;}
+.norm-box a:hover{color:#BFDBFE;}
+
+/* ─────────── TBM-Liste ─────────── */
+.tbm-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:10px;margin:14px 0;
+}
+.tbm-card{
+  background:var(--saphir-50);
+  border:1.5px solid var(--saphir-100);
+  border-radius:var(--radius-md);
+  padding:12px 14px;
+  position:relative;
+}
+.tbm-num{
+  position:absolute;top:-9px;left:12px;
+  background:var(--saphir-700);color:#fff;
+  font-size:11px;font-weight:900;
+  padding:2px 8px;border-radius:10px;
+  letter-spacing:0.5px;
+}
+.tbm-title{font-weight:800;font-size:13.5px;color:var(--saphir-800);margin-bottom:4px;margin-top:4px;}
+.tbm-desc{font-size:12.5px;color:var(--text-2);line-height:1.45;}
+
+/* ─────────── Vergleichstabelle ─────────── */
+.compare-table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  margin:14px 0;font-size:13.5px;
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+}
+.compare-table th,.compare-table td{
+  padding:10px 14px;text-align:left;
+  border-bottom:1px solid var(--border);
+}
+.compare-table th{
+  background:var(--saphir-50);
+  font-weight:800;color:var(--saphir-800);
+  font-size:12.5px;
+}
+.compare-table th:first-child{background:#fff;}
+.compare-table td:first-child{
+  font-weight:700;color:var(--text-2);
+  background:var(--bg-page);
+  font-size:12.5px;
+}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table .col-816{color:var(--saphir-800);}
+.compare-table .col-823{color:#7C2D12;}
+@media (max-width:600px){
+  .compare-table th,.compare-table td{padding:8px 10px;font-size:12.5px;}
+}
+
+/* ─────────── Quiz ─────────── */
+.quiz-q{margin-bottom:18px;}
+.quiz-q:last-child{margin-bottom:0;}
+.quiz-prompt{font-weight:700;font-size:14px;margin-bottom:8px;color:var(--text);}
+.quiz-opts{display:flex;flex-direction:column;gap:6px;}
+.quiz-opt{
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:11px 14px;
+  background:#fff;
+  font-size:13.5px;font-weight:600;
+  cursor:pointer;text-align:left;
+  font-family:inherit;color:var(--text);
+  transition:all 0.15s;
+}
+.quiz-opt:hover{border-color:var(--saphir-600);background:var(--saphir-50);}
+.quiz-opt.correct{
+  border-color:var(--green);background:var(--green-50);color:#14532D;
+  font-weight:700;
+}
+.quiz-opt.wrong{
+  border-color:var(--red);background:var(--red-50);color:#7F1D1D;
+}
+.quiz-opt:disabled{cursor:default;}
+.quiz-feedback{
+  margin-top:8px;font-size:13px;
+  padding:8px 12px;border-radius:6px;
+  display:none;line-height:1.5;
+}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.ok{background:var(--green-50);color:#14532D;border-left:3px solid var(--green);}
+.quiz-feedback.no{background:var(--red-50);color:#7F1D1D;border-left:3px solid var(--red);}
+
+/* ─────────── §-Links ─────────── */
+a.para-link{
+  color:var(--saphir-700);text-decoration:none;
+  border-bottom:1px dotted var(--saphir-700);
+  font-weight:700;
+}
+a.para-link:hover{color:var(--saphir-800);border-bottom-style:solid;}
+
+/* ─────────── Closing Box ─────────── */
+.closing{
+  background:var(--saphir-grad);
+  border-radius:var(--radius-lg);
+  padding:24px 24px;color:#fff;
+  margin-top:22px;
+  box-shadow:var(--shadow-lg);
+}
+.closing-head{
+  font-weight:900;font-size:13px;
+  text-transform:uppercase;letter-spacing:0.8px;
+  margin-bottom:12px;
+  color:rgba(255,255,255,0.9);
+}
+.closing ul{list-style:none;padding:0;}
+.closing li{
+  padding:6px 0 6px 26px;position:relative;
+  font-size:14px;line-height:1.5;
+}
+.closing li::before{
+  content:'✓';position:absolute;left:0;top:6px;
+  background:rgba(255,255,255,0.25);
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;color:#fff;
+}
+
+/* ─────────── PIN Modal ─────────── */
+.pin-modal{
+  position:fixed;inset:0;
+  background:rgba(15,23,42,0.6);
+  display:none;align-items:center;justify-content:center;
+  z-index:100;padding:18px;
+}
+.pin-modal.show{display:flex;}
+.pin-card{
+  background:#fff;border-radius:var(--radius-lg);
+  padding:28px 26px;width:100%;max-width:340px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.pin-title{font-weight:900;font-size:18px;margin-bottom:6px;color:var(--text);}
+.pin-sub{font-size:13px;color:var(--text-2);margin-bottom:18px;}
+.pin-dots{
+  display:flex;gap:8px;justify-content:center;
+  margin-bottom:18px;
+}
+.pin-dot{
+  width:14px;height:14px;border-radius:50%;
+  background:var(--border);
+  transition:all 0.15s;
+}
+.pin-dot.filled{background:var(--saphir-700);}
+.pin-modal.error .pin-dots{animation:shake 0.4s;}
+.pin-modal.error .pin-dot.filled{background:var(--red);}
+.pin-pad{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+}
+.pin-key{
+  background:var(--bg-page);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:14px 0;
+  font-family:inherit;font-weight:800;font-size:18px;
+  color:var(--text);cursor:pointer;
+  transition:all 0.1s;
+}
+.pin-key:hover{background:var(--saphir-50);border-color:var(--saphir-600);}
+.pin-key:active{transform:scale(0.96);}
+.pin-actions{
+  display:flex;justify-content:space-between;
+  margin-top:14px;
+}
+.pin-actions button{
+  background:none;border:none;
+  color:var(--text-2);font-family:inherit;
+  font-weight:700;font-size:13px;cursor:pointer;
+  padding:6px 10px;
+}
+.pin-actions button:hover{color:var(--saphir-700);}
+
+/* ─────────── Step-Mechanik (analog 3.2.2) ─────────── */
+.step{display:none;}
+.step.active{display:block;}
+body:not(.version-b) .step.teacher-only{display:none !important;}
+.nav-btns{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;flex-wrap:wrap;margin-top:24px;
+}
+.nav-btns.end{justify-content:flex-end;}
+.btn-home{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--saphir-700);
+  border:1.5px solid var(--saphir-700);
+  border-radius:var(--radius-md);
+  padding:11px 22px;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;
+  text-decoration:none;
+  transition:all 0.15s;
+}
+.btn-home:hover{background:var(--saphir-50);}
+.step-chip{cursor:pointer;}
+.step-chip.active{
+  background:var(--saphir-50);
+  border-color:var(--saphir-600);
+  color:var(--saphir-700);
+}
+.step-chip.active .n{background:var(--saphir-700);}
+
+/* ─────────── Animations ─────────── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  20%,60%{transform:translateX(-8px);}
+  40%,80%{transform:translateX(8px);}
+}
+
+/* ─────────── Print (für mündliche Abfrage) ─────────── */
+@media print{
+  .topbar,.progress,.nav-btns,.btn-teacher,.pin-modal,
+  .section-num,.hero,.closing{display:none !important;}
+  .step{display:none !important;}
+  .step.teacher-only{display:block !important;}
+  .section:not(.teacher-only){display:none !important;}
+  .section.teacher-only{display:block !important;page-break-inside:avoid;
+    border:none;box-shadow:none;padding:0;}
+  body{background:#fff;}
+  main{max-width:none;padding:0;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TOPBAR ═══════════════ -->
+<header class="topbar">
+  <a href="index.html" class="topbar-logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M5 12h14M5 12l5-5M5 12l5 5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>WR <span class="ovr">&amp; Recht</span></span>
+  </a>
+  <div class="topbar-chip">3.2.4</div>
+  <button id="teacherBtn" class="btn-teacher" onclick="toggleTeacher()">Lehrkraft</button>
+</header>
+
+<!-- ═══════════════ PROGRESS ═══════════════ -->
+<nav class="progress" aria-label="Stundenverlauf">
+  <div class="step-chip active" data-step="1" onclick="goStep(1)"><span class="n">1</span>Rätsel</div>
+  <div class="step-chip" data-step="2" onclick="goStep(2)"><span class="n">2</span>§ 985 BGB</div>
+  <div class="step-chip" data-step="3" onclick="goStep(3)"><span class="n">3</span>§ 986 BGB</div>
+  <div class="step-chip" data-step="4" onclick="goStep(4)"><span class="n">4</span>Fallarbeit</div>
+  <div class="step-chip" data-step="5" onclick="goStep(5)"><span class="n">5</span>Fund &amp; Sicherung</div>
+  <div class="step-chip teacher-only" data-step="6" onclick="goStep(6)"><span class="n">6</span>Abfrage</div>
+</nav>
+
+<main>
+
+<!-- ═══════════════ STEP 1 (mit Hero) ═══════════════ -->
+<section class="step active" id="step-1">
+
+<div class="hero">
+  <span class="hero-badge">Stunde 6 · 3.2.4 · Zivilrecht</span>
+  <h1>Wann hat man Anspruch auf Herausgabe?</h1>
+  <p class="hero-sub">§ 985 BGB – der klassische Anspruch des Eigentümers gegen den Besitzer</p>
+
+  <div class="hero-grid">
+    <div class="hero-box">
+      <div class="hero-box-title">Lehrplan-Bezug</div>
+      <div class="hero-box-text">
+        Du klärst, unter welchen Bedingungen ein Eigentümer die Herausgabe seiner
+        Sache verlangen kann und wann ein Besitzer dies mit einem <em>Recht zum
+        Besitz</em> verweigern darf. Zentrale Normen der Stunde:
+        <strong>§§ 985, 986 BGB</strong>.
+      </div>
+    </div>
+    <div class="hero-box">
+      <div class="hero-box-title">Warum relevant?</div>
+      <div class="hero-box-text">
+        Verliehen, entlaufen, geklaut, gefunden – Alltagssituationen, in denen Sachen
+        bei jemand anderem landen. Das Recht hat für jede eine passende Norm bereit.
+        Heute lernst du die wichtigste kennen – und ihre Grenzen.
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="step1">
+  <header class="section-head">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">Vier Fälle – vier Normen?</div>
+      <div class="section-meta">Einstieg · Plenum · ca. 5 Min.</div>
+    </div>
+  </header>
+
+  <p>In der letzten Stunde hast du gesehen, dass <a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__985.html" target="_blank" rel="noopener">§ 985 BGB</a>
+  gegen den gutgläubigen Käufer <em>nicht</em> greift – weil der ursprüngliche Eigentümer
+  sein Eigentum verloren hat. Heute die umgekehrte Frage: <strong>Wann greift § 985 eigentlich?</strong>
+  Vier Alltagssituationen zum Einstieg – jede führt zu einer anderen Antwort.</p>
+
+  <div class="routes" style="grid-template-columns:repeat(2,1fr);">
+    <div class="route spotlight">
+      <div class="route-title">🛏️ Bettlaken gestohlen</div>
+      <span class="route-para">Diebstahl</span>
+      <div class="route-target">Der Dieb hat's, du willst es zurück – ohne dass jemals ein Vertrag im Spiel war.</div>
+      <div class="route-status">§ 985 BGB</div>
+    </div>
+    <div class="route">
+      <div class="route-title">📖 Buch verliehen</div>
+      <span class="route-para">Leihe</span>
+      <div class="route-target">Für die Klausur an eine Freundin geliehen. Klausur vorbei, Buch immer noch weg.</div>
+      <div class="route-status">§ 604 BGB (Leihvertrag)</div>
+    </div>
+    <div class="route">
+      <div class="route-title">🐕 Hund entlaufen</div>
+      <span class="route-para">Verlust</span>
+      <div class="route-target">Dein Hund läuft weg, eine andere Familie findet ihn und nimmt ihn auf.</div>
+      <div class="route-status">§ 985 BGB</div>
+    </div>
+    <div class="route">
+      <div class="route-title">📱 Handy verloren</div>
+      <span class="route-para">Fund</span>
+      <div class="route-target">Handy weg, Ortung zeigt: es liegt in fremder Wohnung.</div>
+      <div class="route-status">§§ 965 ff. + § 985 BGB</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Merke.</strong> Zwei der vier Fälle enden bei <strong>§ 985 BGB</strong> –
+    dem <em>klassischen</em> Herausgabeanspruch des Eigentümers. Wenn ein Vertrag im
+    Spiel ist (Leihe, Miete), gibt es meist eine <em>bequemere</em> Anspruchsgrundlage.
+    Und beim Fund kommt das Fundrecht mit ins Spiel. Heute schauen wir uns diese
+    Systematik der Reihe nach an.
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon plenum">
+        <svg width="22" height="22" viewBox="0 0 44 38" fill="none">
+          <circle cx="22" cy="30" r="5" fill="#E65100"/>
+          <path d="M13 38c0-4.418 4.03-8 9-8s9 3.582 9 8" stroke="#E65100" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <circle cx="7" cy="14" r="3.5" fill="#E65100" opacity="0.7"/>
+          <path d="M2 22c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
+          <circle cx="16" cy="10" r="3.5" fill="#E65100" opacity="0.75"/>
+          <path d="M11 18c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+          <circle cx="28" cy="10" r="3.5" fill="#E65100" opacity="0.75"/>
+          <path d="M23 18c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+          <circle cx="37" cy="14" r="3.5" fill="#E65100" opacity="0.7"/>
+          <path d="M32 22c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Warum unterscheidet das Recht diese Fälle?</div>
+        <div class="task-form plenum">Plenum · Kurzes Gespräch</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p>Überlegt zu zweit oder im Plenum: Beim Buch und beim Handy hat der Besitzer
+      etwas <em>freiwillig</em> von euch bekommen (Leihe / durch Verlust „übergeben"),
+      beim Bettlaken und beim Hund <em>nicht</em>. Warum ist diese Unterscheidung für
+      das Recht wichtig?</p>
+
+      <button class="btn-solution" onclick="toggleSol(this)">Deutung anzeigen</button>
+      <div class="solution">
+        Wenn ein <strong>Vertrag</strong> existiert, sind die Regeln zwischen den
+        Beteiligten schon ausgehandelt – das Recht kann daran anknüpfen (Rückgabeklausel,
+        Nutzungszweck etc.). Wenn <em>kein</em> Vertrag existiert und der Eigentümer
+        die Sache unfreiwillig verloren hat (Diebstahl, Entlaufen), braucht das Recht
+        einen <strong>eigenständigen</strong> Anspruch, der sich nur aus dem Eigentum
+        ableitet – genau das ist § 985 BGB.
+      </div>
+    </div>
+  </div>
+
+  <div class="teacher-note">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweis Lehrkraft
+    </div>
+    <p>Aktivierungsphase. Wenn die Klasse schnell ist, kannst du in Vorwegnahme
+    fragen: „Wenn du willst, dass die Freundin dir das Buch zurückgibt, warum sagst
+    du dann nicht einfach: Ich bin Eigentümer, gib es her (§ 985)?" Antwort: Man
+    <em>könnte</em> zwar, aber § 604 BGB (Leihe) ist bequemer – der Vertrag beweist
+    die Rückgabepflicht schon selbst. § 985 verlangt den Beweis der Eigentümerstellung.</p>
+  </div>
+</section>
+
+<nav class="nav-btns end">
+  <button class="btn btn-primary" onclick="goStep(2)">Weiter: § 985 BGB →</button>
+</nav>
+
+</section><!-- /step-1 -->
+
+<!-- ═══════════════ STEP 2 ═══════════════ -->
+<section class="step" id="step-2">
+<section class="section" id="step2">
+  <header class="section-head">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">§ 985 BGB – die zwei Tatbestandsmerkmale</div>
+      <div class="section-meta">Erarbeitung · Einzelarbeit + Plenum · ca. 10 Min.</div>
+    </div>
+  </header>
+
+  <p>§ 985 BGB steht im Sachenrecht und ist der klassische Anspruch, mit dem der
+  Eigentümer seine Sache aus fremder Hand zurückholt – ohne dass es dafür einen Vertrag
+  braucht.</p>
+
+  <div class="norm-box">
+    <div class="norm-title">§ 985 BGB · Herausgabeanspruch</div>
+    <p class="norm-text">
+      Der <strong>Eigentümer</strong> kann von dem <strong>Besitzer</strong> die
+      <strong>Herausgabe der Sache</strong> verlangen.
+    </p>
+    <p style="margin-top:10px;font-size:12px;color:#94A3B8;">
+      Quelle: <a href="https://www.gesetze-im-internet.de/bgb/__985.html" target="_blank" rel="noopener">gesetze-im-internet.de/bgb/__985.html</a>
+    </p>
+  </div>
+
+  <p style="margin-top:14px;">Ein außergewöhnlich kurzer Paragraph – aber jede Vokabel
+  hat Gewicht. Drei Prüfungspunkte kristallisieren sich heraus:</p>
+
+  <div class="tbm-grid">
+    <div class="tbm-card">
+      <span class="tbm-num">1</span>
+      <div class="tbm-title">Eigentumsstellung</div>
+      <div class="tbm-desc">Der Anspruchsteller muss <strong>Eigentümer</strong> der
+        Sache sein. Bloßer Besitz reicht nicht.</div>
+    </div>
+    <div class="tbm-card">
+      <span class="tbm-num">2</span>
+      <div class="tbm-title">Besitz des Gegners</div>
+      <div class="tbm-desc">Der Anspruchsgegner muss <strong>Besitzer</strong> sein –
+        also die tatsächliche Sachherrschaft haben (<a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__854.html" target="_blank" rel="noopener">§ 854 BGB</a>).</div>
+    </div>
+    <div class="tbm-card" style="background:#FEF3C7;border-color:#FCD34D;">
+      <span class="tbm-num" style="background:#B45309;">3</span>
+      <div class="tbm-title" style="color:#92400E;">Kein Recht zum Besitz</div>
+      <div class="tbm-desc" style="color:#78350F;">Der Besitzer darf <em>kein Recht
+        zum Besitz</em> haben (<a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__986.html" target="_blank" rel="noopener">§ 986 BGB</a>).
+        → Schauen wir uns in Step 3 an.</div>
+    </div>
+    <div class="tbm-card" style="background:#DBEAFE;border-color:#93C5FD;">
+      <span class="tbm-num" style="background:#1E40AF;">RF</span>
+      <div class="tbm-title" style="color:#1E3A8A;">Rechtsfolge</div>
+      <div class="tbm-desc" style="color:#1E3A8A;"><strong>Herausgabe der Sache</strong>
+        – im Original, nicht als Wertersatz.</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Wichtig.</strong> § 985 ist ein <em>dinglicher</em> Anspruch – er hängt
+    allein an der Eigentümerstellung, nicht an einem Vertrag. Er wirkt gegen
+    <strong>jeden</strong> Besitzer, auch wenn Eigentümer und Besitzer sich nie
+    vorher gesehen haben. Das ist seine große Stärke.
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#DC2626" stroke-width="2.5" fill="none"/>
+          <path d="M14 14c0-2.761 2.239-5 5-5s5 2.239 5 5c0 2-1.5 3-3 4s-2 2.5-2 3.5" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="19" cy="28" r="1.8" fill="#DC2626"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Mini-Quiz: § 985 verstanden?</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · 3 Fragen · Retry erlaubt</div>
+      </div>
+    </div>
+    <div class="task-body">
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">1. Wer kann Anspruchsteller nach § 985 BGB sein?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">Jeder, der die Sache irgendwann einmal besessen hat.</button>
+          <button class="quiz-opt" data-correct="1">Nur der Eigentümer der Sache.</button>
+          <button class="quiz-opt" data-correct="0">Der bisherige Besitzer, auch ohne Eigentum.</button>
+        </div>
+        <div class="quiz-feedback ok">Richtig. § 985 heißt nicht umsonst „Herausgabeanspruch des Eigentümers".</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">2. § 985 verlangt vom Anspruchsgegner …</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">… Vorsatz oder Fahrlässigkeit beim Besitzerwerb.</button>
+          <button class="quiz-opt" data-correct="1">… lediglich, dass er Besitzer ist.</button>
+          <button class="quiz-opt" data-correct="0">… dass er die Sache gekauft hat.</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. § 985 ist verschuldensunabhängig – der Anspruch fragt nur nach der Sachherrschaft, nicht nach dem Wie.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">3. Was ist die Rechtsfolge des § 985 BGB?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">Wertersatz in Höhe des Verkehrswerts.</button>
+          <button class="quiz-opt" data-correct="1">Herausgabe der Sache im Original.</button>
+          <button class="quiz-opt" data-correct="0">Schadensersatz nach §§ 249 ff. BGB.</button>
+        </div>
+        <div class="quiz-feedback ok">Richtig. § 985 zielt auf die <em>Sache selbst</em> – nicht auf Geld. Ist die Sache untergegangen, hilft nur noch § 823.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+    </div>
+  </div>
+
+  <p style="margin-top:14px;font-weight:700;color:var(--saphir-800);">
+    → Bleibt die dritte Voraussetzung: Was ist das <em>Recht zum Besitz</em> – und
+    wann verhindert es die Herausgabe?
+  </p>
+</section>
+
+<nav class="nav-btns">
+  <button class="btn btn-secondary" onclick="goStep(1)">← Zurück</button>
+  <button class="btn btn-primary" onclick="goStep(3)">Weiter: § 986 BGB →</button>
+</nav>
+
+</section><!-- /step-2 -->
+
+<!-- ═══════════════ STEP 3 ═══════════════ -->
+<section class="step" id="step-3">
+<section class="section" id="step3">
+  <header class="section-head">
+    <div class="section-num">3</div>
+    <div>
+      <div class="section-title">§ 986 BGB – wann darf der Besitzer bleiben?</div>
+      <div class="section-meta">Erarbeitung · Plenum · ca. 8 Min.</div>
+    </div>
+  </header>
+
+  <p>§ 986 BGB ist die <strong>Bremse</strong> gegen § 985: Wenn der Besitzer ein
+  <em>Recht zum Besitz</em> hat, darf er die Herausgabe verweigern – selbst wenn der
+  Anspruchsteller unstreitig Eigentümer ist.</p>
+
+  <div class="norm-box">
+    <div class="norm-title">§ 986 BGB · Einwendungen des Besitzers</div>
+    <p class="norm-text">
+      (1) Der Besitzer kann die Herausgabe der Sache <strong>verweigern</strong>,
+      wenn er … dem Eigentümer gegenüber <strong>zum Besitz berechtigt</strong> ist. …
+    </p>
+    <p style="margin-top:10px;font-size:12px;color:#94A3B8;">
+      Quelle: <a href="https://www.gesetze-im-internet.de/bgb/__986.html" target="_blank" rel="noopener">gesetze-im-internet.de/bgb/__986.html</a>
+    </p>
+  </div>
+
+  <p style="margin-top:14px;">Wichtig: Das Recht zum Besitz kann sich aus <strong>ganz
+  unterschiedlichen Rechtsverhältnissen</strong> ergeben. Zwei besonders häufige:</p>
+
+  <div class="routes">
+    <div class="route spotlight">
+      <div class="route-title">Mietvertrag</div>
+      <span class="route-para">§ 535 BGB</span>
+      <div class="route-target">Der Mieter darf die Wohnung bewohnen. Der Eigentümer
+        (Vermieter) kann während der Mietzeit <em>nicht</em> nach § 985 räumen.</div>
+      <div class="route-status">Recht zum Besitz ✓</div>
+    </div>
+    <div class="route spotlight">
+      <div class="route-title">Leihe</div>
+      <span class="route-para">§ 598 BGB</span>
+      <div class="route-target">Der Leihnehmer darf die Sache bis zum Ende der
+        vereinbarten Zeit nutzen. § 985 des Verleihers scheitert bis dahin.</div>
+      <div class="route-status">Recht zum Besitz ✓</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Merke.</strong> Bei Miete und Leihe existiert oft <em>parallel</em> ein
+    vertraglicher Rückgabeanspruch – bei Leihe <a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__604.html" target="_blank" rel="noopener">§ 604 BGB</a>,
+    bei Miete <a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__546.html" target="_blank" rel="noopener">§ 546 BGB</a>.
+    Nach Vertragsende ist der Besitz nicht mehr durch Vertrag geschützt – dann kann
+    <em>zusätzlich</em> § 985 BGB greifen. In der Praxis wird meist der vertragliche
+    Anspruch bevorzugt, weil er sich leichter belegen lässt.
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon plenum">
+        <svg width="22" height="22" viewBox="0 0 44 38" fill="none">
+          <circle cx="22" cy="30" r="5" fill="#E65100"/>
+          <path d="M13 38c0-4.418 4.03-8 9-8s9 3.582 9 8" stroke="#E65100" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <circle cx="7" cy="14" r="3.5" fill="#E65100" opacity="0.7"/>
+          <path d="M2 22c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
+          <circle cx="16" cy="10" r="3.5" fill="#E65100" opacity="0.75"/>
+          <path d="M11 18c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+          <circle cx="28" cy="10" r="3.5" fill="#E65100" opacity="0.75"/>
+          <path d="M23 18c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+          <circle cx="37" cy="14" r="3.5" fill="#E65100" opacity="0.7"/>
+          <path d="M32 22c0-3.314 2.239-6 5-6s5 2.686 5 6" stroke="#E65100" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Recht zum Besitz oder nicht?</div>
+        <div class="task-form plenum">Plenum · 4 Kurzfälle · Klick-Match</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p>Beurteilt gemeinsam: In welchem Fall hat der Besitzer ein Recht zum Besitz –
+      und ist damit gegen § 985 geschützt?</p>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">A) Anna hat ihrem Bruder ihr Fahrrad für zwei Wochen geliehen. Nach einer Woche will sie es zurück.</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="1">Recht zum Besitz (Leihe läuft) – § 985 scheitert.</button>
+          <button class="quiz-opt" data-correct="0">Kein Recht zum Besitz – § 985 greift.</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. Solange die Leihzeit läuft, ist § 985 gesperrt. Anna kann die Leihe aber ggf. kündigen (§ 605 BGB) und danach zurückfordern.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">B) Ben hat Emmas Regenschirm mitgenommen – aus Versehen, wie er behauptet. Emma will ihn zurück.</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">Recht zum Besitz – Ben hat den Schirm ja nicht absichtlich mitgenommen.</button>
+          <button class="quiz-opt" data-correct="1">Kein Recht zum Besitz – kein Vertrag, kein anderes Recht – § 985 greift.</button>
+        </div>
+        <div class="quiz-feedback ok">Richtig. Absicht spielt bei § 985 keine Rolle – entscheidend ist nur die Besitzlage plus fehlendes Recht zum Besitz.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">C) Clara hat eine Wohnung von David gemietet. David hat es sich anders überlegt und will sie räumen lassen.</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="1">Recht zum Besitz (Mietvertrag) – § 985 scheitert während der Mietzeit.</button>
+          <button class="quiz-opt" data-correct="0">Kein Recht zum Besitz – David ist Eigentümer, das reicht.</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. Der Mietvertrag begründet ein Recht zum Besitz. David muss ordentlich kündigen (§§ 573 ff. BGB) – § 985 hilft ihm nicht vorbei.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">D) Nach dem Ende des Mietverhältnisses zieht Clara aus – lässt aber ihre alte Waschmaschine in der Wohnung stehen. David will sie loswerden.</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">David kann die Waschmaschine sofort entsorgen.</button>
+          <button class="quiz-opt" data-correct="1">Clara ist Eigentümerin – David muss die Herausgabe verlangen; Clara hat kein Recht zum Besitz von <em>Davids</em> Wohnung mehr, aber die Maschine gehört <em>ihr</em>.</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. Es geht hier nicht um § 985 <em>gegen</em> Clara, sondern um Claras eigenen Anspruch (§ 985) gegen David an ihrer Maschine – trickige Umkehrung der Rollen.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="teacher-note">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweis Lehrkraft
+    </div>
+    <p>Fall D ist bewusst als Perspektivwechsel angelegt: Schüler tendieren dazu, § 985
+    einseitig gegen den Besitzer zu denken. Fall D zeigt, dass auch der frühere Besitzer
+    Eigentümer sein kann – und dann § 985 gegen den jetzigen Besitzer geltend macht.
+    Guter Übergang zur Fallarbeit in Step 4.</p>
+    <p>Der Eigentumsvorbehalt (§ 449 BGB) als weitere Fallgruppe von § 986 wurde
+    <em>bewusst weggelassen</em> – er kommt in Kapitel 4 (Kaufrecht) systematisch dran.</p>
+  </div>
+</section>
+
+<nav class="nav-btns">
+  <button class="btn btn-secondary" onclick="goStep(2)">← Zurück</button>
+  <button class="btn btn-primary" onclick="goStep(4)">Weiter: Fallarbeit →</button>
+</nav>
+
+</section><!-- /step-3 -->
+
+<!-- ═══════════════ STEP 4 ═══════════════ -->
+<section class="step" id="step-4">
+<section class="section" id="step4">
+  <header class="section-head">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">Fallarbeit im Gutachtenstil</div>
+      <div class="section-meta">Gruppenarbeit · 3er-Gruppen · ca. 12 Min.</div>
+    </div>
+  </header>
+
+  <p>Zwei Fälle – beide über § 985 BGB. Der erste ist der Klassiker, der zweite
+  der Trickfall mit Eigentumsvorbehalt aus Kapitel 4-Vorschau. Bearbeitet <em>gemeinsam</em>
+  in Kleingruppen, kompakter Gutachtenstil (Obersatz – Subsumtion – Ergebnis).</p>
+
+  <div class="book-ref">
+    <div class="book-ref-icon">
+      <svg width="20" height="20" viewBox="0 0 40 34" fill="none">
+        <path d="M20 6C20 6 14 4 6 5C4 5 3 6 3 8L3 30C3 31.5 4.5 32.5 6 32C14 31 20 32 20 32" stroke="#6B21A8" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <path d="M20 6C20 6 26 4 34 5C36 5 37 6 37 8L37 30C37 31.5 35.5 32.5 34 32C26 31 20 32 20 32" stroke="#6B21A8" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <line x1="20" y1="6" x2="20" y2="32" stroke="#6B21A8" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <div class="book-ref-title">Buchverweis</div>
+      <div class="book-ref-text">
+        Fall A orientiert sich am Sachverhalt <strong>M2, S. 157</strong>. Fall B
+        knüpft an den Tablet-Fall der Aufgabensammlung zum <strong>Eigentumsvorbehalt</strong> an.
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon group">
+        <svg width="22" height="22" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="9" r="4.5" fill="#7B1FA2"/>
+          <circle cx="9" cy="22" r="4.5" fill="#7B1FA2"/>
+          <circle cx="35" cy="22" r="4.5" fill="#7B1FA2"/>
+          <circle cx="22" cy="35" r="4.5" fill="#7B1FA2"/>
+          <circle cx="22" cy="22" r="11" stroke="#7B1FA2" stroke-width="1.8" fill="none" opacity="0.5" stroke-dasharray="2,2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">A) Lulu – der entlaufene Hund</div>
+        <div class="task-form group">Gruppenarbeit · Gutachtenstil kompakt</div>
+      </div>
+    </div>
+    <div class="task-body">
+
+      <div class="info-box">
+        <strong>Sachverhalt:</strong><br>
+        Der Jäger aus Ferch besitzt seine Hündin Lulu. Auf einem Spaziergang
+        entläuft sie ihm und findet nach mehreren Tagen den Weg in eine Familie
+        nach München, die den Hund freundlich aufnimmt, ihm einen neuen Namen gibt
+        und ihn liebevoll pflegt. Der Jäger findet sie über den Chip wieder und
+        möchte Lulu zurück – die Familie in München will das Tier behalten.
+      </div>
+
+      <p><strong>Aufgabe:</strong> Prüft den Anspruch des Jägers auf Herausgabe von
+      Lulu gegen die Familie in München nach § 985 BGB im kompakten Gutachtenstil.</p>
+
+      <p style="margin-top:10px;"><strong>Obersatz:</strong></p>
+      <textarea class="answer-area" rows="2" placeholder="Der Jäger könnte gegen … aus § 985 BGB einen Anspruch auf … haben, wenn …"></textarea>
+
+      <p style="margin-top:10px;"><strong>Subsumtion (Eigentum + Besitz + § 986):</strong></p>
+      <textarea class="answer-area" rows="5" placeholder="1. Eigentum des Jägers: …&#10;2. Besitz der Familie: …&#10;3. Recht zum Besitz (§ 986): …"></textarea>
+
+      <p style="margin-top:10px;"><strong>Ergebnis:</strong></p>
+      <textarea class="answer-area" rows="2" placeholder="Der Jäger hat einen Anspruch auf …"></textarea>
+
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Musterlösung A anzeigen</button>
+      <div class="solution">
+        <strong>Obersatz:</strong> Der Jäger könnte gegen die Familie in München aus
+        § 985 BGB einen Anspruch auf Herausgabe der Hündin Lulu haben, wenn er
+        Eigentümer, die Familie Besitzerin und diese nicht zum Besitz berechtigt ist.
+        <br><br>
+        <strong>Subsumtion:</strong>
+        <ul>
+          <li><strong>Eigentum des Jägers:</strong> Lulu gehört dem Jäger; ein
+          Eigentumswechsel hat nicht stattgefunden. Tiere gelten zwar nach
+          <a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__90a.html" target="_blank" rel="noopener">§ 90a BGB</a>
+          nicht als Sachen, werden aber nach den für Sachen geltenden Vorschriften
+          behandelt. Lulu ist auch nicht „herrenlos" nach
+          <a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__959.html" target="_blank" rel="noopener">§ 959 BGB</a>,
+          weil der Jäger seinen Eigentumswillen nicht aufgegeben hat – sie ist nur
+          entlaufen, nicht ausgesetzt worden.</li>
+          <li><strong>Besitz der Familie:</strong> Die Familie hat Lulu tatsächlich
+          in ihrer Obhut – unmittelbarer Besitz nach
+          <a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__854.html" target="_blank" rel="noopener">§ 854 BGB</a>.</li>
+          <li><strong>Recht zum Besitz (§ 986 BGB):</strong> Zwischen dem Jäger und
+          der Familie besteht kein Vertrag (kein Miete, keine Leihe, keine Verwahrung).
+          Das Aufnehmen eines entlaufenen Tieres begründet für sich keine Berechtigung
+          zum Besitz. → § 986 greift nicht.</li>
+        </ul>
+        <strong>Ergebnis:</strong> Der Jäger hat gegen die Familie einen Anspruch auf
+        <strong>Herausgabe von Lulu</strong> aus § 985 BGB. Die emotionale Bindung
+        ist rechtlich unerheblich – das Sachenrecht kennt keinen „ideellen Wert" als
+        Einwendung.
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon group">
+        <svg width="22" height="22" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="9" r="4.5" fill="#7B1FA2"/>
+          <circle cx="9" cy="22" r="4.5" fill="#7B1FA2"/>
+          <circle cx="35" cy="22" r="4.5" fill="#7B1FA2"/>
+          <circle cx="22" cy="35" r="4.5" fill="#7B1FA2"/>
+          <circle cx="22" cy="22" r="11" stroke="#7B1FA2" stroke-width="1.8" fill="none" opacity="0.5" stroke-dasharray="2,2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">B) Provider ↔ Johann – der Trickfall</div>
+        <div class="task-form group">Gruppenarbeit · Fallunterscheidung</div>
+      </div>
+    </div>
+    <div class="task-body">
+
+      <div class="info-box">
+        <strong>Sachverhalt:</strong><br>
+        Ein Mobilfunkprovider verkauft dem Kunden ein Tablet unter
+        <strong>Eigentumsvorbehalt</strong> – bezahlt wird in monatlichen Raten;
+        Eigentum geht erst mit der letzten Rate über
+        (<a class="para-link" href="https://www.gesetze-im-internet.de/bgb/__449.html" target="_blank" rel="noopener">§ 449 BGB</a>).
+        Nach wenigen Monaten verkauft der Kunde das Tablet an Johann und übergibt es
+        ihm. Kurz darauf zahlt der Kunde keine Raten mehr; der Provider tritt vom
+        Kaufvertrag zurück und verlangt das Tablet von Johann heraus.
+      </div>
+
+      <p><strong>Aufgabe:</strong> Prüft, ob der Provider gegen Johann einen Anspruch
+      aus § 985 BGB hat. Achtung: Zwei mögliche Fallvarianten (je nachdem, was Johann
+      wusste).</p>
+
+      <p style="margin-top:10px;"><strong>Fallvariante 1 – Johann war gutgläubig:</strong></p>
+      <textarea class="answer-area" rows="3" placeholder="Eigentumslage: …&#10;→ Anspruch aus § 985 BGB?"></textarea>
+
+      <p style="margin-top:10px;"><strong>Fallvariante 2 – Johann wusste vom Eigentumsvorbehalt:</strong></p>
+      <textarea class="answer-area" rows="3" placeholder="Eigentumslage: …&#10;→ Anspruch aus § 985 BGB?"></textarea>
+
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Musterlösung B anzeigen</button>
+      <div class="solution">
+        <strong>Fallvariante 1 – Johann gutgläubig:</strong>
+        Der Kunde war nicht Eigentümer (Eigentumsvorbehalt, § 449 BGB), aber hat
+        Johann das Tablet nach § 929 BGB übergeben. Johann wusste weder, dass der
+        Kunde noch nicht bezahlt hat, noch musste er das grob fahrlässig wissen –
+        er war gutgläubig. § 935 BGB greift nicht, weil der Provider dem Kunden den
+        Besitz freiwillig überlassen hat. Nach §§ 929, 932 BGB wird Johann Eigentümer.
+        <br>
+        → <em>Der Provider hat sein Eigentum verloren. § 985 BGB scheitert bereits am
+        ersten TBM (kein Eigentum des Anspruchstellers).</em>
+        <br><br>
+        <strong>Fallvariante 2 – Johann kannte den Eigentumsvorbehalt:</strong>
+        Kein gutgläubiger Erwerb (§ 932 II BGB). Der Provider bleibt Eigentümer.
+        Johann ist Besitzer, hat aber gegenüber dem Provider kein Recht zum Besitz –
+        weder ein Vertrag noch ein sonstiges Recht rechtfertigt seinen Besitz nach
+        Rücktritt des Providers.
+        <br>
+        → <em>Der Provider hat einen Anspruch aus § 985 BGB auf Herausgabe des Tablets.</em>
+        <br><br>
+        <strong>Erkenntnis:</strong> § 985 BGB hängt <em>unmittelbar</em> davon ab, ob der
+        gutgläubige Erwerb aus 3.2.2 greift. Kein Zufall – der gutgläubige Erwerb ist
+        die häufigste Art, wie § 985 „ausgeschaltet" wird.
+      </div>
+    </div>
+  </div>
+
+  <div class="teacher-note">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweis Lehrkraft
+    </div>
+    <p>Fall B lohnt sich für eine kurze Besprechung im Plenum, weil er zwei Kapitel
+    verknüpft (gutgläubiger Erwerb aus 3.2.2 + heutiger Stoff). Wichtig für die
+    Schüler: § 985 sagt an sich nur „Eigentümer gegen Besitzer" – die eigentliche
+    Frage wandert in die Vorfrage „Wer ist Eigentümer?". Genau darum ist der
+    gutgläubige Erwerb so wichtig.</p>
+    <p>Bei zeitlichem Puffer: Frage „Was, wenn Johann das Tablet nach Fallvariante 2
+    schon weiterverkauft hat und der Zweitkäufer gutgläubig war?" → Kette wie im
+    Mirko-Fall aus 3.2.3.</p>
+  </div>
+</section>
+
+<nav class="nav-btns">
+  <button class="btn btn-secondary" onclick="goStep(3)">← Zurück</button>
+  <button class="btn btn-primary" onclick="goStep(5)">Weiter: Fund &amp; Sicherung →</button>
+</nav>
+
+</section><!-- /step-4 -->
+
+<!-- ═══════════════ STEP 5 ═══════════════ -->
+<section class="step" id="step-5">
+<section class="section" id="step5">
+  <header class="section-head">
+    <div class="section-num">5</div>
+    <div>
+      <div class="section-title">Sonderfall Fund &amp; Gesamtübersicht</div>
+      <div class="section-meta">Erarbeitung + Sicherung · ca. 8 Min.</div>
+    </div>
+  </header>
+
+  <h3 style="font-size:16px;font-weight:800;margin:0 0 8px;color:var(--saphir-800);">
+    Fundrecht (§§ 965 ff. BGB) – der spezielle Weg
+  </h3>
+
+  <p>Der vierte Kurzfall aus Step 1 (Handy verloren) läuft nicht rein über § 985 BGB.
+  Bei verlorenen Sachen greift zusätzlich das <strong>Fundrecht</strong>.</p>
+
+  <div class="routes" style="grid-template-columns:repeat(3,1fr);">
+    <div class="route spotlight">
+      <div class="route-title">§ 965 BGB</div>
+      <span class="route-para">Anzeigepflicht</span>
+      <div class="route-target">Wer eine verlorene Sache findet, muss dem Verlierer
+        oder Eigentümer unverzüglich Anzeige machen.</div>
+      <div class="route-status">Pflicht des Finders</div>
+    </div>
+    <div class="route spotlight">
+      <div class="route-title">§ 971 BGB</div>
+      <span class="route-para">Finderlohn</span>
+      <div class="route-target">Der Finder hat Anspruch auf 5 % des Werts (bis 500 €),
+        darüber 3 %. Für Tiere gilt eine Sonderregel.</div>
+      <div class="route-status">Recht des Finders</div>
+    </div>
+    <div class="route spotlight">
+      <div class="route-title">§ 973 BGB</div>
+      <span class="route-para">Eigentumserwerb</span>
+      <div class="route-target">Nach <strong>sechs Monaten</strong> ohne Rückmeldung
+        wird der ordnungsgemäß meldende Finder Eigentümer.</div>
+      <div class="route-status">Wenn niemand kommt</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Verbindung zu § 985.</strong> Solange der Eigentümer sich meldet, ist er
+    nach wie vor Eigentümer – der Finder darf die Sache nicht behalten. Nach § 985 BGB
+    kann der Eigentümer die Herausgabe verlangen; der Finder darf aber ein Zurückbehaltungsrecht
+    für den Finderlohn geltend machen und die Herausgabe erst gegen Zahlung leisten.
+    Nach sechs Monaten sieht die Lage anders aus – dann ist der Finder selbst Eigentümer.
+  </div>
+
+  <h3 style="font-size:16px;font-weight:800;margin:24px 0 8px;color:var(--saphir-800);">
+    Gesamtübersicht: die vier Ansprüche des Zivilrechts (Kap. 3.2)
+  </h3>
+
+  <p>Damit hast du das Anspruchssystem des Zivilrechts komplett kennengelernt – ein
+  Blick zurück auf die vier Normen, die dich durch dieses Kapitel begleitet haben:</p>
+
+  <table class="compare-table" role="table">
+    <thead>
+      <tr>
+        <th>Norm</th>
+        <th>Anspruchsteller ↔ Gegner</th>
+        <th>Voraussetzung</th>
+        <th>Rechtsfolge</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>§ 604 BGB</strong></td>
+        <td>Verleiher ↔ Leihnehmer</td>
+        <td>Leihvertrag + Ende der Leihzeit</td>
+        <td>Rückgabe der Sache</td>
+      </tr>
+      <tr>
+        <td><strong>§ 985 BGB</strong></td>
+        <td>Eigentümer ↔ Besitzer</td>
+        <td>Eigentum + Besitz + kein Recht zum Besitz (§ 986)</td>
+        <td>Herausgabe der Sache</td>
+      </tr>
+      <tr>
+        <td><strong>§ 816 I BGB</strong></td>
+        <td>Berechtigter ↔ Nichtberechtigter</td>
+        <td>Wirksame Verfügung des Nichtberechtigten</td>
+        <td>Herausgabe des Erlangten (Erlös)</td>
+      </tr>
+      <tr>
+        <td><strong>§ 823 I BGB</strong></td>
+        <td>Geschädigter ↔ Schädiger</td>
+        <td>7 TBM: Rechtsgutverletzung, Verschulden usw.</td>
+        <td>Schadensersatz (voller Wert)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    <strong>Systematik.</strong> § 604 ist ein <em>vertraglicher</em> Anspruch (setzt
+    eine Absprache voraus), die anderen drei sind <em>gesetzliche</em> Ansprüche.
+    § 985 zielt auf die Sache selbst, § 816 auf den Erlös, § 823 auf Geld als
+    Schadensersatz.
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#DC2626" stroke-width="2.5" fill="none"/>
+          <path d="M14 14c0-2.761 2.239-5 5-5s5 2.239 5 5c0 2-1.5 3-3 4s-2 2.5-2 3.5" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="19" cy="28" r="1.8" fill="#DC2626"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Sicherungs-Quiz</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · 4 Fragen · Retry erlaubt</div>
+      </div>
+    </div>
+    <div class="task-body">
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">1. Welche zwei Tatbestandsmerkmale muss der Anspruchsteller nach § 985 BGB darlegen?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">Vorsatz und Fahrlässigkeit des Besitzers.</button>
+          <button class="quiz-opt" data-correct="1">Eigenes Eigentum und Besitz des Gegners.</button>
+          <button class="quiz-opt" data-correct="0">Kaufvertrag und Zahlung.</button>
+        </div>
+        <div class="quiz-feedback ok">Richtig – plus die negative Voraussetzung „kein Recht zum Besitz" (§ 986).</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">2. Wann kann ein Besitzer nach § 986 BGB die Herausgabe verweigern?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">Wenn er gutgläubig ist.</button>
+          <button class="quiz-opt" data-correct="1">Wenn er dem Eigentümer gegenüber ein Recht zum Besitz hat.</button>
+          <button class="quiz-opt" data-correct="0">Wenn er die Sache länger als 6 Monate hat.</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. Typisch: Mietvertrag, Leihe. Ohne solches Recht muss der Besitzer herausgeben.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">3. Anna verleiht Ben ihr Fahrrad für zwei Wochen. Nach einer Woche fordert sie es zurück. Welche Anspruchsgrundlage ist am naheliegendsten?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">§ 985 BGB (Anna ist Eigentümerin).</button>
+          <button class="quiz-opt" data-correct="1">§ 604 BGB nach vorheriger Kündigung – § 985 scheitert am Recht zum Besitz.</button>
+          <button class="quiz-opt" data-correct="0">§ 823 BGB, weil Ben zurückhält.</button>
+        </div>
+        <div class="quiz-feedback ok">Richtig. Solange die Leihe läuft, gibt § 986 dem Ben ein Recht zum Besitz. Erst nach Kündigung oder Ablauf greift die Rückgabepflicht (§ 604).</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">4. Ein Finder gibt eine gefundene Uhr korrekt ab, meldet den Fund. Der Eigentümer meldet sich <em>nicht</em>. Was passiert nach sechs Monaten?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="1">Der Finder wird Eigentümer (§ 973 BGB).</button>
+          <button class="quiz-opt" data-correct="0">Die Uhr wird herrenlos und kann von jedem angeeignet werden.</button>
+          <button class="quiz-opt" data-correct="0">Die Uhr fällt an den Staat.</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. § 973 belohnt den ordnungsgemäßen Umgang mit dem Fund.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="closing">
+    <div class="closing-head">Das hast du heute gelernt</div>
+    <ul>
+      <li>§ 985 BGB gibt dem Eigentümer einen dinglichen Herausgabeanspruch gegen jeden Besitzer.</li>
+      <li>Zwei Voraussetzungen: eigenes Eigentum + Besitz des Gegners. Plus: kein Recht zum Besitz (§ 986).</li>
+      <li>§ 986 BGB sperrt § 985, wenn der Besitzer aus Vertrag oder anderem Recht besitzen darf (Miete, Leihe u. a.).</li>
+      <li>Beim Fund gelten §§ 965 ff.: Anzeigepflicht, Finderlohn (5 %), Eigentumserwerb nach 6 Monaten.</li>
+      <li>Damit hast du das Anspruchssystem des Zivilrechts (Kap. 3.2) komplett: § 604 – § 816 – § 823 – § 985.</li>
+    </ul>
+  </div>
+</section>
+
+<nav class="nav-btns">
+  <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+  <button class="btn btn-secondary" onclick="goStep(4)">← Zurück</button>
+</nav>
+
+</section><!-- /step-5 -->
+
+<!-- ═══════════════ STEP 6 · LEHRKRAFT ═══════════════ -->
+<section class="step teacher-only" id="step-6">
+<section class="section teacher-only" id="step6">
+  <header class="section-head">
+    <div class="section-num" style="background:var(--amber-bd);color:var(--amber-tx);">6</div>
+    <div>
+      <div class="section-title" style="color:var(--amber-tx);">Mündliche Abfrage · 4K-Modell</div>
+      <div class="section-meta">Nur Lehrkraft · 1 Schüler · ca. 10 Min.</div>
+    </div>
+  </header>
+
+  <div class="teacher-note" style="display:block;margin-top:0;">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweise zur Durchführung
+    </div>
+    <p>Die vier Fragen decken jeweils einen 4K-Kompetenzbereich ab. Erwartungshorizonte
+    aufklappbar; Bewertung entlang der etablierten Notenskala. Empfehlung: Wissen
+    zuerst, dann zwei „mittlere" Kompetenzen, abschließend Kreativität als offene
+    Frage.</p>
+    <p style="margin-top:8px;">
+      <button class="btn btn-secondary" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="vertical-align:-2px;">
+          <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Abfrage drucken
+      </button>
+    </p>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#7B1FA2;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#7B1FA2" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#7B1FA2" font-family="Nunito,sans-serif">W</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Wissen</div>
+        <div class="task-form" style="color:#7B1FA2;">Reproduktion</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Nenne die zwei zentralen Tatbestandsmerkmale des
+      § 985 BGB und die Rechtsfolge. Welche Norm sperrt § 985 als Einwendung – und
+      mit welchem Argument?</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        (1) Der Anspruchsteller muss <em>Eigentümer</em> der Sache sein. (2) Der
+        Anspruchsgegner muss <em>Besitzer</em> (§ 854 BGB). Rechtsfolge: Herausgabe
+        der Sache im Original. Einwendung: § 986 BGB – der Besitzer darf die
+        Herausgabe verweigern, wenn er dem Eigentümer gegenüber <em>zum Besitz
+        berechtigt</em> ist (z. B. wirksamer Mietvertrag, Leihvertrag).
+      </div>
+    </div>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#DC2626;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#DC2626" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#DC2626" font-family="Nunito,sans-serif">K</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Kritisches Denken</div>
+        <div class="task-form" style="color:#DC2626;">Analyse / Bewertung</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Anna hat Ben ihr Fahrrad für zwei Wochen geliehen.
+      Nach einer Woche will sie es zurück. Kann sie sich auf § 985 BGB stützen?
+      Warum ist § 604 BGB in der Praxis meist die bessere Wahl?</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        Solange die Leihzeit läuft, hat Ben ein Recht zum Besitz aus dem Leihvertrag –
+        § 986 BGB sperrt § 985 BGB. Anna müsste die Leihe erst ordentlich beenden
+        (Rückforderung nach § 604 BGB oder Kündigung nach § 605 BGB). § 604 ist in
+        der Praxis attraktiver, weil er direkt aus dem Vertrag folgt – der
+        Leihvertrag beweist die Rückgabepflicht selbst. § 985 verlangt zusätzlich
+        den <em>Beweis der Eigentümerstellung</em>, was aufwendiger sein kann.
+      </div>
+    </div>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#0d9488;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#0d9488" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#0d9488" font-family="Nunito,sans-serif">K</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Kommunikation</div>
+        <div class="task-form" style="color:#0d9488;">Adressatengerecht erklären</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Franzi (ohne juristische Kenntnisse) hat ihr Handy
+      verloren. Über die Ortung sieht sie: Es liegt in einer fremden Wohnung.
+      Erkläre ihr in drei, vier Sätzen, welche Ansprüche sie hat und was der Finder
+      im Gegenzug verlangen kann.</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        Solange du dich meldest, bist du weiterhin Eigentümerin deines Handys – der
+        Finder muss es dir grundsätzlich zurückgeben (§ 985 BGB). Wer eine verlorene
+        Sache findet, muss den Eigentümer sowieso benachrichtigen (§ 965 BGB). Der
+        Finder hat aber Anspruch auf einen Finderlohn: etwa 5 % des Werts bis 500 €
+        (§ 971 BGB) – bis dahin darf er das Handy sogar zurückbehalten. Erst nach
+        sechs Monaten ohne Kontakt würde er selbst Eigentümer (§ 973 BGB) – und
+        dann wäre es endgültig weg.
+      </div>
+    </div>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#FF9800;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#FF9800" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#FF9800" font-family="Nunito,sans-serif">K</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Kreativität</div>
+        <div class="task-form" style="color:#FF9800;">Transfer / Fallkonstruktion</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Konstruiere einen Fall, in dem der Besitzer einer
+      Sache zwar deren Eigentümer ist, die Sache trotzdem herausgeben muss.
+      Begründe, welche Norm hier eingreift.</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        Beispielfall: Sicherungsübereignung. K hat sich Geld von der Bank geliehen
+        und der Bank sicherungsweise sein Auto übereignet (§ 930 BGB via
+        Besitzkonstitut). Eigentümer ist jetzt die Bank – K bleibt aber unmittelbarer
+        Besitzer und darf das Auto weiter fahren. Zahlt K die Raten nicht mehr,
+        kündigt die Bank das Sicherungsverhältnis. K hat dann kein Recht zum Besitz
+        mehr, die Bank kann nach § 985 BGB Herausgabe verlangen – obwohl K weiterhin
+        „gefühlter" Eigentümer wäre.
+        <br><br>
+        Alternative gute Lösungen: Zwangsvollstreckung, Nießbrauchsende, Auflösung
+        einer WG mit gemeinsamem Eigentum an Möbeln.
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<nav class="nav-btns">
+  <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+  <button class="btn btn-secondary" onclick="goStep(5)">← Zurück</button>
+</nav>
+
+</section><!-- /step-6 -->
+
+</main>
+
+<!-- ═══════════════ PIN MODAL ═══════════════ -->
+<div class="pin-modal" id="pinModal">
+  <div class="pin-card">
+    <div class="pin-title">Lehrkraft-Modus</div>
+    <div class="pin-sub">8-stelliger PIN zum Freischalten</div>
+    <div class="pin-dots" id="pinDots">
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinIn(1)">1</button>
+      <button class="pin-key" onclick="pinIn(2)">2</button>
+      <button class="pin-key" onclick="pinIn(3)">3</button>
+      <button class="pin-key" onclick="pinIn(4)">4</button>
+      <button class="pin-key" onclick="pinIn(5)">5</button>
+      <button class="pin-key" onclick="pinIn(6)">6</button>
+      <button class="pin-key" onclick="pinIn(7)">7</button>
+      <button class="pin-key" onclick="pinIn(8)">8</button>
+      <button class="pin-key" onclick="pinIn(9)">9</button>
+      <button class="pin-key" style="visibility:hidden;"></button>
+      <button class="pin-key" onclick="pinIn(0)">0</button>
+      <button class="pin-key" onclick="pinDel()" style="font-size:14px;">⌫</button>
+    </div>
+    <div class="pin-actions">
+      <button onclick="closePin()">Abbrechen</button>
+      <button onclick="pinReset()">Zurücksetzen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════ Step-Navigation (analog 3.2.2) ═══════════════
+function goStep(n){
+  // Lehrer-Step nur im Lehrer-Modus erreichbar
+  const target = document.getElementById('step-'+n);
+  if(!target) return;
+  if(target.classList.contains('teacher-only') && !document.body.classList.contains('version-b')) return;
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  target.classList.add('active');
+  document.querySelectorAll('.step-chip').forEach(p=>{
+    p.classList.toggle('active', p.dataset.step == n);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══════════════ TEACHER PIN (8-stellig, Kapitel 3) ═══════════════
+const TEACHER_PIN = '13579135';
+let pinBuffer = '';
+
+function toggleTeacher(){
+  if(document.body.classList.contains('version-b')){
+    document.body.classList.remove('version-b');
+    document.getElementById('teacherBtn').classList.remove('active');
+    document.getElementById('teacherBtn').textContent = 'Lehrkraft';
+  } else {
+    document.getElementById('pinModal').classList.add('show');
+    pinReset();
+  }
+}
+function closePin(){
+  document.getElementById('pinModal').classList.remove('show');
+  pinReset();
+}
+function pinIn(d){
+  if(pinBuffer.length >= 8) return;
+  pinBuffer += d;
+  renderDots();
+  if(pinBuffer.length === 8) setTimeout(checkPin, 120);
+}
+function pinDel(){
+  pinBuffer = pinBuffer.slice(0,-1);
+  renderDots();
+}
+function pinReset(){
+  pinBuffer = '';
+  renderDots();
+  document.getElementById('pinModal').classList.remove('error');
+}
+function renderDots(){
+  const dots = document.querySelectorAll('#pinDots .pin-dot');
+  dots.forEach((d,i)=>{
+    d.classList.toggle('filled', i < pinBuffer.length);
+  });
+}
+function checkPin(){
+  if(pinBuffer === TEACHER_PIN){
+    document.body.classList.add('version-b');
+    document.getElementById('teacherBtn').classList.add('active');
+    document.getElementById('teacherBtn').textContent = '✓ Lehrkraft';
+    document.getElementById('pinModal').classList.remove('show');
+    pinReset();
+  } else {
+    const m = document.getElementById('pinModal');
+    m.classList.add('error');
+    setTimeout(()=>{ m.classList.remove('error'); pinReset(); }, 500);
+  }
+}
+// Keyboard support
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('pinModal').classList.contains('show')) return;
+  if(e.key >= '0' && e.key <= '9') pinIn(parseInt(e.key));
+  else if(e.key === 'Backspace') pinDel();
+  else if(e.key === 'Escape') closePin();
+  else if(e.key === 'Enter' && pinBuffer.length === 8) checkPin();
+});
+
+// ═══════════════ Musterlösung Toggle ═══════════════
+function toggleSol(btn){
+  const sol = btn.nextElementSibling;
+  if(!sol || !sol.classList.contains('solution')) return;
+  const open = sol.classList.toggle('visible');
+  btn.textContent = open ? btn.textContent.replace(/anzeigen|Anzeigen|Mögliche|Erwartungshorizont/, m=>{
+    const map={'anzeigen':'verbergen','Anzeigen':'Verbergen','Mögliche':'Mögliche','Erwartungshorizont':'Erwartungshorizont'};
+    return map[m];
+  }) : btn.textContent;
+  // Simpler: just toggle text
+  if(open && !btn.dataset.origText){ btn.dataset.origText = btn.textContent; btn.textContent = btn.textContent.replace('anzeigen','verbergen').replace('Anzeigen','Verbergen'); }
+  else if(!open && btn.dataset.origText){ btn.textContent = btn.dataset.origText; }
+}
+
+// ═══════════════ Quiz Logic ═══════════════
+document.querySelectorAll('.quiz-q').forEach(q=>{
+  const opts = q.querySelectorAll('.quiz-opt');
+  const feedback = q.querySelector('.quiz-feedback');
+  const retry = q.querySelector('.btn-retry');
+  opts.forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      const correct = opt.dataset.correct === '1';
+      opts.forEach(o=>o.disabled = true);
+      if(correct){
+        opt.classList.add('correct');
+        feedback.classList.add('show','ok');
+      } else {
+        opt.classList.add('wrong');
+        // Highlight correct answer
+        opts.forEach(o=>{
+          if(o.dataset.correct === '1') o.classList.add('correct');
+        });
+        feedback.classList.add('show','no');
+        feedback.textContent = '✗ Leider falsch. Die richtige Antwort ist markiert.';
+        if(retry) retry.style.display = 'inline-block';
+      }
+    });
+  });
+});
+function retryQuiz(btn){
+  const q = btn.closest('.quiz-q');
+  q.querySelectorAll('.quiz-opt').forEach(o=>{
+    o.disabled = false;
+    o.classList.remove('correct','wrong');
+  });
+  const fb = q.querySelector('.quiz-feedback');
+  fb.classList.remove('show','no');
+  fb.classList.add('ok'); // reset to default ok variant
+  // restore original feedback text (it's the “ok” variant text from HTML)
+  // Since we changed feedback text on "wrong", we need to restore.
+  // Simplest fix: read from data attribute initialized once.
+  if(!fb.dataset.orig) fb.dataset.orig = fb.innerHTML;
+  fb.innerHTML = fb.dataset.orig;
+  fb.classList.remove('show');
+  btn.style.display = 'none';
+}
+// Capture original feedback text on load (for restore after retry)
+document.querySelectorAll('.quiz-feedback').forEach(fb=>{
+  fb.dataset.orig = fb.innerHTML;
+});
+
+</script>
+
+</body>
+</html>
