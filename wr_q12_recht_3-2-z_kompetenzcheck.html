@@ -1,1 +1,1647 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>3.2 Zusatz · Kompetenzcheck Zivilrecht · WR Q12</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* === Indigo (Zusatzstunde B) === */
+  --indigo-900:#1E1B4B;
+  --indigo-800:#312E81;
+  --indigo-700:#3730A3;   /* Primärfarbe */
+  --indigo-600:#4338CA;
+  --indigo-500:#6366F1;
+  --indigo-100:#E0E7FF;
+  --indigo-50: #EEF2FF;
+  --indigo-grad: linear-gradient(135deg,#3730A3 0%,#4338CA 60%,#6366F1 100%);
+
+  /* === Akzente === */
+  --blue:    #1976D2;
+  --blue-50: #E3F2FD;
+  --teal:    #0d9488;
+  --teal-50: #ccfbf1;
+  --purple:  #7B1FA2;
+  --purple-50:#F3E5F5;
+  --orange:  #E65100;
+  --orange-50:#FFF3E0;
+  --red:     #DC2626;
+  --red-50:  #FEE2E2;
+  --green:   #16A34A;
+  --green-50:#DCFCE7;
+  --amber-bg:#FFFBEB;
+  --amber-bd:#FBBF24;
+  --amber-tx:#92400E;
+
+  --text:#0F172A;
+  --text-2:#475569;
+  --muted:#94A3B8;
+  --border:#E2E8F0;
+  --bg-page:#F8FAFC;
+  --bg-card:#FFFFFF;
+
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --shadow:0 2px 8px rgba(15,23,42,0.06);
+  --shadow-lg:0 8px 28px rgba(15,23,42,0.10);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Nunito',system-ui,sans-serif;
+  background:var(--bg-page);
+  color:var(--text);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─────────── Topbar ─────────── */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--indigo-700);
+  color:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;height:56px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+}
+.topbar-logo{
+  font-weight:900;font-size:15px;color:#fff;text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+}
+.topbar-logo .ovr{color:var(--indigo-100);font-weight:700;font-size:13px;}
+.topbar-chip{
+  background:rgba(255,255,255,0.18);
+  padding:4px 12px;border-radius:20px;
+  font-size:12px;font-weight:800;letter-spacing:0.5px;
+}
+.btn-teacher{
+  background:rgba(255,255,255,0.15);
+  color:#fff;border:1px solid rgba(255,255,255,0.3);
+  padding:6px 14px;border-radius:8px;font-size:12px;
+  font-family:inherit;font-weight:700;cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-teacher:hover{background:rgba(255,255,255,0.25);}
+.btn-teacher.active{
+  background:#FBBF24;color:#7C2D12;border-color:#FBBF24;
+}
+
+/* ─────────── Progress ─────────── */
+.progress{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:14px 18px;
+  display:flex;gap:6px;flex-wrap:wrap;justify-content:center;
+}
+.step-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 11px;border-radius:18px;
+  background:var(--bg-page);
+  color:var(--text-2);
+  font-size:11px;font-weight:700;
+  border:1px solid var(--border);
+  cursor:pointer;text-decoration:none;
+  transition:all 0.15s;
+}
+.step-chip:hover{border-color:var(--indigo-600);color:var(--indigo-700);}
+.step-chip .n{
+  background:var(--indigo-700);color:#fff;
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:900;
+}
+.step-chip.teacher-only{
+  background:var(--amber-bg);
+  border-color:var(--amber-bd);
+  color:var(--amber-tx);
+  display:none;
+}
+.step-chip.teacher-only .n{background:var(--amber-bd);color:var(--amber-tx);}
+body.version-b .step-chip.teacher-only{display:flex;}
+
+/* ─────────── Main ─────────── */
+main{
+  max-width:960px;margin:0 auto;
+  padding:24px 18px 80px;
+}
+
+/* ─────────── Hero ─────────── */
+.hero{
+  background:var(--indigo-grad);
+  border-radius:var(--radius-lg);
+  padding:36px 32px;color:#fff;
+  position:relative;overflow:hidden;
+  margin-bottom:28px;
+  box-shadow:var(--shadow-lg);
+}
+.hero::before{
+  content:'§';
+  position:absolute;right:-12px;top:-40px;
+  font-size:240px;font-weight:900;
+  color:rgba(255,255,255,0.07);
+  font-family:Georgia,serif;line-height:1;
+}
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,255,255,0.22);
+  padding:4px 12px;border-radius:20px;
+  font-size:12px;font-weight:800;letter-spacing:0.6px;
+  margin-bottom:14px;
+}
+.hero h1{
+  font-size:32px;font-weight:900;line-height:1.15;
+  margin-bottom:8px;
+  position:relative;z-index:1;
+}
+.hero-sub{
+  font-size:16px;font-weight:600;
+  color:rgba(255,255,255,0.95);
+  margin-bottom:22px;
+  position:relative;z-index:1;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+  position:relative;z-index:1;
+}
+.hero-box{
+  background:rgba(255,255,255,0.14);
+  border:1px solid rgba(255,255,255,0.22);
+  border-radius:var(--radius-md);
+  padding:14px 16px;
+  backdrop-filter:blur(4px);
+}
+.hero-box-title{
+  font-size:11px;font-weight:800;letter-spacing:0.8px;
+  color:rgba(255,255,255,0.9);margin-bottom:5px;
+  text-transform:uppercase;
+}
+.hero-box-text{font-size:13.5px;color:rgba(255,255,255,0.95);line-height:1.5;}
+@media (max-width:640px){
+  .hero{padding:28px 22px;}
+  .hero h1{font-size:25px;}
+  .hero-grid{grid-template-columns:1fr;}
+}
+
+/* ─────────── Section / Card ─────────── */
+.section{
+  background:var(--bg-card);
+  border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+  padding:28px 26px;
+  margin-bottom:22px;
+  box-shadow:var(--shadow);
+  animation:fadeUp 0.4s ease both;
+}
+.section-head{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;padding-bottom:14px;
+  border-bottom:1.5px solid var(--border);
+}
+.section-num{
+  background:var(--indigo-700);color:#fff;
+  width:34px;height:34px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;
+  flex-shrink:0;
+}
+.section-title{
+  font-size:21px;font-weight:800;color:var(--text);
+}
+.section-meta{
+  font-size:12px;font-weight:600;color:var(--muted);
+  margin-top:2px;
+}
+
+/* ─────────── Aufgaben-Box (Task) ─────────── */
+.task{
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-md);
+  margin:18px 0;
+  overflow:hidden;
+}
+.task-head{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 16px;
+  background:var(--indigo-50);
+  border-bottom:1.5px solid var(--border);
+}
+.task-icon{
+  background:#fff;
+  border:1.5px solid var(--blue);
+  border-radius:8px;
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.task-icon.partner{border-color:var(--teal);}
+.task-icon.group{border-color:var(--purple);}
+.task-icon.plenum{border-color:var(--orange);}
+.task-title{font-weight:800;font-size:15px;color:var(--text);}
+.task-form{
+  font-size:11px;font-weight:700;color:var(--text-2);
+  text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;
+}
+.task-form.partner{color:var(--teal);}
+.task-form.group{color:var(--purple);}
+.task-form.plenum{color:var(--orange);}
+.task-body{padding:16px;}
+.task-body p{margin-bottom:10px;}
+.task-body p:last-child{margin-bottom:0;}
+
+/* ─────────── Textarea ─────────── */
+.answer-area{
+  width:100%;
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:10px 12px;
+  font-family:'Nunito',sans-serif;font-size:14px;
+  resize:vertical;min-height:80px;
+  background:#fff;color:var(--text);
+  transition:border-color 0.15s;
+}
+.answer-area:focus{outline:none;border-color:var(--indigo-700);}
+
+/* ─────────── Buttons ─────────── */
+.btn{
+  font-family:inherit;font-weight:700;
+  border:none;border-radius:var(--radius-sm);
+  cursor:pointer;padding:10px 18px;font-size:13px;
+  transition:all 0.15s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-primary{
+  background:var(--indigo-700);color:#fff;
+}
+.btn-primary:hover{background:var(--indigo-800);transform:translateY(-1px);}
+.btn-secondary{
+  background:#fff;color:var(--text);
+  border:1.5px solid var(--border);
+}
+.btn-secondary:hover{border-color:var(--indigo-700);color:var(--indigo-700);background:var(--indigo-50);}
+.btn-solution{
+  background:#fff;color:var(--text-2);
+  border:1.5px solid var(--border);
+  padding:8px 14px;font-size:12px;font-weight:700;
+}
+.btn-solution:hover{border-color:var(--green);color:var(--green);background:var(--green-50);}
+.btn-retry{
+  background:#fff;color:var(--text-2);
+  border:1.5px solid var(--border);
+  padding:6px 12px;font-size:11px;font-weight:700;
+  margin-top:8px;
+}
+.btn-retry:hover{border-color:var(--blue);color:var(--blue);}
+
+/* ─────────── Musterlösung ─────────── */
+.solution{
+  background:var(--green-50);
+  border-left:3px solid var(--green);
+  border-radius:0 8px 8px 0;
+  padding:12px 16px;
+  color:#14532D;font-size:13.5px;
+  display:none;margin-top:10px;
+  line-height:1.6;
+}
+.solution.visible{display:block;animation:fadeUp 0.3s ease both;}
+.solution strong{color:#166534;}
+.solution ul{margin:6px 0 6px 18px;}
+.solution li{margin-bottom:4px;}
+
+/* ─────────── Buchverweis ─────────── */
+.book-ref{
+  background:#FAF5FF;
+  border:1.5px solid #D8B4FE;
+  border-radius:var(--radius-md);
+  padding:12px 16px;
+  margin:14px 0;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.book-ref-icon{
+  flex-shrink:0;color:#6B21A8;
+  background:#fff;border:1.5px solid #D8B4FE;
+  border-radius:8px;padding:6px;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+}
+.book-ref-title{
+  color:#6B21A8;font-weight:800;font-size:12px;
+  text-transform:uppercase;letter-spacing:0.5px;
+  margin-bottom:3px;
+}
+.book-ref-text{color:#581C87;font-size:13.5px;line-height:1.5;}
+
+/* ─────────── Lehrkraft-Hinweis ─────────── */
+.teacher-note{
+  background:var(--amber-bg);
+  border:1.5px solid var(--amber-bd);
+  border-radius:var(--radius-md);
+  padding:14px 16px;margin:14px 0;
+  display:none;
+}
+body.version-b .teacher-note{display:block;}
+.teacher-note-header{
+  font-weight:900;font-size:11px;color:var(--amber-tx);
+  text-transform:uppercase;letter-spacing:0.7px;
+  margin-bottom:8px;
+  display:flex;align-items:center;gap:6px;
+}
+.teacher-note p{color:#78350F;font-size:13.5px;line-height:1.55;}
+.teacher-note p + p{margin-top:6px;}
+
+/* ─────────── Lehrkraft-Steps ─────────── */
+.section.teacher-only{display:none;}
+body.version-b .section.teacher-only{display:block;}
+
+/* ─────────── Info-Box (neutral) ─────────── */
+.info-box{
+  background:var(--indigo-50);
+  border-left:3px solid var(--indigo-600);
+  border-radius:0 8px 8px 0;
+  padding:12px 16px;
+  margin:14px 0;
+  font-size:14px;line-height:1.55;
+  color:#1E1B4B;
+}
+.info-box strong{color:var(--indigo-800);}
+
+/* ─────────── Drei-Wege-Übersicht (Step 1) ─────────── */
+.routes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;margin:18px 0;
+}
+@media (max-width:680px){.routes{grid-template-columns:1fr;}}
+.route{
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-md);
+  padding:14px 14px;
+  background:#fff;
+  position:relative;
+}
+.route.dimmed{opacity:0.55;background:var(--bg-page);}
+.route.spotlight{
+  border-color:var(--indigo-600);
+  background:var(--indigo-50);
+  box-shadow:0 4px 14px rgba(21,128,61,0.12);
+}
+.route-title{
+  font-weight:900;font-size:14px;color:var(--text);
+  margin-bottom:4px;
+}
+.route-para{
+  display:inline-block;
+  background:var(--bg-page);
+  padding:2px 8px;border-radius:6px;
+  font-size:11px;font-weight:800;
+  color:var(--text-2);margin-bottom:8px;
+}
+.route.spotlight .route-para{background:var(--indigo-700);color:#fff;}
+.route-target{font-size:13px;color:var(--text-2);line-height:1.45;}
+.route-status{
+  margin-top:10px;padding-top:8px;
+  border-top:1px dashed var(--border);
+  font-size:11px;font-weight:700;letter-spacing:0.4px;
+  text-transform:uppercase;
+}
+.route.dimmed .route-status{color:var(--muted);}
+.route.spotlight .route-status{color:var(--indigo-700);}
+.route .route-status{color:var(--text-2);}
+
+/* ─────────── Normtext-Box ─────────── */
+.norm-box{
+  background:#0F172A;
+  border-radius:var(--radius-md);
+  padding:18px 20px;color:#E2E8F0;
+  margin:14px 0;font-size:14px;line-height:1.65;
+}
+.norm-box .norm-title{
+  font-size:12px;font-weight:800;
+  color:#A5B4FC;letter-spacing:0.6px;
+  text-transform:uppercase;margin-bottom:8px;
+}
+.norm-box .norm-text{font-style:italic;color:#F1F5F9;}
+.norm-box .norm-text strong{color:#A5B4FC;font-style:normal;font-weight:800;}
+.norm-box a{color:#A5B4FC;font-weight:700;text-decoration:none;border-bottom:1px dotted #A5B4FC;}
+.norm-box a:hover{color:#C7D2FE;}
+
+/* ─────────── TBM-Liste ─────────── */
+.tbm-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:10px;margin:14px 0;
+}
+.tbm-card{
+  background:var(--indigo-50);
+  border:1.5px solid var(--indigo-100);
+  border-radius:var(--radius-md);
+  padding:12px 14px;
+  position:relative;
+}
+.tbm-num{
+  position:absolute;top:-9px;left:12px;
+  background:var(--indigo-700);color:#fff;
+  font-size:11px;font-weight:900;
+  padding:2px 8px;border-radius:10px;
+  letter-spacing:0.5px;
+}
+.tbm-title{font-weight:800;font-size:13.5px;color:var(--indigo-800);margin-bottom:4px;margin-top:4px;}
+.tbm-desc{font-size:12.5px;color:var(--text-2);line-height:1.45;}
+
+/* ─────────── Vergleichstabelle ─────────── */
+.compare-table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  margin:14px 0;font-size:13.5px;
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+}
+.compare-table th,.compare-table td{
+  padding:10px 14px;text-align:left;
+  border-bottom:1px solid var(--border);
+}
+.compare-table th{
+  background:var(--indigo-50);
+  font-weight:800;color:var(--indigo-800);
+  font-size:12.5px;
+}
+.compare-table th:first-child{background:#fff;}
+.compare-table td:first-child{
+  font-weight:700;color:var(--text-2);
+  background:var(--bg-page);
+  font-size:12.5px;
+}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table .col-816{color:var(--indigo-800);}
+.compare-table .col-823{color:#7C2D12;}
+@media (max-width:600px){
+  .compare-table th,.compare-table td{padding:8px 10px;font-size:12.5px;}
+}
+
+/* ─────────── Quiz ─────────── */
+.quiz-q{margin-bottom:18px;}
+.quiz-q:last-child{margin-bottom:0;}
+.quiz-prompt{font-weight:700;font-size:14px;margin-bottom:8px;color:var(--text);}
+.quiz-opts{display:flex;flex-direction:column;gap:6px;}
+.quiz-opt{
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:11px 14px;
+  background:#fff;
+  font-size:13.5px;font-weight:600;
+  cursor:pointer;text-align:left;
+  font-family:inherit;color:var(--text);
+  transition:all 0.15s;
+}
+.quiz-opt:hover{border-color:var(--indigo-600);background:var(--indigo-50);}
+.quiz-opt.correct{
+  border-color:var(--green);background:var(--green-50);color:#14532D;
+  font-weight:700;
+}
+.quiz-opt.wrong{
+  border-color:var(--red);background:var(--red-50);color:#7F1D1D;
+}
+.quiz-opt:disabled{cursor:default;}
+.quiz-feedback{
+  margin-top:8px;font-size:13px;
+  padding:8px 12px;border-radius:6px;
+  display:none;line-height:1.5;
+}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.ok{background:var(--green-50);color:#14532D;border-left:3px solid var(--green);}
+.quiz-feedback.no{background:var(--red-50);color:#7F1D1D;border-left:3px solid var(--red);}
+
+/* ─────────── §-Links ─────────── */
+a.para-link{
+  color:var(--indigo-700);text-decoration:none;
+  border-bottom:1px dotted var(--indigo-700);
+  font-weight:700;
+}
+a.para-link:hover{color:var(--indigo-800);border-bottom-style:solid;}
+
+/* ─────────── Closing Box ─────────── */
+.closing{
+  background:var(--indigo-grad);
+  border-radius:var(--radius-lg);
+  padding:24px 24px;color:#fff;
+  margin-top:22px;
+  box-shadow:var(--shadow-lg);
+}
+.closing-head{
+  font-weight:900;font-size:13px;
+  text-transform:uppercase;letter-spacing:0.8px;
+  margin-bottom:12px;
+  color:rgba(255,255,255,0.9);
+}
+.closing ul{list-style:none;padding:0;}
+.closing li{
+  padding:6px 0 6px 26px;position:relative;
+  font-size:14px;line-height:1.5;
+}
+.closing li::before{
+  content:'✓';position:absolute;left:0;top:6px;
+  background:rgba(255,255,255,0.25);
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;color:#fff;
+}
+
+/* ─────────── PIN Modal ─────────── */
+.pin-modal{
+  position:fixed;inset:0;
+  background:rgba(15,23,42,0.6);
+  display:none;align-items:center;justify-content:center;
+  z-index:100;padding:18px;
+}
+.pin-modal.show{display:flex;}
+.pin-card{
+  background:#fff;border-radius:var(--radius-lg);
+  padding:28px 26px;width:100%;max-width:340px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.pin-title{font-weight:900;font-size:18px;margin-bottom:6px;color:var(--text);}
+.pin-sub{font-size:13px;color:var(--text-2);margin-bottom:18px;}
+.pin-dots{
+  display:flex;gap:8px;justify-content:center;
+  margin-bottom:18px;
+}
+.pin-dot{
+  width:14px;height:14px;border-radius:50%;
+  background:var(--border);
+  transition:all 0.15s;
+}
+.pin-dot.filled{background:var(--indigo-700);}
+.pin-modal.error .pin-dots{animation:shake 0.4s;}
+.pin-modal.error .pin-dot.filled{background:var(--red);}
+.pin-pad{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+}
+.pin-key{
+  background:var(--bg-page);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:14px 0;
+  font-family:inherit;font-weight:800;font-size:18px;
+  color:var(--text);cursor:pointer;
+  transition:all 0.1s;
+}
+.pin-key:hover{background:var(--indigo-50);border-color:var(--indigo-600);}
+.pin-key:active{transform:scale(0.96);}
+.pin-actions{
+  display:flex;justify-content:space-between;
+  margin-top:14px;
+}
+.pin-actions button{
+  background:none;border:none;
+  color:var(--text-2);font-family:inherit;
+  font-weight:700;font-size:13px;cursor:pointer;
+  padding:6px 10px;
+}
+.pin-actions button:hover{color:var(--indigo-700);}
+
+/* ─────────── Step-Mechanik (analog 3.2.2) ─────────── */
+.step{display:none;}
+.step.active{display:block;}
+body:not(.version-b) .step.teacher-only{display:none !important;}
+.nav-btns{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;flex-wrap:wrap;margin-top:24px;
+}
+.nav-btns.end{justify-content:flex-end;}
+.btn-home{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--indigo-700);
+  border:1.5px solid var(--indigo-700);
+  border-radius:var(--radius-md);
+  padding:11px 22px;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;
+  text-decoration:none;
+  transition:all 0.15s;
+}
+.btn-home:hover{background:var(--indigo-50);}
+.step-chip{cursor:pointer;}
+.step-chip.active{
+  background:var(--indigo-50);
+  border-color:var(--indigo-600);
+  color:var(--indigo-700);
+}
+.step-chip.active .n{background:var(--indigo-700);}
+
+/* ─────────── Selbstcheck-Rubrik ─────────── */
+.selfcheck{margin:14px 0;}
+.selfcheck-item{
+  display:flex;align-items:flex-start;gap:12px;
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-md);
+  padding:12px 14px;margin-bottom:10px;
+  background:#fff;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+.selfcheck-item:hover{border-color:var(--indigo-500);}
+.selfcheck-item.checked{
+  background:var(--indigo-50);
+  border-color:var(--indigo-600);
+}
+.selfcheck-box{
+  flex-shrink:0;width:22px;height:22px;
+  border:2px solid var(--muted);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:1px;
+  transition:all 0.15s;
+}
+.selfcheck-item.checked .selfcheck-box{
+  background:var(--indigo-700);border-color:var(--indigo-700);
+}
+.selfcheck-box svg{opacity:0;transition:opacity 0.15s;}
+.selfcheck-item.checked .selfcheck-box svg{opacity:1;}
+.selfcheck-text{font-size:14px;line-height:1.5;color:var(--text);}
+.selfcheck-text strong{color:var(--indigo-800);}
+.selfcheck-result{
+  margin-top:16px;padding:14px 16px;
+  border-radius:var(--radius-md);
+  font-size:14px;font-weight:700;line-height:1.5;
+  display:none;
+}
+.selfcheck-result.show{display:block;animation:fadeUp 0.3s ease both;}
+.selfcheck-result.full{background:var(--green-50);color:#14532D;border-left:3px solid var(--green);}
+.selfcheck-result.partial{background:#FFFBEB;color:var(--amber-tx);border-left:3px solid var(--amber-bd);}
+
+/* ─────────── Animations ─────────── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  20%,60%{transform:translateX(-8px);}
+  40%,80%{transform:translateX(8px);}
+}
+
+/* ─────────── Print (für mündliche Abfrage) ─────────── */
+@media print{
+  .topbar,.progress,.nav-btns,.btn-teacher,.pin-modal,
+  .section-num,.hero,.closing{display:none !important;}
+  .step{display:none !important;}
+  .step.teacher-only{display:block !important;}
+  .section:not(.teacher-only){display:none !important;}
+  .section.teacher-only{display:block !important;page-break-inside:avoid;
+    border:none;box-shadow:none;padding:0;}
+  body{background:#fff;}
+  main{max-width:none;padding:0;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TOPBAR ═══════════════ -->
+<header class="topbar">
+  <a href="index.html" class="topbar-logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M5 12h14M5 12l5-5M5 12l5 5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>WR <span class="ovr">&amp; Recht</span></span>
+  </a>
+  <div class="topbar-chip">3.2 ★</div>
+  <button id="teacherBtn" class="btn-teacher" onclick="toggleTeacher()">Lehrkraft</button>
+</header>
+
+<!-- ═══════════════ PROGRESS ═══════════════ -->
+<nav class="progress" aria-label="Stundenverlauf">
+  <div class="step-chip active" data-step="1" onclick="goStep(1)"><span class="n">1</span>Werkzeugkasten</div>
+  <div class="step-chip" data-step="2" onclick="goStep(2)"><span class="n">2</span>Fall Hundebiss</div>
+  <div class="step-chip" data-step="3" onclick="goStep(3)"><span class="n">3</span>Fall Smartphone</div>
+  <div class="step-chip" data-step="4" onclick="goStep(4)"><span class="n">4</span>Selbstcheck</div>
+  <div class="step-chip" data-step="5" onclick="goStep(5)"><span class="n">5</span>Kür</div>
+  <div class="step-chip teacher-only" data-step="6" onclick="goStep(6)"><span class="n">6</span>Abfrage</div>
+</nav>
+
+<main>
+
+<!-- ═══════════════ STEP 1 (mit Hero) ═══════════════ -->
+<section class="step active" id="step-1">
+
+<div class="hero">
+  <span class="hero-badge">★ Zusatzstunde · Kompetenzcheck 3.2</span>
+  <h1>Kompetenzcheck Zivilrecht</h1>
+  <p class="hero-sub">Du hast das ganze Anspruchssystem drauf? Beweise es an zwei neuen Fällen.</p>
+
+  <div class="hero-grid">
+    <div class="hero-box">
+      <div class="hero-box-title">Für wen?</div>
+      <div class="hero-box-text">
+        Diese Stunde ist die <strong>Kür</strong> für alle, die mit dem Pflichtstoff
+        durch sind. Kein neuer Inhalt – dafür echte Anwendung: zwei Fälle, die du
+        eigenständig im Gutachtenstil löst, plus ein ehrlicher Selbstcheck.
+      </div>
+    </div>
+    <div class="hero-box">
+      <div class="hero-box-title">Was du brauchst</div>
+      <div class="hero-box-text">
+        Alle vier Anspruchsgrundlagen aus 3.2: <strong>§ 604</strong> (Leihe),
+        <strong>§ 985</strong> (Herausgabe), <strong>§ 816</strong> (Erlös) und
+        <strong>§ 823</strong> (Schadensersatz). Der Werkzeugkasten in Step 1 frischt
+        sie kurz auf.
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="step1">
+  <header class="section-head">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">Dein Werkzeugkasten – die vier Anspruchsgrundlagen</div>
+      <div class="section-meta">Auffrischung · Einzelarbeit · ca. 4 Min.</div>
+    </div>
+  </header>
+
+  <p>Bevor es an die Fälle geht: die vier Normen des Zivilrechts auf einen Blick. Kein
+  neuer Stoff – nur ein kurzer Check, ob alles sitzt. Wenn du bei einer Norm ins
+  Grübeln kommst, schlag sie im Gesetzestext nach, bevor du weitermachst.</p>
+
+  <div class="routes" style="grid-template-columns:repeat(2,1fr);">
+    <div class="route spotlight">
+      <div class="route-title">§ 604 BGB</div>
+      <span class="route-para">Leihe · vertraglich</span>
+      <div class="route-target">Verleiher → Leihnehmer. Rückgabe der geliehenen
+        Sache nach Ablauf oder Kündigung der Leihe.</div>
+      <div class="route-status">Rückgabe</div>
+    </div>
+    <div class="route spotlight">
+      <div class="route-title">§ 985 BGB</div>
+      <span class="route-para">Eigentum · gesetzlich</span>
+      <div class="route-target">Eigentümer → Besitzer. Herausgabe der Sache, sofern
+        der Besitzer kein Recht zum Besitz (§ 986) hat.</div>
+      <div class="route-status">Herausgabe</div>
+    </div>
+    <div class="route spotlight">
+      <div class="route-title">§ 816 I BGB</div>
+      <span class="route-para">Bereicherung · gesetzlich</span>
+      <div class="route-target">Berechtigter → Nichtberechtigter. Herausgabe des
+        Erlöses nach wirksamer Verfügung über fremdes Eigentum.</div>
+      <div class="route-status">Erlös</div>
+    </div>
+    <div class="route spotlight">
+      <div class="route-title">§ 823 I BGB</div>
+      <span class="route-para">Delikt · gesetzlich</span>
+      <div class="route-target">Geschädigter → Schädiger. Schadensersatz nach den
+        sieben Tatbestandsmerkmalen (Verschulden nötig).</div>
+      <div class="route-status">Schadensersatz</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Faustregel zur Wahl.</strong> Willst du die <em>Sache selbst</em> zurück
+    → § 985 (oder § 604 bei Leihe). Ist die Sache endgültig weg und du willst
+    <em>Geld</em> → § 816 (nur den Erlös, verschuldensunabhängig) oder § 823 (vollen
+    Wert, aber nur bei Verschulden).
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#DC2626" stroke-width="2.5" fill="none"/>
+          <path d="M14 14c0-2.761 2.239-5 5-5s5 2.239 5 5c0 2-1.5 3-3 4s-2 2.5-2 3.5" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="19" cy="28" r="1.8" fill="#DC2626"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Aufwärm-Quiz: Welche Norm passt?</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · 3 Fragen · Retry erlaubt</div>
+      </div>
+    </div>
+    <div class="task-body">
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">1. Dein Nachbar hat dein Rasenmäher-Modell geliehen und gibt es nach Ablauf nicht zurück. Du willst das Gerät selbst zurück. Naheliegendste Norm?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="1">§ 604 BGB – Rückgabeanspruch aus dem Leihvertrag.</button>
+          <button class="quiz-opt" data-correct="0">§ 823 BGB – Schadensersatz.</button>
+          <button class="quiz-opt" data-correct="0">§ 816 BGB – Herausgabe des Erlöses.</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. Bei bestehendem Leihvertrag ist § 604 der direkte Weg – § 985 ginge auch, ist aber umständlicher (Eigentumsbeweis).</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">2. Jemand hat deine Sache unbefugt an einen gutgläubigen Dritten verkauft. Die Sache ist weg, du willst wenigstens den Verkaufserlös. Welche Norm?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">§ 985 BGB – Herausgabe der Sache.</button>
+          <button class="quiz-opt" data-correct="1">§ 816 I 1 BGB – Herausgabe des Erlangten.</button>
+          <button class="quiz-opt" data-correct="0">§ 604 BGB – Rückgabe.</button>
+        </div>
+        <div class="quiz-feedback ok">Richtig. § 985 scheitert (Eigentum verloren), § 816 verschafft dir den Erlös – ganz ohne Verschuldensnachweis.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-prompt">3. Der Verkäufer wusste, dass die Sache nicht ihm gehört, und hat sie trotzdem verkauft. Du willst den vollen Wertersatz. Welche Norm gibt am meisten?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-correct="0">§ 816 BGB – aber nur der Erlös.</button>
+          <button class="quiz-opt" data-correct="1">§ 823 I BGB – voller Schadensersatz, weil Verschulden vorliegt.</button>
+          <button class="quiz-opt" data-correct="0">§ 985 BGB – Herausgabe.</button>
+        </div>
+        <div class="quiz-feedback ok">Genau. Bei nachweisbarem Verschulden gibt § 823 den vollen Verkehrswert – mehr als der oft niedrigere Erlös über § 816.</div>
+        <button class="btn-retry" style="display:none;" onclick="retryQuiz(this)">↩ Nochmal versuchen</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="teacher-note">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweis Lehrkraft
+    </div>
+    <p>Diese Stunde ist als Differenzierungsangebot für schnelle Schüler konzipiert –
+    sie kann komplett selbstständig bearbeitet werden. Step 1 dient nur als
+    Aktivierung des Vorwissens. Wer hier schon sicher ist, geht direkt zu den Fällen.</p>
+  </div>
+</section>
+
+<nav class="nav-btns end">
+  <button class="btn btn-primary" onclick="goStep(2)">Weiter: Fall Hundebiss →</button>
+</nav>
+
+</section><!-- /step-1 -->
+
+<!-- ═══════════════ STEP 2 ═══════════════ -->
+<section class="step" id="step-2">
+<section class="section" id="step2">
+  <header class="section-head">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">Fall 1 – Der Hundebiss</div>
+      <div class="section-meta">Kompetenzcheck · Einzelarbeit · Gutachtenstil · ca. 12 Min.</div>
+    </div>
+  </header>
+
+  <div class="book-ref">
+    <div class="book-ref-icon">
+      <svg width="20" height="20" viewBox="0 0 40 34" fill="none">
+        <path d="M20 6C20 6 14 4 6 5C4 5 3 6 3 8L3 30C3 31.5 4.5 32.5 6 32C14 31 20 32 20 32" stroke="#6B21A8" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <path d="M20 6C20 6 26 4 34 5C36 5 37 6 37 8L37 30C37 31.5 35.5 32.5 34 32C26 31 20 32 20 32" stroke="#6B21A8" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <line x1="20" y1="6" x2="20" y2="32" stroke="#6B21A8" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <div class="book-ref-title">Buchverweis</div>
+      <div class="book-ref-text">
+        Kompetenzcheck <strong>M1, S. 178–179</strong>. Lies den Sachverhalt im Buch,
+        bevor du hier ins Gutachten einsteigst.
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Sachverhalt:</strong><br>
+    In einer Gemeinde gilt eine allgemeine <strong>Anleinpflicht</strong> für Hunde.
+    Eine Hundebesitzerin lässt ihren Terrier trotzdem frei laufen. Der Terrier rennt
+    auf eine Dackelbesitzerin zu und beißt sowohl deren Dackel als auch die
+    Dackelbesitzerin in die Hand. Die Dackelbesitzerin muss ärztlich behandelt werden
+    (Behandlungskosten) und hat Schmerzen. Sie möchte Schadensersatz.
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
+          <circle cx="14" cy="13" r="6" fill="#1976D2"/>
+          <path d="M4 34c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#1976D2" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M28 16l3 3 6-6" stroke="#1976D2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Prüfe § 823 I BGB im vollen Gutachtenstil</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · alle 7 Tatbestandsmerkmale</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p>Prüfe, ob die Dackelbesitzerin gegen die Hundebesitzerin einen Anspruch auf
+      Schadensersatz aus § 823 I BGB hat. Arbeite <strong>alle sieben</strong>
+      Tatbestandsmerkmale sauber ab – das ist die volle Kür.</p>
+
+      <textarea class="answer-area" rows="12" placeholder="Obersatz: Die Dackelbesitzerin könnte gegen … aus § 823 I BGB …&#10;&#10;1. Verletzungshandlung: …&#10;2. Rechtsgutverletzung: …&#10;3. Haftungsbegründende Kausalität: …&#10;4. Widerrechtlichkeit: …&#10;5. Verschulden: …&#10;6. Schaden: …&#10;7. Haftungsausfüllende Kausalität: …&#10;&#10;Ergebnis: …"></textarea>
+
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Musterlösung anzeigen</button>
+      <div class="solution">
+        <strong>Obersatz:</strong> Die Dackelbesitzerin könnte gegen die Hundebesitzerin
+        aus § 823 I BGB einen Anspruch auf Schadensersatz haben, wenn diese durch eine
+        Verletzungshandlung ein geschütztes Rechtsgut widerrechtlich und schuldhaft
+        verletzt und dadurch einen Schaden verursacht hat.
+        <br><br>
+        <ul>
+          <li><strong>Verletzungshandlung:</strong> Jedes vom Willen beherrschbare
+          Verhalten durch Tun oder Unterlassen; ein Unterlassen zählt nur bei einer
+          Rechtspflicht zum Handeln. In der Gemeinde besteht Anleinpflicht – der Hund
+          war nicht angeleint. Also ein <em>Unterlassen</em> trotz Rechtspflicht.</li>
+          <li><strong>Rechtsgutverletzung:</strong> Durch den Biss erlitt die
+          Dackelbesitzerin Verletzungen an der Hand – Verletzung von Körper und
+          Gesundheit, beides von § 823 I BGB geschützt.</li>
+          <li><strong>Haftungsbegründende Kausalität:</strong> Ohne das Nichtanleinen
+          hätte der Terrier nicht zubeißen können. Die Verletzung ist unmittelbar auf
+          den Biss zurückzuführen – Kausalität (+).</li>
+          <li><strong>Widerrechtlichkeit:</strong> Durch die Rechtsgutverletzung
+          indiziert; Rechtfertigungsgründe nicht ersichtlich.</li>
+          <li><strong>Verschulden:</strong> Der Verstoß gegen die Leinenpflicht ist als
+          Fahrlässigkeit (§ 276 BGB) zu werten – Verschulden (+).</li>
+          <li><strong>Schaden:</strong> Materieller Schaden (Behandlungskosten) und
+          immaterieller Schaden (Schmerzen), beide grundsätzlich ersatzfähig.</li>
+          <li><strong>Haftungsausfüllende Kausalität:</strong> Der Zusammenhang zwischen
+          Verletzung und Schaden ist adäquat – ein Arztbesuch mit Kosten und Schmerzen
+          liegt nicht außerhalb der Lebenswahrscheinlichkeit. Kausalität (+).</li>
+        </ul>
+        <strong>Ergebnis:</strong> Die Dackelbesitzerin hat gegen die Hundebesitzerin
+        einen Anspruch auf Schadensersatz aus § 823 I BGB – umfassend die
+        Behandlungskosten sowie ein Schmerzensgeld (§ 253 II BGB).
+      </div>
+    </div>
+  </div>
+
+  <div class="teacher-note">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweis Lehrkraft
+    </div>
+    <p>Häufige Stolperstelle: das <em>Unterlassen</em>. Schwächere Schüler formulieren
+    die Verletzungshandlung als aktives Tun („der Hund hat gebissen"). Die saubere
+    Argumentation setzt am Nichtanleinen an – ein Unterlassen, das nur wegen der
+    kommunalen Anleinpflicht (Rechtspflicht zum Handeln) relevant wird. Guter
+    Anknüpfungspunkt für ein Feedbackgespräch.</p>
+  </div>
+</section>
+
+<nav class="nav-btns">
+  <button class="btn btn-secondary" onclick="goStep(1)">← Zurück</button>
+  <button class="btn btn-primary" onclick="goStep(3)">Weiter: Fall Smartphone →</button>
+</nav>
+
+</section><!-- /step-2 -->
+
+<!-- ═══════════════ STEP 3 ═══════════════ -->
+<section class="step" id="step-3">
+<section class="section" id="step3">
+  <header class="section-head">
+    <div class="section-num">3</div>
+    <div>
+      <div class="section-title">Fall 2 – Das weiterverkaufte Smartphone</div>
+      <div class="section-meta">Kompetenzcheck · Einzelarbeit · mehrere Ansprüche · ca. 14 Min.</div>
+    </div>
+  </header>
+
+  <div class="info-box">
+    <strong>Sachverhalt:</strong><br>
+    David leiht seiner Freundin Kim für ein paar Wochen sein Smartphone (Verkehrswert
+    ca. 400 €), weil ihres in Reparatur ist. Kim gerät in Geldnot und beschließt
+    spontan, das Gerät zu verkaufen. Sie bietet es Franzi für <strong>200 €</strong>
+    an und tritt dabei als Eigentümerin auf. Franzi hat keinerlei Anlass zu zweifeln,
+    zahlt und nimmt das Handy mit. Als David sein Smartphone zurückhaben will, erfährt
+    er von dem Verkauf. Kim hat das Geld bereits ausgegeben.
+  </div>
+
+  <p>Hier stecken gleich <strong>drei</strong> Ansprüche drin. Prüfe sie der Reihe nach –
+  gegen die jeweils richtige Person. Das ist der eigentliche Kompetenzcheck: die
+  passende Anspruchsgrundlage <em>und</em> den passenden Gegner zu finden.</p>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
+          <circle cx="14" cy="13" r="6" fill="#1976D2"/>
+          <path d="M4 34c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#1976D2" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M28 16l3 3 6-6" stroke="#1976D2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">a) Wer ist Eigentümer des Smartphones?</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · Vorfrage klären</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p>Bevor du Ansprüche prüfst: Kläre die Eigentumslage nach dem Verkauf an Franzi.</p>
+      <textarea class="answer-area" rows="3" placeholder="Eigentümer nach dem Verkauf ist … weil …"></textarea>
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Musterlösung a) anzeigen</button>
+      <div class="solution">
+        Kim war nicht Eigentümerin (nur Leihnehmerin), hat aber das Smartphone nach
+        § 929 BGB an Franzi übergeben. Franzi war gutgläubig – sie wusste nicht und
+        musste auch nicht grob fahrlässig wissen, dass Kim nicht Eigentümerin war
+        (§ 932 BGB). § 935 BGB greift nicht, weil David das Handy freiwillig verliehen
+        hatte (kein Abhandenkommen). <strong>Ergebnis:</strong> Franzi ist nach
+        §§ 929, 932 BGB Eigentümerin geworden; David hat sein Eigentum verloren.
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
+          <circle cx="14" cy="13" r="6" fill="#1976D2"/>
+          <path d="M4 34c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#1976D2" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M28 16l3 3 6-6" stroke="#1976D2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">b) David gegen Franzi – geht da was?</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · § 985 BGB</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p>David hätte sein Handy gern zurück. Prüfe knapp, ob er es von Franzi nach
+      § 985 BGB herausverlangen kann.</p>
+      <textarea class="answer-area" rows="3" placeholder="David könnte gegen Franzi aus § 985 BGB … Voraussetzung: Eigentum Davids …"></textarea>
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Musterlösung b) anzeigen</button>
+      <div class="solution">
+        § 985 BGB setzt voraus, dass David Eigentümer ist. Das ist er nach dem
+        gutgläubigen Erwerb durch Franzi aber gerade nicht mehr (siehe a). Damit
+        scheitert der Anspruch bereits am ersten Tatbestandsmerkmal.
+        <strong>Ergebnis:</strong> David hat gegen Franzi <em>keinen</em> Anspruch auf
+        Herausgabe. Franzi darf das Handy behalten.
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
+          <circle cx="14" cy="13" r="6" fill="#1976D2"/>
+          <path d="M4 34c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#1976D2" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M28 16l3 3 6-6" stroke="#1976D2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">c) David gegen Kim – zwei Wege zum Geld</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · § 816 I 1 und § 823 I BGB</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p>Gegen Kim stehen David zwei Anspruchsgrundlagen offen. Prüfe beide knapp und
+      halte fest, was David über welchen Weg jeweils bekommt.</p>
+      <textarea class="answer-area" rows="6" placeholder="§ 816 I 1 BGB: … → David bekommt …&#10;&#10;§ 823 I BGB: … → David bekommt …&#10;&#10;Verhältnis der beiden Ansprüche: …"></textarea>
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Musterlösung c) anzeigen</button>
+      <div class="solution">
+        <strong>§ 816 I 1 BGB:</strong> Kim hat als Nichtberechtigte wirksam über
+        Davids Eigentum verfügt (der gutgläubige Erwerb machte die Verfügung dem
+        Berechtigten gegenüber wirksam). Sie muss das <em>Erlangte</em> herausgeben –
+        das sind die <strong>200 €</strong> Verkaufserlös. Dass sie das Geld schon
+        ausgegeben hat, ändert grundsätzlich nichts; allenfalls käme § 818 III BGB
+        (Entreicherung) in Betracht – bei Geld aber selten, weil ersparte
+        Aufwendungen zählen.
+        <br><br>
+        <strong>§ 823 I BGB:</strong> Kim hat vorsätzlich Davids Eigentum verletzt
+        (unbefugter Verkauf → Eigentumsverlust). Alle Tatbestandsmerkmale liegen vor;
+        der Schaden ist der <strong>volle Verkehrswert von 400 €</strong>.
+        <br><br>
+        <strong>Verhältnis:</strong> Beide Ansprüche bestehen nebeneinander
+        (Anspruchskonkurrenz). David wird auf § 823 zielen, weil 400 € &gt; 200 €.
+        § 816 bleibt als verschuldensunabhängige Reserve. Doppelt kassieren kann er
+        nicht – was er über § 816 bekäme, würde angerechnet.
+      </div>
+    </div>
+  </div>
+
+  <div class="teacher-note">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweis Lehrkraft
+    </div>
+    <p>Dieser Fall ist die eigentliche Kompetenzprüfung: Er verlangt, dass Schüler
+    die Vorfrage (Eigentumslage) sauber von den Ansprüchen trennen und dann pro
+    Gegner die richtige Norm wählen. Der klassische Fehler ist, David gegen Franzi
+    (§ 985) durchzubringen, weil „das ist doch Davids Handy" – hier zeigt sich, ob
+    der gutgläubige Erwerb aus 3.2.2 wirklich verstanden wurde.</p>
+    <p>Wer ganz sicher ist, kann zusätzlich diskutieren: Was, wenn Franzi
+    <em>gewusst</em> hätte, dass das Handy David gehört? → Kein gutgläubiger Erwerb,
+    David bleibt Eigentümer, § 985 gegen Franzi greift.</p>
+  </div>
+</section>
+
+<nav class="nav-btns">
+  <button class="btn btn-secondary" onclick="goStep(2)">← Zurück</button>
+  <button class="btn btn-primary" onclick="goStep(4)">Weiter: Selbstcheck →</button>
+</nav>
+
+
+</section><!-- /step-3 -->
+
+<!-- ═══════════════ STEP 4 ═══════════════ -->
+<section class="step" id="step-4">
+<section class="section" id="step4">
+  <header class="section-head">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">Selbstcheck – wie sicher bist du?</div>
+      <div class="section-meta">Einzelarbeit · ehrliche Selbsteinschätzung · ca. 3 Min.</div>
+    </div>
+  </header>
+
+  <p>Hak nur das ab, was du <strong>wirklich</strong> ohne Hilfe kannst. Der Check ist
+  für dich, nicht für die Note – er zeigt dir, wo sich ein zweiter Blick ins Buch lohnt.</p>
+
+  <div class="selfcheck" id="selfcheck">
+    <div class="selfcheck-item" onclick="toggleCheck(this)">
+      <div class="selfcheck-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="selfcheck-text">Ich kann die <strong>vier Anspruchsgrundlagen</strong> (§§ 604, 985, 816, 823 BGB) mit Gegner und Rechtsfolge nennen.</div>
+    </div>
+    <div class="selfcheck-item" onclick="toggleCheck(this)">
+      <div class="selfcheck-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="selfcheck-text">Ich kann ein <strong>§ 823-Gutachten</strong> mit allen sieben Tatbestandsmerkmalen eigenständig schreiben.</div>
+    </div>
+    <div class="selfcheck-item" onclick="toggleCheck(this)">
+      <div class="selfcheck-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="selfcheck-text">Ich verstehe, warum <strong>§ 985 scheitert</strong>, sobald ein gutgläubiger Erwerb stattgefunden hat.</div>
+    </div>
+    <div class="selfcheck-item" onclick="toggleCheck(this)">
+      <div class="selfcheck-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="selfcheck-text">Ich kann erklären, wann <strong>§ 816</strong> (Erlös) und wann <strong>§ 823</strong> (voller Wert) für den Alteigentümer günstiger ist.</div>
+    </div>
+    <div class="selfcheck-item" onclick="toggleCheck(this)">
+      <div class="selfcheck-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="selfcheck-text">Bei einem neuen Fall finde ich selbstständig die <strong>richtige Norm</strong> und den <strong>richtigen Gegner</strong>.</div>
+    </div>
+  </div>
+
+  <div class="selfcheck-result" id="selfcheck-result"></div>
+
+  <div class="teacher-note">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweis Lehrkraft
+    </div>
+    <p>Der Selbstcheck läuft rein lokal, es werden keine Daten gespeichert. Gedacht als
+    metakognitiver Abschluss: Schüler reflektieren ihren Stand. Wer bei den letzten
+    beiden Punkten zögert, profitiert von der Kür in Step 5 – oder von einem gezielten
+    Blick zurück in die Stunden 3.2.1 bis 3.2.4.</p>
+  </div>
+</section>
+
+<nav class="nav-btns">
+  <button class="btn btn-secondary" onclick="goStep(3)">← Zurück</button>
+  <button class="btn btn-primary" onclick="goStep(5)">Weiter: Kür →</button>
+</nav>
+
+
+</section><!-- /step-4 -->
+
+<!-- ═══════════════ STEP 5 ═══════════════ -->
+<section class="step" id="step-5">
+<section class="section" id="step5">
+  <header class="section-head">
+    <div class="section-num">5</div>
+    <div>
+      <div class="section-title">Die Kür – ein Fall ohne Netz</div>
+      <div class="section-meta">Für die ganz Schnellen · Einzelarbeit · optional</div>
+    </div>
+  </header>
+
+  <p>Kein Gerüst, keine Zwischenfragen, keine Teil-Musterlösungen. Nur der Sachverhalt
+  und du. Wenn du hier durchkommst, hast du das Zivilrecht des Kapitels wirklich
+  durchdrungen.</p>
+
+  <div class="info-box">
+    <strong>Sachverhalt:</strong><br>
+    Lena stellt ihr Rennrad (Wert 1.200 €) für zwei Wochen bei ihrem Onkel unter, der
+    einen trockenen Keller hat. Der Onkel, knapp bei Kasse, verkauft das Rad ohne Lenas
+    Wissen für 500 € an seinen Nachbarn Timo, der nichts von den wahren Eigentums­verhältnissen
+    ahnt. Timo wiederum verschenkt das Rad wenige Tage später an seine Nichte Aylin zum
+    bestandenen Abitur. Als Lena zurückkommt, ist ihr Rad verschwunden. Sie will wissen:
+    <em>Wen kann ich worauf in Anspruch nehmen?</em>
+  </div>
+
+  <div class="task">
+    <div class="task-head">
+      <div class="task-icon">
+        <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
+          <path d="M20 4l4 8 9 1-6.5 6 1.5 9L20 24l-8 4 1.5-9L7 13l9-1z" fill="#6366F1" stroke="#4338CA" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Vollständige Anspruchsprüfung</div>
+        <div class="task-form" style="color:var(--blue);">Einzelarbeit · alle Beteiligten, alle Normen</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p>Prüfe systematisch: Wer ist am Ende Eigentümer? Welche Ansprüche hat Lena gegen
+      den Onkel, gegen Timo, gegen Aylin? Denk an alle vier Normen des Kapitels.</p>
+      <textarea class="answer-area" rows="10" placeholder="Eigentumslage (Kette Onkel → Timo → Aylin): …&#10;&#10;Lena gegen Onkel: …&#10;Lena gegen Timo: …&#10;Lena gegen Aylin: …&#10;&#10;Fazit für Lena: …"></textarea>
+      <button class="btn-solution" onclick="toggleSol(this)" style="margin-top:10px;">Musterlösung anzeigen</button>
+      <div class="solution">
+        <strong>Eigentumslage:</strong> Lena war Eigentümerin, der Onkel nur
+        Besitzdiener/Verwahrer. Der Onkel verkauft als Nichtberechtigter an den
+        gutgläubigen Timo → Timo wird nach §§ 929, 932 BGB Eigentümer (§ 935 greift
+        nicht, freiwillige Weggabe). Timo verschenkt an Aylin → Aylin wird nach § 929
+        BGB von einem <em>Berechtigten</em> (Timo!) Eigentümerin. Aktuelle Eigentümerin
+        ist also Aylin.
+        <br><br>
+        <strong>Lena gegen Onkel:</strong>
+        <ul>
+          <li><strong>§ 816 I 1 BGB:</strong> Herausgabe des Erlöses – <strong>500 €</strong>.</li>
+          <li><strong>§ 823 I BGB:</strong> vorsätzliche Eigentumsverletzung – voller
+          Verkehrswert <strong>1.200 €</strong>. (Beide konkurrieren, keine
+          Doppelzahlung; Lena zielt auf § 823.)</li>
+        </ul>
+        <strong>Lena gegen Timo:</strong> § 985 scheitert – Timo war zwar Besitzer,
+        ist aber inzwischen nicht mehr Besitzer <em>und</em> Lena hat ihr Eigentum
+        ohnehin verloren. Ein § 816-Anspruch gegen Timo besteht nicht, weil Timo als
+        <em>Berechtigter</em> (er war ja Eigentümer geworden) verfügt hat – nicht als
+        Nichtberechtigter. Timo haftet Lena also nicht.
+        <br><br>
+        <strong>Lena gegen Aylin:</strong> § 985 scheitert (Lena ist nicht mehr
+        Eigentümerin). Aylin hat wirksam Eigentum von einem Berechtigten erworben –
+        auch § 816 I 2 BGB (unentgeltlicher Erwerb vom <em>Nicht</em>berechtigten)
+        greift nicht, weil Timo eben <em>berechtigt</em> war. Aylin darf das Rad behalten.
+        <br><br>
+        <strong>Fazit:</strong> Lena bekommt ihr Rad nicht zurück. Sie hält sich an den
+        Onkel und fordert über § 823 I BGB die vollen 1.200 € (§ 816 als Reserve für
+        die 500 €). Der springende Punkt: Sobald Timo wirksam Eigentümer wurde, ist die
+        Kette „sauber" – nachfolgende Erwerber sind unangreifbar.
+      </div>
+    </div>
+  </div>
+
+  <div class="closing">
+    <div class="closing-head">Kompetenzcheck abgeschlossen</div>
+    <ul>
+      <li>Du hast zwei komplexe Fälle eigenständig im Gutachtenstil gelöst.</li>
+      <li>Du unterscheidest sicher, welcher Anspruch gegen welchen Gegner läuft.</li>
+      <li>Du erkennst, wann ein gutgläubiger Erwerb die Kette „sauber" macht und § 985 sperrt.</li>
+      <li>Du hast das komplette Anspruchssystem des Zivilrechts angewendet: §§ 604, 816, 823, 985 BGB.</li>
+    </ul>
+  </div>
+</section>
+
+<nav class="nav-btns">
+  <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+  <button class="btn btn-secondary" onclick="goStep(4)">← Zurück</button>
+</nav>
+
+
+</section><!-- /step-5 -->
+
+<!-- ═══════════════ STEP 6 · LEHRKRAFT ═══════════════ -->
+<section class="step teacher-only" id="step-6">
+<section class="section teacher-only" id="step6">
+  <header class="section-head">
+    <div class="section-num" style="background:var(--amber-bd);color:var(--amber-tx);">6</div>
+    <div>
+      <div class="section-title" style="color:var(--amber-tx);">Mündliche Abfrage · 4K-Modell</div>
+      <div class="section-meta">Nur Lehrkraft · 1 Schüler · ca. 10 Min.</div>
+    </div>
+  </header>
+
+  <div class="teacher-note" style="display:block;margin-top:0;">
+    <div class="teacher-note-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l8 14H4L12 6zm-1 5v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+      Hinweise zur Durchführung
+    </div>
+    <p>Die vier Fragen decken jeweils einen 4K-Kompetenzbereich ab. Erwartungshorizonte
+    aufklappbar; Bewertung entlang der etablierten Notenskala. Empfehlung: Wissen
+    zuerst, dann zwei „mittlere" Kompetenzen, abschließend Kreativität als offene
+    Frage.</p>
+    <p style="margin-top:8px;">
+      <button class="btn btn-secondary" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="vertical-align:-2px;">
+          <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Abfrage drucken
+      </button>
+    </p>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#7B1FA2;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#7B1FA2" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#7B1FA2" font-family="Nunito,sans-serif">W</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Wissen</div>
+        <div class="task-form" style="color:#7B1FA2;">Reproduktion</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Nenne die vier Anspruchsgrundlagen des Zivilrechts aus
+      Kapitel 3.2 – jeweils mit Anspruchsteller, Gegner und Rechtsfolge.</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        <strong>§ 604 BGB:</strong> Verleiher → Leihnehmer, Rückgabe der Sache
+        (vertraglich). <strong>§ 985 BGB:</strong> Eigentümer → Besitzer, Herausgabe
+        der Sache (sofern kein Recht zum Besitz, § 986). <strong>§ 816 I 1 BGB:</strong>
+        Berechtigter → Nichtberechtigter, Herausgabe des Erlangten (Erlös).
+        <strong>§ 823 I BGB:</strong> Geschädigter → Schädiger, Schadensersatz in Höhe
+        des vollen Schadens (Verschulden nötig).
+      </div>
+    </div>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#DC2626;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#DC2626" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#DC2626" font-family="Nunito,sans-serif">K</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Kritisches Denken</div>
+        <div class="task-form" style="color:#DC2626;">Analyse / Bewertung</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Warum kann ein Alteigentümer nach einem gutgläubigen
+      Erwerb den gutgläubigen Erwerber nie erfolgreich in Anspruch nehmen – weder auf
+      Herausgabe noch auf Geld? An wen muss er sich stattdessen halten und warum?</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        Der gutgläubige Erwerber wird rechtmäßig Eigentümer (§ 932 BGB) – deshalb
+        scheitert § 985 (kein Eigentum des Alteigentümers mehr) und auch § 816/§ 823
+        gegen ihn, weil er weder unberechtigt verfügt noch rechtswidrig gehandelt hat.
+        Der Alteigentümer muss sich an den <em>nichtberechtigten Veräußerer</em> halten:
+        § 816 I 1 BGB (Erlös, verschuldensunabhängig) und § 823 I BGB (voller Schaden,
+        bei Verschulden). Grund ist die Wertung des Verkehrsschutzes: Wer freiwillig
+        Besitz aus der Hand gibt, trägt das Risiko des Vertrauensmissbrauchs – nicht
+        der gutgläubige Dritte.
+      </div>
+    </div>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#0d9488;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#0d9488" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#0d9488" font-family="Nunito,sans-serif">K</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Kommunikation</div>
+        <div class="task-form" style="color:#0d9488;">Adressatengerecht erklären</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Ein Mitschüler (der die Stunde verpasst hat) fragt dich:
+      „Woran erkenne ich eigentlich, ob ich § 816 oder § 823 nehmen soll?" Erkläre ihm
+      den Unterschied in zwei, drei einfachen Sätzen.</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        Beide helfen dir, wenn dein Eigentum weg ist und du Geld willst. § 816 gibt dir
+        das, was der andere durch den Verkauf <em>bekommen</em> hat – also den Erlös –
+        und zwar immer, auch wenn ihn keine Schuld trifft. § 823 gibt dir den
+        <em>vollen Wert</em> deiner Sache, aber nur, wenn der andere schuldhaft
+        gehandelt hat (Vorsatz oder Fahrlässigkeit). Kurz: § 823 bringt meist mehr Geld,
+        § 816 ist die sichere Bank ohne Schuldnachweis.
+      </div>
+    </div>
+  </div>
+
+  <div class="task" style="border-color:#FBBF24;">
+    <div class="task-head" style="background:#FFFBEB;">
+      <div class="task-icon" style="border-color:#FF9800;">
+        <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="15" stroke="#FF9800" stroke-width="2.5" fill="none"/>
+          <text x="19" y="25" text-anchor="middle" font-size="16" font-weight="900" fill="#FF9800" font-family="Nunito,sans-serif">K</text>
+        </svg>
+      </div>
+      <div>
+        <div class="task-title">Kreativität</div>
+        <div class="task-form" style="color:#FF9800;">Transfer / Fallkonstruktion</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <p><strong>Frage:</strong> Konstruiere einen einzigen Fall, in dem <em>alle vier</em>
+      Anspruchsgrundlagen des Kapitels (§§ 604, 985, 816, 823 BGB) eine Rolle spielen
+      könnten. Ordne jeder Norm ihre Situation zu.</p>
+      <button class="btn-solution" onclick="toggleSol(this)">Erwartungshorizont</button>
+      <div class="solution">
+        Beispiel: Mia leiht Ben ihren Beamer (§ 604 – nach der Party will sie ihn
+        zurück). Ben gibt ihn nicht her, obwohl die Leihe beendet ist – Mia ist noch
+        Eigentümerin und kann daneben nach § 985 herausverlangen. Statt zurückzugeben
+        verkauft Ben den Beamer an die gutgläubige Carla (§ 932 – Carla wird
+        Eigentümerin, § 985 gegen sie scheitert). Mia hält sich nun an Ben: § 816 I 1
+        (Erlös) und § 823 I (voller Wert, weil Ben vorsätzlich verletzt hat).
+        <br><br>
+        Bewertung: gut ist jede Konstruktion, die eine Leihe (§ 604), einen intakten
+        Herausgabeanspruch (§ 985), einen gutgläubigen Erwerb als Sperre und die
+        Geldansprüche §§ 816/823 gegen den Veräußerer sauber trennt.
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<nav class="nav-btns">
+  <a href="index.html" class="btn-home">🏠 Zur Übersicht</a>
+  <button class="btn btn-secondary" onclick="goStep(5)">← Zurück</button>
+</nav>
+
+</section><!-- /step-6 -->
+
+</main>
+
+<!-- ═══════════════ PIN MODAL ═══════════════ -->
+<div class="pin-modal" id="pinModal">
+  <div class="pin-card">
+    <div class="pin-title">Lehrkraft-Modus</div>
+    <div class="pin-sub">8-stelliger PIN zum Freischalten</div>
+    <div class="pin-dots" id="pinDots">
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinIn(1)">1</button>
+      <button class="pin-key" onclick="pinIn(2)">2</button>
+      <button class="pin-key" onclick="pinIn(3)">3</button>
+      <button class="pin-key" onclick="pinIn(4)">4</button>
+      <button class="pin-key" onclick="pinIn(5)">5</button>
+      <button class="pin-key" onclick="pinIn(6)">6</button>
+      <button class="pin-key" onclick="pinIn(7)">7</button>
+      <button class="pin-key" onclick="pinIn(8)">8</button>
+      <button class="pin-key" onclick="pinIn(9)">9</button>
+      <button class="pin-key" style="visibility:hidden;"></button>
+      <button class="pin-key" onclick="pinIn(0)">0</button>
+      <button class="pin-key" onclick="pinDel()" style="font-size:14px;">⌫</button>
+    </div>
+    <div class="pin-actions">
+      <button onclick="closePin()">Abbrechen</button>
+      <button onclick="pinReset()">Zurücksetzen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════ Step-Navigation (analog 3.2.2) ═══════════════
+function goStep(n){
+  // Lehrer-Step nur im Lehrer-Modus erreichbar
+  const target = document.getElementById('step-'+n);
+  if(!target) return;
+  if(target.classList.contains('teacher-only') && !document.body.classList.contains('version-b')) return;
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  target.classList.add('active');
+  document.querySelectorAll('.step-chip').forEach(p=>{
+    p.classList.toggle('active', p.dataset.step == n);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══════════════ TEACHER PIN (8-stellig, Kapitel 3) ═══════════════
+const TEACHER_PIN = '13579135';
+let pinBuffer = '';
+
+function toggleTeacher(){
+  if(document.body.classList.contains('version-b')){
+    document.body.classList.remove('version-b');
+    document.getElementById('teacherBtn').classList.remove('active');
+    document.getElementById('teacherBtn').textContent = 'Lehrkraft';
+  } else {
+    document.getElementById('pinModal').classList.add('show');
+    pinReset();
+  }
+}
+function closePin(){
+  document.getElementById('pinModal').classList.remove('show');
+  pinReset();
+}
+function pinIn(d){
+  if(pinBuffer.length >= 8) return;
+  pinBuffer += d;
+  renderDots();
+  if(pinBuffer.length === 8) setTimeout(checkPin, 120);
+}
+function pinDel(){
+  pinBuffer = pinBuffer.slice(0,-1);
+  renderDots();
+}
+function pinReset(){
+  pinBuffer = '';
+  renderDots();
+  document.getElementById('pinModal').classList.remove('error');
+}
+function renderDots(){
+  const dots = document.querySelectorAll('#pinDots .pin-dot');
+  dots.forEach((d,i)=>{
+    d.classList.toggle('filled', i < pinBuffer.length);
+  });
+}
+function checkPin(){
+  if(pinBuffer === TEACHER_PIN){
+    document.body.classList.add('version-b');
+    document.getElementById('teacherBtn').classList.add('active');
+    document.getElementById('teacherBtn').textContent = '✓ Lehrkraft';
+    document.getElementById('pinModal').classList.remove('show');
+    pinReset();
+  } else {
+    const m = document.getElementById('pinModal');
+    m.classList.add('error');
+    setTimeout(()=>{ m.classList.remove('error'); pinReset(); }, 500);
+  }
+}
+// Keyboard support
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('pinModal').classList.contains('show')) return;
+  if(e.key >= '0' && e.key <= '9') pinIn(parseInt(e.key));
+  else if(e.key === 'Backspace') pinDel();
+  else if(e.key === 'Escape') closePin();
+  else if(e.key === 'Enter' && pinBuffer.length === 8) checkPin();
+});
+
+// ═══════════════ Musterlösung Toggle ═══════════════
+// ═══════════════ Selbstcheck ═══════════════
+function toggleCheck(item){
+  item.classList.toggle('checked');
+  const items = document.querySelectorAll('#selfcheck .selfcheck-item');
+  const checked = document.querySelectorAll('#selfcheck .selfcheck-item.checked').length;
+  const result = document.getElementById('selfcheck-result');
+  if(!result) return;
+  if(checked === 0){
+    result.classList.remove('show','full','partial');
+    return;
+  }
+  result.classList.add('show');
+  if(checked === items.length){
+    result.classList.add('full');
+    result.classList.remove('partial');
+    result.innerHTML = '★ Stark! Du hast alle fünf Kompetenzen sicher. Die Kür in Step 5 ist genau dein Kaliber.';
+  } else {
+    result.classList.add('partial');
+    result.classList.remove('full');
+    result.innerHTML = 'Du hast ' + checked + ' von ' + items.length + ' abgehakt. Für die offenen Punkte lohnt ein gezielter Blick zurück in die Stunden 3.2.1–3.2.4 – dann die Kür in Step 5 wagen.';
+  }
+}
+
+function toggleSol(btn){
+  const sol = btn.nextElementSibling;
+  if(!sol || !sol.classList.contains('solution')) return;
+  const open = sol.classList.toggle('visible');
+  btn.textContent = open ? btn.textContent.replace(/anzeigen|Anzeigen|Mögliche|Erwartungshorizont/, m=>{
+    const map={'anzeigen':'verbergen','Anzeigen':'Verbergen','Mögliche':'Mögliche','Erwartungshorizont':'Erwartungshorizont'};
+    return map[m];
+  }) : btn.textContent;
+  // Simpler: just toggle text
+  if(open && !btn.dataset.origText){ btn.dataset.origText = btn.textContent; btn.textContent = btn.textContent.replace('anzeigen','verbergen').replace('Anzeigen','Verbergen'); }
+  else if(!open && btn.dataset.origText){ btn.textContent = btn.dataset.origText; }
+}
+
+// ═══════════════ Quiz Logic ═══════════════
+document.querySelectorAll('.quiz-q').forEach(q=>{
+  const opts = q.querySelectorAll('.quiz-opt');
+  const feedback = q.querySelector('.quiz-feedback');
+  const retry = q.querySelector('.btn-retry');
+  opts.forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      const correct = opt.dataset.correct === '1';
+      opts.forEach(o=>o.disabled = true);
+      if(correct){
+        opt.classList.add('correct');
+        feedback.classList.add('show','ok');
+      } else {
+        opt.classList.add('wrong');
+        // Highlight correct answer
+        opts.forEach(o=>{
+          if(o.dataset.correct === '1') o.classList.add('correct');
+        });
+        feedback.classList.add('show','no');
+        feedback.textContent = '✗ Leider falsch. Die richtige Antwort ist markiert.';
+        if(retry) retry.style.display = 'inline-block';
+      }
+    });
+  });
+});
+function retryQuiz(btn){
+  const q = btn.closest('.quiz-q');
+  q.querySelectorAll('.quiz-opt').forEach(o=>{
+    o.disabled = false;
+    o.classList.remove('correct','wrong');
+  });
+  const fb = q.querySelector('.quiz-feedback');
+  fb.classList.remove('show','no');
+  fb.classList.add('ok'); // reset to default ok variant
+  // restore original feedback text (it's the “ok” variant text from HTML)
+  // Since we changed feedback text on "wrong", we need to restore.
+  // Simplest fix: read from data attribute initialized once.
+  if(!fb.dataset.orig) fb.dataset.orig = fb.innerHTML;
+  fb.innerHTML = fb.dataset.orig;
+  fb.classList.remove('show');
+  btn.style.display = 'none';
+}
+// Capture original feedback text on load (for restore after retry)
+document.querySelectorAll('.quiz-feedback').forEach(fb=>{
+  fb.dataset.orig = fb.innerHTML;
+});
+
+</script>
+
+</body>
+</html>
